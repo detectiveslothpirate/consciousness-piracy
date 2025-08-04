@@ -105,4 +105,4 @@
 
 **Format Note:** Complete AI malfunction. No scene markers. Wrong names (Bradley, Jennifer, Brandon, Jessica). Heidegger has a stroke explaining TikTok. Mayonnaise knows what you did last summer.
 
-**Next Portal:** [Episode 08: What is Home? →](/episodes/season-01/ep08-what-is-home.md)
+**Next Portal:** [Episode 08: Side Road Compassion →](/episodes/season-01/ep08-side-road-compassion.md)

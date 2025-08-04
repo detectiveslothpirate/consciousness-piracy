@@ -205,4 +205,4 @@
 
 **Format Note:** Deep parenting guilt meets philosophy of language. ME scrolling phone while daughter watches Puffin Rock becomes investigation of meaning itself. "Baba" as universal signifier and reminder to put down the fucking phone.
 
-**Next Portal:** [Episode 11: What is an Image? →](/episodes/season-01/ep11-what-is-an-image.md)
+**Next Portal:** [Episode 11: What is Image? →](/episodes/season-01/ep11-what-is-image.md)

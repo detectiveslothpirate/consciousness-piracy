@@ -183,4 +183,4 @@
 
 **Format Note:** ME is high on edibles (half a gummy from Bud Commander - safety first!). Deep dive into AI art anxiety reveals it's really about human specialness. Duchamp might have been high too (no evidence he wasn't).
 
-**Next Portal:** [Episode 10: What is the Meaning of Life? →](/episodes/season-01/ep10-what-is-the-meaning-of-life.md)
+**Next Portal:** [Episode 10: What is Meaning? →](/episodes/season-01/ep10-what-is-meaning.md)
