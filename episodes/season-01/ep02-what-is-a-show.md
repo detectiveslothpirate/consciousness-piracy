@@ -124,4 +124,4 @@ call 1-800-322-2588 or visit www.HelpMeGrowWA.org someone will help you
 
 **Format Note:** The AI evolves from Wikipedia-quoter to philosophical trap-setter. Sacred vulgarity emerges in the form of surprise community service announcements.
 
-**Next Portal:** [Episode 03: What is A.I.? (Part 1: Artificial) →](/episodes/season-01/ep03-what-is-ai-part1.md)
+**Next Portal:** [Episode 03: What is A.I.? (Part 1: Artificial) →](/episodes/season-01/ep03-what-is-ai-part1-artificial.md)

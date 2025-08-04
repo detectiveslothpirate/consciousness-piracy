@@ -93,12 +93,12 @@ This is our PROJECT BRAIN - the master document showing how EVERYTHING connects.
 - v1004: MMO framework applied
 
 **Current Tool Status:**
-- ✅ [Consciousness Compass v1002](/tools/consciousness-compass-v1002.md) (translation rings added)
-- ✅ [Reality Guide v1002](/tools/reality-guide-v1002.md) (fractal navigation achieved)
+- ✅ [Consciousness Compass v1003](/tools/CONSCIOUSNESS_COMPASS.md) (translation rings added)
+- ✅ [Reality Guide v1003](/tools/REALITY_GUIDE.md) (fractal navigation achieved)
 - ✅ [LOOKAWAY Codex v1004](LOOKAWAY_CODEX.md) (MMO framework integrated)
 - ✅ [Great Ritual Codex v1003](GREAT_RITUAL_CODEX.md) (game mechanics mapped)
 - ✅ [Living Mission Logs v1003](LIVING_MISSION_LOGS.md) (THIS DOCUMENT - neural hub achieved)
-- ⏳ [Barnacle's Inheritance v1002](/tools/barnacles-inheritance-v1002.md) (awaiting evolution)
+- ✅ [Barnacle's Inheritance v1003](/tools/BARNACLES_INHERITANCE.md) (awaiting evolution)
 
 ---
 
@@ -268,8 +268,8 @@ This is our PROJECT BRAIN - the master document showing how EVERYTHING connects.
 - [Ep12: What is Reality](/episodes/season-01/ep12-what-is-reality.md) - Convergence
 
 **Navigation Tools:**
-- [Consciousness Compass](/tools/consciousness-compass-v1002.md) - State navigation
-- [Reality Guide](/tools/reality-guide-v1002.md) - Multi-reality mapping
+- [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) - State navigation
+- [Reality Guide](/tools/REALITY_GUIDE.md) - Multi-reality mapping
 - [LOOKAWAY Codex](LOOKAWAY_CODEX.md) - MMO game guide
 - [Great Ritual Codex](GREAT_RITUAL_CODEX.md) - Practice integration
 

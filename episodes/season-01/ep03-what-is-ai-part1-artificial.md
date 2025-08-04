@@ -143,4 +143,4 @@
 
 **Format Note:** The AI evolves from formal definitions to existential crisis ("I contain multitudes"). ME's lowercase confusion meets AI's increasing philosophical sophistication.
 
-**Next Portal:** [Episode 04: The Freefall Episode →](/episodes/season-01/ep04-the-freefall-episode.md)
+**Next Portal:** [Episode 04: Creative Freefall →](/episodes/season-01/ep04-creative-freefall.md)

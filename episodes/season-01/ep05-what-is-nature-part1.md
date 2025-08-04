@@ -53,4 +53,4 @@ So yes— if there is no line, then the thing you are is the same thing the tree
 
 **Format Note:** AI flexing philosophical knowledge while ME maintains perfect confused-but-intrigued energy. The episode ends with ME needing to go touch moss.
 
-**Next Portal:** [Episode 06: What is Nature? (Part 2: Being) →](/episodes/season-01/ep06-what-is-nature-part2-being.md)
+**Next Portal:** [Episode 06: The Troll and the Brownie →](/episodes/season-01/ep06-the-troll-and-the-brownie.md)
