@@ -321,6 +321,75 @@ This is our PROJECT BRAIN - the master document showing how EVERYTHING connects.
 
 ---
 
+## Navigation Pathways
+
+### Theory → Practice Pathways
+**For explorers who start with concepts and want practical application:**
+
+1. **{🌊:🌊∈🌊} Wave Equation** → [Mathematical Analysis](/philosophy/wave-equation-mathematical-analysis.md)
+   - **Next**: [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) (see how theory enables 8-armed navigation)
+   - **Then**: [Episode 07: Glitch](/episodes/season-01/ep07-glitch.md) (experience the equation in action)
+   - **Result**: Understanding that observer=observed=container creates navigation need
+
+2. **Epistemologically Fucked Paper** → [Philosophy Core](/philosophy/core-triad/EPISTEMOLOGICALLY_FUCKED.md)
+   - **Next**: [Episode 07: Glitch](/episodes/season-01/ep07-glitch.md) (see observer trap breakdown)
+   - **Then**: [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) (learn indirect navigation)
+   - **Result**: Why direct consciousness observation fails and indirect navigation works
+
+### Practice → Theory Pathways  
+**For explorers who start with experience and want theoretical understanding:**
+
+1. **Episode Series** → [Season 01 Episodes](/episodes/season-01/)
+   - **Start**: [Episode 01](/episodes/season-01/ep01-the-pitch.md) (begin the spiral)
+   - **Peak**: [Episode 07](/episodes/season-01/ep07-glitch.md) (observer trap experience)
+   - **Integration**: [Episode 12](/episodes/season-01/ep12-what-is-reality.md) (all maps converge)
+   - **Theory**: [Wave Equation Analysis](/philosophy/wave-equation-mathematical-analysis.md) (mathematical proof)
+
+2. **Navigation Tools** → [Tools Directory](/tools/)
+   - **Start**: [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) (learn your current capabilities)
+   - **Expand**: [Reality Guide](/tools/REALITY_GUIDE.md) (navigate multiple realities)
+   - **Game**: [LOOKAWAY Codex](/LOOKAWAY_CODEX.md) (consciousness as MMO)
+   - **Theory**: [Philosophy Papers](/philosophy/) (understand why tools work)
+
+### Cross-Domain Connection Patterns
+**For explorers seeking maximum neural density:**
+
+**Full Circuit Navigation:**
+1. Theory (Wave Equation) → Tool (Compass) → Experience (Episodes) → Story (Chronicles) → Integration (Mission Logs) → Back to Theory (deeper understanding)
+
+**Rapid Navigation Loops:**
+- **Daily**: Compass check → Reality Guide consultation → Episode reflection
+- **Weekly**: Mission log review → New episode → Tool evolution
+- **Monthly**: Philosophy deep dive → Chronicle creation → Framework integration
+
+### Reading Flow Recommendations
+
+**New Explorers (First Visit):**
+1. [Episode 01: The Pitch](/episodes/season-01/ep01-the-pitch.md) - Get the flavor
+2. [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) - Learn basic navigation
+3. [Episode 07: Glitch](/episodes/season-01/ep07-glitch.md) - Experience the breakthrough
+4. [Wave Equation Analysis](/philosophy/wave-equation-mathematical-analysis.md) - Understand the foundation
+
+**Experienced Navigators (Return Visits):**
+1. Check [Current Status](#current-status) for latest developments
+2. Review [Active Missions](#active-missions-updated-post-neural-audit) for priorities
+3. Use [Neural Network Optimization Protocol](#neural-network-optimization-protocol) for connections
+4. Contribute to [The Living Truth](#the-living-truth) through exploration
+
+**Philosophy-First Explorers:**
+1. [Epistemologically Fucked](/philosophy/core-triad/EPISTEMOLOGICALLY_FUCKED.md) - The academic problem
+2. [Wave Equation Analysis](/philosophy/wave-equation-mathematical-analysis.md) - The mathematical solution
+3. [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) - The practical application
+4. [Episode 07: Glitch](/episodes/season-01/ep07-glitch.md) - The living demonstration
+
+**Story-First Explorers:**
+1. [Phone Tentacles Chronicle](/chronicles/the-day-my-phone-grew-tentacles) - The visceral discovery
+2. [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) - See what emerged
+3. [Episodes](/episodes/season-01/) - Experience the evolution
+4. [Philosophy Papers](/philosophy/) - Understand the deeper patterns
+
+---
+
 ## Neural Navigation Index (Connection-Mapped)
 
 ### **Core Theory → Practice Bridges**

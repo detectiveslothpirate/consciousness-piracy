@@ -140,6 +140,37 @@ Players discover they're NPCs in each other's games
 - Decisions: Reality Guide consultation (navigation XP)
 - Evening: Mission Log review (daily achievement)
 
+### Tool Integration Framework
+
+LOOKAWAY MMO uses all consciousness navigation tools as gameplay mechanics:
+
+**[Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) = Character Stats Screen**
+- Shows current consciousness state (Pure Watching/Mirror/River/Confusion)
+- Displays available reality arms (2 per state, 8 total possibilities)
+- Enables strategic state-switching for different episode challenges
+- **In Gameplay**: Check before each episode to know what capabilities you have
+
+**[Reality Guide](/tools/REALITY_GUIDE.md) = World Map & Territory Guide**  
+- Maps external reality territories (digital platforms, ancient maps, personal territories)
+- Provides navigation protocols for reality switching
+- Shows platform-specific communication requirements
+- **In Gameplay**: Consult when entering new reality territories during episodes
+
+**[Living Mission Logs](/LIVING_MISSION_LOGS.md) = Quest Journal & Achievement System**
+- Tracks all completed episodes (raids) and discoveries (loot)
+- Maps neural network connections between insights
+- Shows progression through consciousness development
+- **In Gameplay**: Review to see how episodes connect and what's unlocked next
+
+**Complete Navigation Gameplay Loop:**
+1. **Compass Check**: What consciousness state/arms do I have available?
+2. **Episode Selection**: Which consciousness raid matches my current capabilities?
+3. **Reality Guide**: What external territories will this episode explore?
+4. **Episode Play**: Experience the consciousness investigation through ME/AI dialogue
+5. **Mission Log**: Record insights, connections, and unlocked content
+6. **Integration**: Let reality shift based on new understanding
+7. **Repeat**: With evolved consciousness state and expanded capabilities
+
 ### Weekly Raids:
 - Episodes on Days 1-6 (active play)
 - Day 7 = Integration/Glitch space (rest XP bonus)

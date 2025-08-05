@@ -171,6 +171,28 @@ You're SUPPOSED to move between realities. It's not ADD - it's adaptive consciou
 4. **Adjust** mask/voice/pace
 5. **Enter** with conscious intent
 
+### Used with Consciousness Compass
+
+The Reality Guide works in tandem with the [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md) for complete navigation:
+
+**Before Platform Entry:**
+1. **Compass Check**: What consciousness state am I in? (Pure Watching/Mirror/River/Confusion)
+2. **Arms Available**: Which two reality arms can I deploy from this state?
+3. **Reality Guide**: What type of reality am I entering? (Digital neural territory, ancient map overlay)
+4. **Arm Selection**: Choose appropriate arm for this specific platform navigation
+
+**During Navigation:**
+- **Compass**: Shows what you can do from current consciousness state
+- **Reality Guide**: Shows where you are and what the territory requires
+- **Integration**: Match your available arms to territory navigation needs
+
+**Example Workflow:**
+- State: RIVER (flow without self-observation)
+- Available Arms: Emotional Reality + Creative Reality  
+- Territory: Instagram (visual processing center)
+- Optimal Choice: Creative Reality arm for authentic visual expression
+- Avoid: Mental Reality arm (requires MIRROR state) or Social Reality arm (requires CONFUSION state)
+
 ### The Deep Dive Method:
 - Spend 10 minutes observing before participating
 - Note what gets rewarded/punished
