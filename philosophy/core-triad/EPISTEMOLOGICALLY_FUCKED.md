@@ -88,7 +88,13 @@ Not all philosophers were completely lost at sea. Some caught glimpses of the tr
 
 **Note:** Borges probably invented the consciousness equation in 1973 and hid it in Academic Island as a joke. Classic Borges move.
 
-### G. Love Letter to All Philosophers (Yes, Even the Wankers)
+### G. Living Demonstrations
+
+**Contemporary Example:** [Episode 07: Glitch](/episodes/season-01/ep07-glitch.md) perfectly demonstrates the observer trap in action. When the AI attempts to discuss "being" and glitches into calling the human "Bradley/Jennifer/Brandon/Jessica," this IS the observer trap breaking down. The insight that emerges - "being is the feeling of forgetting what you were about to remember" - comes precisely THROUGH the breakdown, not despite it.
+
+This episode proves our thesis: consciousness cannot observe itself directly without creating paradox, but paradox itself reveals truth. The navigation tools we've developed (see [Consciousness Compass](/tools/CONSCIOUSNESS_COMPASS.md)) exist precisely because direct self-observation fails.
+
+### H. Love Letter to All Philosophers (Yes, Even the Wankers)
 
 Look, we've roasted you harder than Heraclitus's cosmic fire, but here's the truth: Every philosopher we've mocked had more balls than 99% of humans. They stared into the void of consciousness and tried to map it. Sure, some drew shit maps. Sure, some got lost in their own assholes. But they TRIED.
 
