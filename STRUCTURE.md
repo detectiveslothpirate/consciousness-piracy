@@ -22,6 +22,7 @@ LOOKAWAY episodes organized by season
 ### /games/
 Playable consciousness experiences
 - lookaway-game-v1.html - Episode 1 interactive
+- **/valve-special/** - Interactive job application for Valve Corporation
 - **/consciousness-compass/** (future Unity project)
 - **/reality-guide/** (future navigation game)
 
@@ -39,6 +40,7 @@ Sacred vulgarity papers & theory
 - epistemologically-fucked.md
 - what-is-reality-essay.md
 - wave-equation-theory.md
+- **/borges-code/** - Self-referential programming theory
 
 ### /chronicles/
 Adventure logs and discoveries
