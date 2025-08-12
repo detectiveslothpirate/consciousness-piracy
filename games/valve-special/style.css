@@ -1,0 +1,20 @@
+/* Valve Special Episode - Consciousness Navigation Game */
+/* Repository: consciousness-piracy */
+/* Created: August 12, 2025 */
+
+:root {
+    --postit-yellow: #FFF740;
+    --consciousness-black: #000000;
+    --valve-orange: #FF6B35;
+}
+
+body {
+    background: var(--consciousness-black);
+    color: var(--postit-yellow);
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
