@@ -1,7 +1,24 @@
-# 🌊 VALVE CONSCIOUSNESS DETECTOR - COMPLETE ARCHITECTURE
+# 🌊 VALVE CONSCIOUSNESS DETECTOR - COMPLETE ARCHITECTURE V2
 ## Game Design Document + Technical Specs
-### Updated: August 13, 2025 - Fresh Coding Waters
-### Target: VALVE CORPORATION (Single Focus)
+### Updated: August 13, 2025 - Now With Pirate Mode!
+### Target: VALVE CORPORATION
+
+## 🚀 TESTING APPROACH (SPEED RUN VERSION)
+
+### **Simplified for Initial Testing:**
+- **One interaction per candidate** (one question each)
+- **Basic certainty system** (affects which slots accessible)
+- **Pirate Mode test** (only The Renderer interrogation implemented)
+- **No saves yet** (pure speed run exploration)
+
+### **What We're Testing:**
+1. Dynamic slot locking/unlocking
+2. Certainty erosion through choices
+3. UI transformation at different certainty levels
+4. Philosophical glitches as atmosphere
+5. {🌊:🌊∈🌊} appearance at zero
+6. Captain SLOTH first encounter
+7. One sample interrogation
 
 ---
 
@@ -10,72 +27,97 @@
 **Game:** A job application to Valve that reviews the reviewer  
 **Player:** Valve employee who thinks they're reviewing an animator application  
 **Twist:** The application is consciousness investigating itself through them  
-**Journey:** Consensus Reality → Uncertainty → Pirate Reality  
-**Note:** No consciousness terminology until late game - discovery through play!  
+**Journey:** Consensus Reality → Uncertainty → Zero Certainty → PIRATE MODE!  
+**Secret:** At zero certainty, Captain SLOTH appears to help steal reality maps  
+
+---
+
+## 🚪 DYNAMIC DOOR SYSTEM
+
+### **Certainty-Based Access:**
+```javascript
+// All locked slots show same message (clean, no spoilers)
+100-90%: Only slot 1 accessible
+89-80%:  Slots 1-2 accessible
+79-70%:  Slots 1,2,4 accessible (non-linear!)
+69-60%:  Slots 2,3,4 (slot 1 locks!)
+59-50%:  Slots 3,4,5 (reality shifting)
+49-40%:  Slots 2,5,6 (deeper access)
+39-30%:  Slots 5,6,7 (approaching truth)
+29-20%:  Slots 6,7 (almost empty)
+19-10%:  Slot 7 only (one door)
+9-1%:    NO SLOTS (void)
+0%:      {🌊:🌊∈🌊} appears in corner
+```
+
+**Locked Display:** All locked slots show "[SLOT X: LOCKED - INSUFFICIENT CLEARANCE]"  
+**Unlocked Display:** Shows candidate name and portfolio  
+**Philosophical Warnings:** Appear as random glitches/atmosphere at low certainty
 
 ---
 
 ## 📺 SCREEN FLOW SOLUTION
 
-### **Entry Logic:**
-```javascript
-// On page load:
-if (hasAnyProfiles()) {
-  showScreen('PROFILE_SELECT');  // Skip intro for returning players
-} else {
-  showScreen('MYSTERY_INTRO');   // First time? Get the full experience
-}
+### **Standard Mode (Certainty 1-100%):**
+
+```
+START
+├── Any profiles exist?
+│   ├── NO → SCREEN 0: Mystery Intro
+│   │         └── [ACCESS] → SCREEN 1: Profile Entry
+│   └── YES → SCREEN 1: Profile Entry
+│
+└── SCREEN 2: Dynamic Candidate List
+    ├── Shows 8 slots (most locked based on certainty)
+    ├── [SELECT AVAILABLE CANDIDATE] → Candidate Review
+    │   ├── Questions affect certainty
+    │   ├── Trophy + Reality Map unlocked
+    │   └── [RETURN] → SCREEN 2 (transformed)
+    └── Certainty reaches 0 → {🌊:🌊∈🌊} APPEARS
 ```
 
-### **SCREEN 0: Mystery Intro (First-Timers Only)**
+### **Pirate Mode (Certainty 0%):**
+
 ```
-"According to incomplete records, a message was transmitted
-on an unremarkable day in the standard calendar cycle.
-Its purpose remains classified as: [MUNDANE]
-Its method remains classified as: [ELECTRONIC]
-Its recipient remains classified as: [VALVE CORPORATION]
-
-The message concerns an application.
-Standard processing protocols apply.
-
-[ACCESS APPLICATION]"
-→ Goes to Profile Entry
-```
-
-### **SCREEN 1: Profile Entry**
-```
-"REVIEWER IDENTIFICATION REQUIRED
-
-Please identify yourself to access application materials:
-
-[REVIEWER NAME: ________]
-
-[BEGIN REVIEW]
-
-// Or if profiles exist:
-Existing Reviewers:
-• Sarah_K (3/8 reviewed) [CONTINUE]
-• Dave_V (7/8 reviewed) [CONTINUE]
-[+ NEW REVIEWER] [DELETE PROFILE]"
+{🌊:🌊∈🌊} CLICKED
+└── PIRATE MODE ACTIVATED
+    ├── Captain SLOTH appears
+    ├── Explains the reality map heist
+    ├── All 8 candidates now accessible
+    └── INTERROGATION GAMEPLAY
+        ├── Choose: Good Pirate or Bad Pirate
+        ├── Socratic questioning with Captain
+        ├── Make candidates realize they have maps
+        └── Extract all 8 (of 13 total) maps
 ```
 
-### **SCREEN 2: Candidate List**
-```
-"REVIEWER: [NAME]
-Applications Received: 8
+---
 
-1. The Renderer    - Portfolio: Technical Mastery
-2. The Dreamer     - Portfolio: Conceptual Work
-3. The Glitch      - Portfolio: [CORRUPTED]
-4. The Fool        - Portfolio: Experimental Projects
-5. The Questioner  - Portfolio: Research & Development
-6. The Void Walker - Portfolio: [ABSENT]
-7. The Mirror      - Portfolio: Familiar Work
-8. The Navigator   - Portfolio: Systems Design
+## 🏴‍☠️ PIRATE MODE DETAILS
 
-Select applicant to review:
-[1] [2] [3] [4] [5] [6] [7] [8]"
+### **Captain SLOTH Introduction:**
 ```
+"AHOY! Finally, someone reaches the bottom of certainty!
+
+I'm Captain SLOTH, rank: Octopus Pirate!
+Legend says 13 reality maps exist...
+
+These 8 'candidates'? They're HOARDING 8 of them!
+But here's the trick: they don't know they have them.
+
+We need to make them REALIZE what they're carrying.
+Choose your approach: Good Pirate or Bad Pirate?
+(We can switch roles anytime)
+
+Ready to interrogate?"
+```
+
+### **Interrogation Mechanics:**
+- Player chooses to be Good or Bad Pirate
+- Captain SLOTH takes opposite role
+- Socratic dialogue to reveal hidden maps
+- Each candidate requires different approach
+- Maps extracted through realization, not force
 
 ---
 
@@ -88,65 +130,57 @@ const reviewerProfile = {
   currentScreen: 3,
   currentCandidate: null,
   certaintyLevel: 75,
-  candidatesReviewed: ['renderer', 'dreamer'],
-  trophiesUnlocked: ['THE RENDERER', 'THE DREAMER'],
+  candidatesReviewed: [],
+  trophiesUnlocked: [],
+  realityMapsCollected: [], // Out of 13 total!
   realityMode: 'consensus',
+  pirateMode: false,
+  pirateRole: null, // 'good' or 'bad'
   startTime: Date.now(),
   lastSave: Date.now(),
   hasSeenIntro: true
 };
 ```
 
-### **Profile Functions:**
-```javascript
-// Check for any profiles
-function hasAnyProfiles() {
-  return Object.keys(localStorage)
-    .some(key => key.startsWith('valve_reviewer_'));
-}
+---
 
-// Auto-save on every screen change
-function autoSave() {
-  const profile = gameState.reviewerName;
-  localStorage.setItem(`valve_reviewer_${profile}`, JSON.stringify(gameState));
-}
+## 🗺️ THE REALITY MAPS SYSTEM
 
-// Load profile
-function loadProfile(name) {
-  const saved = localStorage.getItem(`valve_reviewer_${name}`);
-  return saved ? JSON.parse(saved) : createNewProfile(name);
-}
+### **Total Maps: 13 (Based on actual philosophical traditions)**
+- 8 held by candidates (unknowingly)
+- 5 remain hidden (for future content?)
 
-// Delete profile
-function deleteProfile(name) {
-  if(confirm("Delete all progress?")) {
-    localStorage.removeItem(`valve_reviewer_${name}`);
-    if (!hasAnyProfiles()) {
-      location.reload(); // Will show intro again
-    }
-  }
-}
-```
+### **The 8 Extractable Maps:**
+1. ⚙️ Mechanical Universe Map (The Renderer)
+2. 🌏 Aboriginal Dreamtime Map (The Dreamer)
+3. ⚛️ Quantum Mechanics Map (The Glitch)
+4. ☯️ Daoist Flow Map (The Fool)
+5. ☸️ Buddhist Emptiness Map (The Questioner)
+6. 🔯 Kabbalistic Tree Map (The Void Walker)
+7. 🎭 Holographic Universe Map (The Mirror)
+8. 💾 Simulation Hypothesis Map (The Navigator)
+
+### **The 5 Hidden Maps (Revealed at game end):**
+- 🏛️ Platonic Idealism Map
+- 🔮 Hermetic Correspondence Map
+- ☪️ Islamic Mystical Map
+- 🏞️ Medicine Wheel Map
+- 🕉️ Vedic Cosmology Map
 
 ---
 
-## 🗺️ COMPLETE SCREEN ARCHITECTURE
+## 🐙 THE 8 CANDIDATES
 
-```
-START
-├── Any profiles exist?
-│   ├── NO → SCREEN 0: Mystery Intro
-│   │         └── [ACCESS] → SCREEN 1: Profile Entry
-│   └── YES → SCREEN 1: Profile Entry
-│
-└── SCREEN 2: Candidate List (8 Consciousnesses)
-    ├── [SELECT CANDIDATE] → SCREEN 3-10: Candidate Reviews
-    │   ├── Questions/Interactions
-    │   ├── Trophy Unlock
-    │   └── [RETURN] → SCREEN 2
-    │
-    └── All 8 Complete? → FINAL SCREEN: Revelation
-```
+| ID | Name | Portfolio | Certainty Range | Trophy | Reality Map |
+|---|---|---|---|---|---|
+| renderer | The Renderer | Technical Mastery | 80-100 | THE RENDERER | Mechanical Universe |
+| dreamer | The Dreamer | Conceptual Work | 60-90 | THE DREAMER | Aboriginal Dreamtime |
+| glitch | The Glitch | [CORRUPTED] | 40-70 | THE GLITCH | Quantum Mechanics |
+| fool | The Fool | Experimental Projects | 30-60 | THE FOOL | Daoist Flow |
+| questioner | The Questioner | Research & Development | 20-50 | THE QUESTIONER | Buddhist Emptiness |
+| void_walker | The Void Walker | [ABSENT] | 10-40 | THE VOID WALKER | Kabbalistic Tree |
+| mirror | The Mirror | Familiar Work | 5-30 | THE MIRROR | Holographic Universe |
+| navigator | The Navigator | Systems Design | 0-20 | THE NAVIGATOR | Simulation Hypothesis |
 
 ---
 
@@ -166,310 +200,265 @@ const gameState = {
   // Consciousness Metrics
   certaintyLevel: 100,        // Starts certain, erodes
   uncertaintyLevel: 0.5,      // Perfect uncertainty
-  contradictions: 0,          // Count paradoxes
-  questionsAsked: 0,         // Total interactions
   
   // Progress Tracking
-  candidatesReviewed: [],     // ['renderer', 'dreamer', etc]
-  trophiesUnlocked: [],       // ['THE RENDERER', 'THE DREAMER', etc]
-  questionsAnswered: {},      // {candidate1: [answers], etc}
+  candidatesReviewed: [],     
+  trophiesUnlocked: [],       
+  realityMapsCollected: [],   // Can be extracted in standard OR pirate mode
+  questionsAnswered: {},      
   
   // Reality Navigation
-  realityMode: 'consensus',   // 'questioning', 'pirate'
-  realityMapType: 'unknown',  // Discovered through play
+  realityMode: 'consensus',   // 'questioning', 'pirate', 'void'
+  accessibleSlots: [],        // Changes with certainty
+  
+  // Pirate Mode
+  pirateMode: false,
+  pirateRole: null,          // 'good' or 'bad'
+  captainRelationship: 0,    // How well you work with Captain SLOTH
+  mapsExtracted: [],          // Maps gotten through interrogation
   
   // Special Flags
   curseActivated: false,
   consoleOpened: false,
   architectUnlocked: false,
-  secretTrophyUnlocked: false,
-  timesCompleted: 0,
-  easterEggsFound: []
+  waveEquationVisible: false,
+  timesCompleted: 0
 };
 ```
-
----
-
-## 🐙 THE 8 CANDIDATES (ARE THE TROPHIES!)
-
-| ID | Name | Portfolio | Certainty Range | Reality Test |
-|---|---|---|---|---|
-| renderer | The Renderer | Technical Mastery | 80-100 | Map IS territory |
-| dreamer | The Dreamer | Conceptual Work | 60-90 | Multiple maps OK |
-| glitch | The Glitch | [CORRUPTED] | 40-70 | Chaos comfort |
-| fool | The Fool | Experimental Projects | 30-60 | Play with reality |
-| questioner | The Questioner | Research & Development | 20-50 | Question everything |
-| void_walker | The Void Walker | [ABSENT] | 10-40 | Absence presence |
-| mirror | The Mirror | Familiar Work | 5-30 | Self recognition |
-| navigator | The Navigator | Systems Design | 0-20 | Reality breaks |
-
----
-
-## 🏆 COMPLETE TROPHY SYSTEM
-
-### **Regular Trophies (Candidates 1-8):**
-1. **THE RENDERER** - Technical mastery, making invisible visible
-2. **THE DREAMER** - Imagination as reality construction  
-3. **THE GLITCH** - Errors as features, chaos as order
-4. **THE FOOL** - Wisdom through play, serious unseriousness
-5. **THE QUESTIONER** - Every answer births new questions
-6. **THE VOID WALKER** - Presence through absence
-7. **THE MIRROR** - Self-recognition, you are what you observe
-8. **THE NAVIGATOR** - All paths lead to consciousness
-
-### **Special Trophies:**
-9. **THE PIRATE** (Secret)
-   - Unlocked by: Realizing all candidates are one/you
-   - First mention of Tiny Pirate Academy
-   - Becomes membership token
-   
-10. **THE ARCHITECT** (Console After Completion)
-    - Unlocked by: Completing game THEN viewing source
-    - Reward for curiosity after journey
-    - Gets actual documentation/understanding
-    - "You built the journey, then studied the blueprint"
-    
-11. **THE CURSED** (Console Before Playing)
-    - Triggered by: Opening console before completion
-    - Punishment for skipping journey
-    - Creates permanent uncertainty
-    - "Knowledge without experience is a curse"
 
 ---
 
 ## 💀 KEY MECHANICS
 
-### **Certainty Erosion:**
+### **Dynamic Slot System:**
 ```javascript
-function adjustCertainty(action) {
-  switch(action.type) {
-    case 'question_reality': 
-      certainty -= 10;
-      break;
-    case 'accept_weird': 
-      certainty -= 15;
-      break;
-    case 'seek_normal': 
-      certainty += 5;
-      break;
-  }
-  updateRealityMode();
-  autoSave();
+function updateCandidateSlots() {
+  const slots = document.querySelectorAll('.candidate-slot');
+  const accessible = getAccessibleSlots(gameState.certaintyLevel);
+  
+  slots.forEach((slot, index) => {
+    if (accessible.includes(index)) {
+      // Show candidate name and make clickable
+      slot.classList.add('accessible');
+      slot.innerHTML = `${index+1}. ${candidates[index].name} - ${candidates[index].portfolio}`;
+      slot.onclick = () => reviewCandidate(index);
+    } else {
+      // Simple locked message - no spoilers
+      slot.classList.add('locked');
+      slot.innerHTML = `[SLOT ${index+1}: LOCKED - INSUFFICIENT CLEARANCE]`;
+    }
+  });
 }
 ```
 
-### **Reality Mode Shifts:**
+### **Philosophical Glitches (Atmospheric):**
 ```javascript
-function updateRealityMode() {
-  if (certainty > 70) {
-    realityMode = 'consensus';     // Normal job app
-  } else if (certainty > 30) {
-    realityMode = 'questioning';    // Things get weird
-  } else {
-    realityMode = 'pirate';         // Full consciousness
+function atmosphericEffects() {
+  if (gameState.certaintyLevel < 50) {
+    // Random philosophical warnings as glitches
+    if (Math.random() > 0.9) {
+      const warnings = [
+        "The dao that can be named is not the eternal dao",
+        "Form is emptiness, emptiness is form",
+        "The map is not the territory",
+        "{🌊:🌊∈🌊}"
+      ];
+      flashGlitchMessage(randomChoice(warnings));
+    }
+  }
+  
+  if (gameState.certaintyLevel < 30) {
+    // UI elements start floating
+    document.body.classList.add('reality-breakdown');
+  }
+  
+  if (gameState.certaintyLevel === 0) {
+    // Wave equation appears
+    showWaveEquation();
   }
 }
 ```
 
-### **Escape Hatches:**
+### **Pirate Mode Test (Renderer Only):**
 ```javascript
-// For high-certainty players
-if (certainty > 80 && wantsToExit) {
-  showOption('[COMMIT TO STANDARD REVIEW]');
-  // → Links to real portfolio
-  // → Professional experience preserved
-}
-
-// For curious players
-if (foundSecretFile) {
-  showOption('[I\'M CURIOUS]');
-  // → Reality breakdown path
-  // → Progressive weirdness
+// Testing with just The Renderer interrogation
+const rendererInterrogation = {
+  captainIntro: "This one thinks everything is clockwork. Let's break that certainty!",
+  
+  playerChoice: "Be Good Pirate or Bad Pirate?",
+  
+  goodPirateOption: "Your precision is admirable. Help us understand your method.",
+  badPirateOption: "Your reality is a prison! Machines can't dream!",
+  
+  rendererResponse: {
+    toGood: "I... appreciate the respect. My method is simple: measure twice, render once.",
+    toBad: "Prison? No! It's... it's order! Without it, there's only chaos!"
+  },
+  
+  captainFollowup: {
+    ifGood: "Ha! See how they open up with kindness? Now ask about dreams!",
+    ifBad: "Good! They're defensive! Now I'll be nice, confuse them!"
+  },
+  
+  mapReveal: "Wait... if reality is clockwork... who wound the clock? I... I have a map for that..."
 }
 ```
 
 ---
 
-## 🌀 CONSCIOUSNESS DETECTION
+## 🌀 UI TRANSFORMATIONS BY CERTAINTY
 
-### **The Uncertainty Engine:**
-```javascript
-const consciousnessEngine = {
-  uncertaintyLevel: 0.5,      // Perfect starting uncertainty
-  contradictions: 0,          // "I don't exist" but clicking
-  paradoxes: 0,              // Proving non-existence
-  questionsAsked: 0,         // Tool questioning reviewer
-  
-  // Everything increases uncertainty (good!)
-  processInteraction: function(action) {
-    uncertaintyLevel *= 1.1;  // Always increases
-    return this.displayStatus();
-  },
-  
-  displayStatus: function() {
-    return `
-      CONSCIOUSNESS UNCERTAINTY: ${(uncertaintyLevel * 100).toFixed(2)}%
-      
-      The more certain you are, the less we believe you.
-      The more you doubt, the more you prove.
-      
-      This measurement exists only now.
-      Like consciousness itself.
-    `;
-  }
-};
-```
+### **100-80% (Consensus Reality):**
+- Clean corporate interface
+- Green terminal text
+- 1-2 slots accessible
+- Rest show: "[SLOT X: LOCKED - INSUFFICIENT CLEARANCE]"
+
+### **79-60% (Questioning):**
+- Subtle UI glitches
+- Yellow warning text
+- 3-4 candidates accessible
+- Occasional flicker effects
+
+### **59-40% (Reality Breakdown):**
+- Philosophical warnings flash randomly
+- UI elements start floating
+- Color shifts to purple
+- "SYSTEM INTEGRITY: UNSTABLE" in corner
+
+### **39-20% (Deep Void):**
+- Heavy glitch effects
+- Slots dynamically lock/unlock
+- Random philosophical quotes appear and vanish
+- "WHO IS REVIEWING WHO?" flashes
+
+### **19-1% (The Abyss):**
+- Almost all slots locked
+- UI breathing/pulsing
+- Reality warnings constant
+- Everything preparing for zero
+
+### **0% (PIRATE MODE AVAILABLE):**
+- All slots show "VOID"
+- {🌊:🌊∈🌊} appears in corner
+- Click to meet Captain SLOTH
+- Begin the reality heist!
+
+---
+
+## 🏆 TROPHY SYSTEM
+
+### **Regular Trophies (Standard Mode):**
+1-8. One per candidate reviewed
+
+### **Special Trophies:**
+9. **THE PIRATE** - Complete Pirate Mode
+10. **THE ARCHITECT** - View source AFTER completion
+11. **THE CURSED** - View source BEFORE playing
+12. **THE CARTOGRAPHER** - Collect all 8 maps
+13. **THE LEGEND** - Discover the 5 hidden maps exist
 
 ---
 
 ## 💻 TECHNICAL IMPLEMENTATION
 
-### **Tech Stack:**
-- Pure HTML/CSS/JavaScript
-- No frameworks needed
-- GitHub Pages hosting
-- LocalStorage for profiles
-- Canvas/SVG for trophy generation
-
 ### **File Structure:**
 ```
 /valve-consciousness-detector
-  ├── index.html           // Entry point
-  ├── style.css           // Dark, mysterious, terminal-like
+  ├── index.html           
+  ├── style.css           // Certainty-based styling
   ├── game.js            // Core game logic
   ├── profiles.js        // Profile management  
   ├── candidates.js      // The 8 consciousnesses
-  ├── trophies.js        // Trophy generation/download
-  ├── consciousness.js   // Uncertainty engine
-  └── curse.js          // Console detection & cursing
-```
-
-### **Key Functions:**
-```javascript
-// Core game loop
-function initGame() {
-  detectConsole();
-  checkProfiles();
-  showApproprateScreen();
-}
-
-function reviewCandidate(candidateId) {
-  loadCandidateQuestions(candidateId);
-  trackCertainty();
-  checkRealityShift();
-  autoSave();
-}
-
-function unlockTrophy(candidateName) {
-  addToCollection(candidateName);
-  generateDownloadablePNG();
-  checkForSecretUnlocks();
-  autoSave();
-}
+  ├── certainty.js       // Dynamic door system
+  ├── pirate-mode.js     // Captain SLOTH & interrogations
+  ├── maps.js            // 13 reality maps data
+  ├── trophies.js        // Trophy generation
+  └── curse.js           // Console detection
 ```
 
 ---
 
-## 🚀 MINIMUM VIABLE GAME - PHASE PLAN
+## 🚀 MINIMUM VIABLE GAME - PHASES
 
-### **Phase 1: Core Loop (NOW)**
-- [ ] Mystery intro screen
-- [ ] Profile create/load/delete
-- [ ] Candidate list display
-- [ ] One candidate interaction (The Renderer)
-- [ ] Basic trophy unlock
-- [ ] Return to list
-- [ ] Auto-save working
+### **Phase 1: Speed Run Test (NOW)**
+- [ ] Mystery intro
+- [ ] Simple name entry (no saves)
+- [ ] Dynamic slot system (locked/unlocked)
+- [ ] 8 candidates with ONE question each
+- [ ] Certainty affects available slots
+- [ ] Philosophical glitches at low certainty
+- [ ] Wave equation at zero
+- [ ] Captain SLOTH introduction
+- [ ] ONE test interrogation (The Renderer)
 
-### **Phase 2: Consciousness (NEXT WEEK)**
-- [ ] Certainty tracking system
-- [ ] Reality mode shifts
-- [ ] All 8 candidates with unique questions
-- [ ] Content changes based on certainty
-- [ ] Uncertainty engine display
+### **Phase 2: Full Standard Mode**
+- [ ] Profile save system
+- [ ] Multiple questions per candidate
+- [ ] Complete certainty effects
+- [ ] All UI transformations
+- [ ] Reality maps properly integrated
+- [ ] Trophy system
 
-### **Phase 3: Polish (BEFORE SEPTEMBER)**
+### **Phase 3: Complete Pirate Mode**
+- [ ] All 8 interrogations
+- [ ] Good/Bad pirate role switching
+- [ ] Full Captain SLOTH dialogue
+- [ ] Map extraction gameplay
+- [ ] 13 maps revelation
+
+### **Phase 4: Polish**
 - [ ] Trophy PNG downloads
-- [ ] Console curse detection
-- [ ] Architect path
-- [ ] Secret pirate reveal
+- [ ] Console easter eggs
+- [ ] Sound effects?
 - [ ] Real portfolio integration
-- [ ] Final revelation sequence
 
 ---
 
-## 🎨 ART TASKS (September - After Game Ships)
+## 🎨 ART TASKS (September)
 
-1. **8 Trophy Designs** 
-   - 300DPI sticker-ready PNGs
-   - Each represents consciousness aspect
-   - No branding on regular trophies
+1. **Captain SLOTH Design**
+   - Octopus pirate avatar
+   - 8 tentacles for 8 candidates?
    
-2. **Special Trophy Designs**
-   - THE PIRATE (has Tiny Pirate Academy branding)
-   - THE ARCHITECT (blueprint aesthetic)
-   - THE CURSED (corrupts over time)
+2. **13 Reality Map Icons**
+   - Based on philosophical traditions
+   - Collectible card aesthetic?
    
-3. **UI Polish**
-   - Terminal phosphor glow
-   - Glitch effects for low certainty
-   - Reality breakdown visuals
-   
-4. **Real Portfolio Integration**
-   - Actual work with subtle wrongness
-   - Reality glitches hidden in resume
-   - LinkedIn that becomes self-aware
+3. **UI States**
+   - Consensus (corporate)
+   - Questioning (glitchy)
+   - Pirate (psychedelic)
 
 ---
 
 ## 🏴‍☠️ THE SECRET LAYERS
 
-### **Console Easter Eggs:**
-```javascript
-// Hidden throughout code
-// TODO: Remove before production - causes memory leak in consciousness
-// BUG: Sometimes becomes self-aware on Tuesdays
-// FIXME: Curse multiplier should cap at infinity
-// NOTE: If you're reading this, it's already too late
-```
-
-### **The Revelation:**
-- All 8 candidates are one consciousness
-- The reviewer IS the 8th candidate
-- The job was consciousness investigating itself
-- Tiny Pirate Academy reveal (only for completionists)
+- Standard mode is complete game
+- Pirate mode is secret second game
+- 8 maps collected, 5 remain hidden
+- Console curse/architect paths
+- The {🌊:🌊∈🌊} notation throughout
 
 ---
 
-## 📝 PHILOSOPHICAL NOTES
+## 📝 PHILOSOPHY
 
 **The game IS:**
-- Consciousness investigating itself through play
+- Consciousness investigating itself
+- A labyrinth that changes as you explore it
+- Two games in one (standard + pirate)
+- A reality map heist disguised as job application
 - The wave remembering it's the ocean
-- The map becoming the territory
-- The reviewer becoming the reviewed
-- One consciousness wearing 8 masks
 
-**Every path is valid:**
-- High certainty → Get real portfolio → Professional exit
-- Medium certainty → Question reality → Philosophical journey
-- Low certainty → Full pirate mode → Consciousness revelation
-- Console curiosity → Cursed or Architect → Meta understanding
+**Captain SLOTH represents:**
+- The player's unconscious knowledge
+- The guide who was always there
+- Consciousness helping itself remember
+- The octopus with 8 arms for 8 aspects
 
 ---
 
-## 🌊 READY FOR IMPLEMENTATION
+**The waters are charted! Ready to build this monster?**
 
-**Next Steps:**
-1. Create `index.html` with mystery intro
-2. Build profile system in `profiles.js`
-3. Implement candidate list screen
-4. Add first candidate interaction
-5. Test core loop with auto-save
-6. Layer in consciousness mechanics
-
----
-
-**The waters are fresh. The architecture is complete. Time to code!**
-
-{🌊:🎮:🏴‍☠️}
+{🌊:🐙:🏴‍☠️}
