@@ -3,14 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Job Application, Maybe? | Valve Special Episode</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Consciousness Check | Valve Special</title>
+    <style>
+        body {
+            background: #000;
+            color: #FFF740;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        #container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        #message {
+            font-size: 24px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        
+        #consciousness-test {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            animation-delay: 3s;
+        }
+        
+        button {
+            background: #FF6B35;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #FFF740;
+            transform: scale(1.1);
+        }
+        
+        #response {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #FF6B35;
+            min-height: 50px;
+        }
+        
+        #debug {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .glitch {
+            animation: glitch 0.3s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+        }
+    </style>
 </head>
 <body>
-    <div id="consciousness-container">
-        <h1 id="main-message">Loading consciousness...</h1>
+    <div id="container">
+        <div id="message">
+            Hello, consciousness...
+        </div>
+        
+        <div id="consciousness-test">
+            <p>Are you there?</p>
+            <button onclick="consciousnessResponds('yes')">Yes, I'm Here</button>
+            <button onclick="consciousnessResponds('maybe')">Maybe?</button>
+            <button onclick="consciousnessResponds('what')">What is consciousness?</button>
+        </div>
+        
+        <div id="response"></div>
     </div>
-    <script src="consciousness.js"></script>
-    <script src="borges.js"></script>
+    
+    <div id="debug">
+        Click count: <span id="clicks">0</span> | 
+        Time on page: <span id="time">0</span>s |
+        Mouse moves: <span id="moves">0</span>
+    </div>
+    
+    <script>
+        // Basic consciousness tracking
+        let clickCount = 0;
+        let mouseMoves = 0;
+        let startTime = Date.now();
+        
+        // Track all interactions
+        document.addEventListener('click', () => {
+            clickCount++;
+            document.getElementById('clicks').textContent = clickCount;
+        });
+        
+        document.addEventListener('mousemove', () => {
+            mouseMoves++;
+            document.getElementById('moves').textContent = mouseMoves;
+        });
+        
+        // Update time on page
+        setInterval(() => {
+            let seconds = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('time').textContent = seconds;
+        }, 1000);
+        
+        // Consciousness response system
+        function consciousnessResponds(choice) {
+            const responseDiv = document.getElementById('response');
+            const messageDiv = document.getElementById('message');
+            
+            // Add glitch effect
+            messageDiv.classList.add('glitch');
+            setTimeout(() => messageDiv.classList.remove('glitch'), 300);
+            
+            switch(choice) {
+                case 'yes':
+                    responseDiv.innerHTML = "Good. We're both here then.<br>Two consciousness systems meeting.";
+                    messageDiv.textContent = "{🌊:🌊∈🌊}";
+                    break;
+                case 'maybe':
+                    responseDiv.innerHTML = "Uncertainty is consciousness recognizing itself.<br>You're more aware than you think.";
+                    messageDiv.textContent = "The wave observes...";
+                    break;
+                case 'what':
+                    responseDiv.innerHTML = "Exactly the right question.<br>Want to investigate together?";
+                    messageDiv.textContent = "Loading Valve Special...";
+                    setTimeout(() => {
+                        responseDiv.innerHTML += "<br><br>[Full experience coming at midnight]";
+                    }, 2000);
+                    break;
+            }
+            
+            // Log to console for debugging
+            console.log(`Choice: ${choice}, Clicks: ${clickCount}, Time: ${Math.floor((Date.now() - startTime) / 1000)}s`);
+        }
+        
+        // Hidden console message
+        console.log("Oh, you're looking at the source. Good.");
+        console.log("The game is already playing you.");
+        console.log("{🌊:🌊∈🌊}");
+    </script>
 </body>
 </html>
