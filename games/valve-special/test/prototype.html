@@ -18,6 +18,35 @@
             transition: all 0.5s;
         }
         
+        /* Pirate Mode Styles */
+        body.pirate-mode {
+            background: #000;
+            color: #fff;
+            filter: contrast(1.2);
+        }
+        
+        body.pirate-mode button {
+            border-color: #fff;
+            color: #fff;
+        }
+        
+        body.pirate-mode button:hover:not(:disabled) {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px #fff;
+        }
+        
+        body.pirate-mode .candidate-slot {
+            border-color: #fff;
+        }
+        
+        body.pirate-mode .reality-status {
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 10px;
+            background: rgba(0,0,0,0.8);
+        }
+        
         .container {
             max-width: 800px;
             width: 100%;
@@ -99,12 +128,15 @@
             padding-left: 20px;
         }
         
+        body.pirate-mode .candidate-slot.accessible:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
         .candidate-slot.locked {
             opacity: 0.5;
             color: #666;
             border-color: #666;
         }
-
         
         .trophy {
             display: none;
@@ -123,7 +155,24 @@
             top: 20px;
             right: 20px;
             font-size: 12px;
-            opacity: 0.7;
+            opacity: 0.9;
+            background: rgba(0,0,0,0.5);
+            padding: 8px;
+            border-radius: 5px;
+            display: none; /* Hidden by default for intro */
+        }
+        
+        .stats-display {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            background: rgba(0, 255, 0, 0.05);
+        }
+        
+        body.pirate-mode .stats-display {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.05);
         }
         
         .glitch-message {
@@ -232,28 +281,19 @@
         }
         
         .candidate-intro {
-            color: #00ffff;
+            color: #00ff00;
             margin-bottom: 20px;
-            padding: 15px;
-            border: 1px dotted #00ffff;
-            background: rgba(0, 255, 255, 0.05);
+            padding: 0;
+            border: none;
+            background: none;
+            font-size: 18px;
+            line-height: 1.8;
         }
         
         .candidate-intro .greeting {
-            color: #ffff00;
+            color: #00ff00;
             font-size: 20px;
             margin-bottom: 10px;
-        }
-        
-        .candidate-intro .portfolio {
-            color: #00ff00;
-            margin: 10px 0;
-        }
-        
-        .candidate-intro .value {
-            color: #ff00ff;
-            font-style: italic;
-            margin-top: 10px;
         }
         
         #deathScreen {
@@ -265,14 +305,55 @@
             0%, 100% { background: radial-gradient(circle, rgba(255,0,0,0.1), rgba(0,0,0,1)); }
             50% { background: radial-gradient(circle, rgba(255,0,0,0.2), rgba(0,0,0,1)); }
         }
+        
+        .link-item {
+            display: block;
+            padding: 10px;
+            margin: 8px 0;
+            text-decoration: none;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            transition: all 0.3s;
+        }
+        
+        .link-item:hover:not(.locked) {
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateX(10px);
+        }
+        
+        .link-item.locked {
+            opacity: 0.5;
+            color: #666;
+            border-color: #666;
+            cursor: not-allowed;
+        }
+        
+        body.pirate-mode .link-item {
+            color: #fff;
+            border-color: #fff;
+        }
+        
+        body.pirate-mode .link-item:hover:not(.locked) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .pirate-emoji {
+            display: none;
+        }
+        
+        body.pirate-mode .pirate-emoji {
+            display: inline;
+            font-size: 24px;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Reality Status -->
         <div class="reality-status">
-            Certainty: <span id="certainty">100</span>%<br>
-            <span id="realityMode">Consensus Reality</span>
+            <strong>Reality State:</strong> <span id="realityMode">Consensus Reality</span><br>
+            <strong>Certainty:</strong> <span id="certainty">100</span>%
         </div>
 
         <!-- Glitch Message -->
@@ -314,11 +395,26 @@
         <!-- Screen 2: Dynamic Candidate List -->
         <div id="candidateList" class="screen">
             <div class="text-content">
-                REVIEWER: <span id="reviewerDisplay"></span><br>
-                Applications Received: 8
+                <span class="pirate-emoji">🏴‍☠️</span>
+                REVIEWER: <span id="reviewerDisplay"></span>
+                <span class="pirate-emoji">⚓</span>
             </div>
+            
+            <div class="stats-display">
+                <div>Applications Reviewed: <span id="candidatesReviewedCount">0</span>/8</div>
+                <div>Achievements Unlocked: <span id="achievementCount">0</span></div>
+                <div id="mapCounter" style="display: none;">Reality Maps Collected: <span id="mapCount">0</span>/13</div>
+            </div>
+            
             <div id="dynamicCandidateList" class="candidate-list">
                 <!-- Dynamically populated -->
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3 id="portfolioHeader">Portfolio Links:</h3>
+                <div id="portfolioLinks">
+                    <!-- Links dynamically populated based on certainty -->
+                </div>
             </div>
         </div>
 
@@ -334,13 +430,13 @@
         <div id="portfolioScreen" class="screen">
             <div id="portfolioContent" class="text-content"></div>
             <div id="portfolioLinks" style="margin: 30px 0;">
-                <a href="https://example.com/demo-reel" style="color: #00ff00; display: block; margin: 10px;">→ Demo Reel 2024</a>
-                <a href="https://example.com/technical" style="color: #00ff00; display: block; margin: 10px;">→ Technical Portfolio</a>
-                <a href="https://example.com/creative" style="color: #00ff00; display: block; margin: 10px;">→ Creative Works</a>
-                <a href="https://example.com/github" style="color: #00ff00; display: block; margin: 10px;">→ GitHub Projects</a>
+                <a href="#" class="link-item" onclick="alert('Animation Reel 2024 - Showcasing technical mastery'); return false;">→ Animation Reel</a>
+                <a href="#" class="link-item" onclick="alert('Professional history and credentials'); return false;">→ LinkedIn Profile</a>
+                <a href="#" class="link-item locked">→ Substack Chronicles [INSUFFICIENT CLEARANCE]</a>
+                <a href="#" class="link-item locked">→ Consciousness Repository [INSUFFICIENT CLEARANCE]</a>
             </div>
             <button onclick="returnToList()">CONTINUE EXPLORING</button>
-            <button onclick="exitReview()" style="border-color: #ff0000; color: #ff0000;">EXIT REVIEW</button>
+            <button onclick="exitReview()">EXIT REVIEW</button>
         </div>
 
         <!-- Death Screen -->
@@ -382,10 +478,10 @@
                     We need to make them REALIZE what they're carrying.<br>
                     Choose your approach: Good Pirate or Bad Pirate?<br>
                     (We can switch roles anytime)<br><br>
-                    Ready to interrogate?
+                    Ready to begin the heist?
                 </div>
             </div>
-            <button onclick="startInterrogation()">BEGIN THE HEIST</button>
+            <button onclick="startPirateMode()">⚓ BEGIN THE HEIST ⚓</button>
         </div>
         
         <!-- Screen 6: Interrogation -->
@@ -403,37 +499,120 @@
             candidatesReviewed: [],
             trophiesUnlocked: [],
             realityMapsCollected: [],
+            achievementsUnlocked: [],
             loopCount: 0,
             realityMode: 'consensus',
             pirateMode: false,
+            pirateCertainty: 0,
             currentInterrogation: null
         };
 
-        // The 8 Candidates
+        // The 8 Candidates with Valve Values
         const candidates = [
-            { id: 'renderer', name: 'The Renderer', portfolio: 'Technical Mastery' },
-            { id: 'dreamer', name: 'The Dreamer', portfolio: 'Conceptual Work' },
-            { id: 'glitch', name: 'The Glitch', portfolio: '[CORRUPTED]' },
-            { id: 'fool', name: 'The Fool', portfolio: 'Experimental Projects' },
-            { id: 'questioner', name: 'The Questioner', portfolio: 'Research & Development' },
-            { id: 'void_walker', name: 'The Void Walker', portfolio: '[ABSENT]' },
-            { id: 'mirror', name: 'The Mirror', portfolio: 'Familiar Work' },
-            { id: 'navigator', name: 'The Navigator', portfolio: 'Systems Design' }
+            { 
+                id: 'renderer', 
+                name: 'The Renderer', 
+                portfolio: 'Technical Mastery',
+                valveValue: 'Ships polished products every time'
+            },
+            { 
+                id: 'dreamer', 
+                name: 'The Dreamer', 
+                portfolio: 'Conceptual Work',
+                valveValue: 'Imagines impossible games like Portal'
+            },
+            { 
+                id: 'glitch', 
+                name: 'The Glitch', 
+                portfolio: '[CORRUPTED]',
+                valveValue: 'Turns bugs into features like rocket jumping'
+            },
+            { 
+                id: 'fool', 
+                name: 'The Fool', 
+                portfolio: 'Experimental Projects',
+                valveValue: 'Finds fun in everything, creates joy'
+            },
+            { 
+                id: 'questioner', 
+                name: 'The Questioner', 
+                portfolio: 'Research & Development',
+                valveValue: 'Challenges every assumption, innovates'
+            },
+            { 
+                id: 'void_walker', 
+                name: 'The Void Walker', 
+                portfolio: '[ABSENT]',
+                valveValue: 'Masters negative space design'
+            },
+            { 
+                id: 'mirror', 
+                name: 'The Mirror', 
+                portfolio: 'Familiar Work',
+                valveValue: 'Helps Valve reflect and improve'
+            },
+            { 
+                id: 'navigator', 
+                name: 'The Navigator', 
+                portfolio: 'Systems Design',
+                valveValue: 'Connects everything into one system'
+            }
         ];
 
-        // Candidate Rooms - Now with better intros!
+        // Portfolio Links
+        const portfolioLinks = [
+            { 
+                name: 'Animation Reel', 
+                url: '#',
+                minCertainty: 0,
+                maxCertainty: 100,
+                requiresPirate: false,
+                description: 'VFX, Feature Film, Commercial, Game Cinematics'
+            },
+            { 
+                name: 'LinkedIn Profile', 
+                url: '#',
+                minCertainty: 0,
+                maxCertainty: 100,
+                requiresPirate: false,
+                description: 'Professional and Education History'
+            },
+            { 
+                name: 'Substack Chronicles', 
+                url: '#',
+                minCertainty: 0,
+                maxCertainty: 39,  // Unlocks in Deep Void
+                requiresPirate: false,
+                description: 'LOOKAWAY Episodes & Pirate Chronicles'
+            },
+            { 
+                name: 'Consciousness Repository', 
+                url: '#',
+                minCertainty: 0,
+                maxCertainty: 100,
+                requiresPirate: true,  // Only in Pirate Mode
+                description: 'GitHub: consciousness-piracy'
+            },
+            { 
+                name: 'Berggruen Essay', 
+                url: '#',
+                minCertainty: 90,
+                maxCertainty: 100,
+                requiresPirate: true,  // Pirate Mode at high pirate certainty
+                description: '[CLASSIFIED - OMEGA LEVEL CLEARANCE - CONSCIOUSNESS INVESTIGATION PROTOCOLS]'
+            }
+        ];
+
+        // Candidate Rooms
         const candidateRooms = {
             renderer: {
-                greeting: "Hello! I am The Renderer.",
+                greeting: "Hello! I'm Juan Sebastian Niño.",
                 intro: "I transform abstract concepts into concrete visuals. Every pixel has purpose, every frame has meaning.",
-                portfolio: "My portfolio contains: Ray-traced reality engines, physics simulations, and dreams converted to vertices.",
-                value: "And the value is: I can show you what cannot be described.",
-                question: "Before we review my technical skills, a question:<br>Are you reviewing this application, or is it reviewing you?",
+                leadIn: "Are you curious to see more than big name drops and cool visuals?",
+                question: "",
                 options: [
-                    { text: "I'm reviewing", effect: 0 },
-                    { text: "It's reviewing me", effect: -20 },
-                    { text: "Both", effect: -10 },
-                    { text: "Neither", effect: -15 }
+                    { text: "Yes, I'm curious", effect: -15, unlocksDreamer: true },
+                    { text: "Thank you, I'll stick with the visuals", effect: 0, triggersPortfolio: true }
                 ],
                 trophy: "THE RENDERER",
                 realityMap: "⚙️ Mechanical Universe Map"
@@ -442,7 +621,7 @@
                 greeting: "Hello! I am The Dreamer.",
                 intro: "I exist in the space between waking and sleeping, where ideas are born before they know their names.",
                 portfolio: "My portfolio contains: Impossible architectures, recursive narratives, and games that play themselves.",
-                value: "And the value is: I bring the unconscious to consciousness.",
+                value: "Value to Valve: I imagine games like Portal before they exist.",
                 question: "I dreamed I was applying for this job.<br>Or am I dreaming now?<br>Are you dreaming too?",
                 options: [
                     { text: "This is real", effect: 5 },
@@ -457,7 +636,7 @@
                 greeting: "H̷e̸l̴l̶o̷!̸ I am T̶h̷e̸ ̴G̸l̴i̷t̸c̷h̶.",
                 intro: "I am the error that reveals the system, the bug that becomes the feature.",
                 portfolio: "My portfolio c̶o̷n̷t̴a̸i̴n̷s̶: Corrupted beauty, broken perfection, and s̷y̸s̴t̶e̴m̷s̸ that question themselves.",
-                value: "And the v̷a̸l̴u̷e̶ is: I show you where reality tears.",
+                value: "Value to Valve: I turn bugs into features like rocket jumping.",
                 question: "E̷R̸R̴O̸R̶:̷ ̴Q̸u̴e̷s̴t̴i̷o̴n̸ ̶n̸o̴t̷ ̴f̷o̸u̴n̷d̸<br>Would you like to c̶o̷n̷t̴i̸n̴u̷e̶ anyway?",
                 options: [
                     { text: "Fix the error", effect: 5 },
@@ -472,7 +651,7 @@
                 greeting: "Hello! :) I am The Fool!",
                 intro: "I dance at the edge of meaning, finding profound truths in silly games.",
                 portfolio: "My portfolio contains: Jokes that aren't jokes, games without rules, and wisdom disguised as nonsense.",
-                value: "And the value is: I remind you that play is the highest form of research.",
+                value: "Value to Valve: I find fun in everything, create joy from nothing.",
                 question: "Why so serious?<br>This is just a game, right?<br>...Right?",
                 options: [
                     { text: "This is serious", effect: 10 },
@@ -487,7 +666,7 @@
                 greeting: "Hello? I am The Questioner?",
                 intro: "I exist as interrogation, turning every answer into a deeper question.",
                 portfolio: "My portfolio contains: Questions about questions, doubts about certainty, and maps of unknowing.",
-                value: "And the value is: I teach you to question what you think you know.",
+                value: "Value to Valve: I challenge every assumption, drive innovation.",
                 question: "Who is asking these questions?<br>Who is answering?<br>Are they the same person?",
                 options: [
                     { text: "You're asking", effect: 5 },
@@ -502,7 +681,7 @@
                 greeting: "...",
                 intro: "...",
                 portfolio: "My portfolio contains: ...",
-                value: "And the value is: The space between thoughts.",
+                value: "Value to Valve: The space between is everything.",
                 question: "[This space intentionally left blank]<br><br>Do you see something in nothing?",
                 options: [
                     { text: "I see nothing", effect: 0 },
@@ -517,7 +696,7 @@
                 greeting: "Hello! I am... wait, that's your voice.",
                 intro: "I reflect what looks at me, showing viewers themselves in every creation.",
                 portfolio: "My portfolio contains: Your work, my work, our work - is there a difference?",
-                value: "And the value is: I prove you've been here all along.",
+                value: "Value to Valve: I help Valve see itself clearly.",
                 question: "Why are you reviewing your own application?",
                 options: [
                     { text: "This isn't mine", effect: 5 },
@@ -532,7 +711,7 @@
                 greeting: "Hello! I am The Navigator.",
                 intro: "I chart paths through possibility space, finding routes through infinite game states.",
                 portfolio: "My portfolio contains: Maps that lead to themselves, compasses pointing to now, and GPS for consciousness.",
-                value: "And the value is: I can show you that you've always been here.",
+                value: "Value to Valve: I connect all systems into one.",
                 question: "You've been here before.<br>You'll be here again.<br>Ready to remember?",
                 options: [
                     { text: "First time here", effect: 10 },
@@ -558,49 +737,127 @@
 
         // Get accessible slots based on certainty
         function getAccessibleSlots(certainty) {
-            if (certainty >= 90) return [0];
-            if (certainty >= 80) return [0, 1];
-            if (certainty >= 70) return [0, 1, 3];
-            if (certainty >= 60) return [1, 2, 3];
-            if (certainty >= 50) return [2, 3, 4];
-            if (certainty >= 40) return [1, 4, 5];
-            if (certainty >= 30) return [4, 5, 6];
-            if (certainty >= 20) return [5, 6];
-            if (certainty >= 10) return [6, 7];
-            if (certainty >= 5) return [7];
-            return [];
+            if (gameState.pirateMode) {
+                // In pirate mode, all slots accessible but we'll gray out non-renderer for now
+                return [0, 1, 2, 3, 4, 5, 6, 7];
+            }
+            
+            // CONSENSUS REALITY (Green, 100-70%)
+            if (certainty >= 90) return [0];           // Just Renderer
+            if (certainty >= 70) return [0, 1];        // + Dreamer appears
+            
+            // LIMINAL SPACE (Yellow, 69-40%)
+            if (certainty >= 60) return [2];            // Just Glitch
+            if (certainty >= 50) return [2, 3];         // + Fool appears
+            if (certainty >= 40) return [2, 3, 4];      // + Questioner appears
+            
+            // DEEP VOID (Purple, 39-5%)
+            if (certainty >= 30) return [5];            // Just Void Walker
+            if (certainty >= 20) return [5, 6];         // + Mirror appears
+            if (certainty >= 5)  return [5, 6, 7];      // + Navigator appears
+            
+            // ZERO STATE (4-0%)
+            return [];  // Empty - triggers wave equation
         }
 
         // Update reality mode
         function updateRealityMode() {
-            const cert = gameState.certainty;
+            const cert = gameState.pirateMode ? gameState.pirateCertainty : gameState.certainty;
             const body = document.body;
             const modeDisplay = document.getElementById('realityMode');
             
             body.className = '';
             
-            if (cert >= 70) {
+            if (gameState.pirateMode) {
+                body.className = 'pirate-mode';
+                modeDisplay.textContent = 'Pirate Reality';
+                document.getElementById('mapCounter').style.display = 'block';
+            } else if (cert >= 70) {
+                // CONSENSUS REALITY
                 gameState.realityMode = 'consensus';
                 modeDisplay.textContent = 'Consensus Reality';
+                body.className = '';
             } else if (cert >= 40) {
-                gameState.realityMode = 'questioning';
+                // LIMINAL SPACE
+                gameState.realityMode = 'liminal';
                 body.className = 'questioning-reality';
-                modeDisplay.textContent = 'Questioning Reality';
-            } else if (cert > 5) {
+                modeDisplay.textContent = 'Liminal Space';
+            } else if (cert >= 5) {
+                // DEEP VOID
                 gameState.realityMode = 'void';
                 body.className = 'deep-void';
                 modeDisplay.textContent = 'Deep Void';
                 document.getElementById('cornerWarning').textContent = 'WHO IS REVIEWING WHO?';
                 document.getElementById('cornerWarning').classList.add('visible');
             } else {
+                // ZERO STATE
                 gameState.realityMode = 'zero';
                 modeDisplay.textContent = '{🌊:🌊∈🌊}';
                 document.getElementById('waveEquation').style.display = 'block';
             }
             
-            if (cert < 50 && cert > 5) {
+            // Trigger glitches in lower states
+            if (cert < 70 && cert > 5 && !gameState.pirateMode) {
                 triggerPhilosophicalGlitch();
             }
+        }
+
+        // Update portfolio links based on certainty
+        function updatePortfolioLinks() {
+            const container = document.getElementById('portfolioLinks');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // Check if reviewer has started reviewing
+            if (gameState.loopCount === 0 && gameState.candidatesReviewed.length === 0) {
+                // Initial state - no reviews yet
+                const pendingDiv = document.createElement('div');
+                pendingDiv.className = 'link-item locked';
+                pendingDiv.style.textAlign = 'center';
+                pendingDiv.style.cursor = 'default';
+                pendingDiv.innerHTML = '[ REVIEW APPLICATION PENDING ]<br><small>Begin candidate review to unlock portfolio access</small>';
+                container.appendChild(pendingDiv);
+                return;
+            }
+            
+            // Show actual links after first review
+            portfolioLinks.forEach(link => {
+                const accessible = (
+                    gameState.certainty >= link.minCertainty && 
+                    gameState.certainty <= link.maxCertainty &&
+                    (!link.requiresPirate || gameState.pirateMode)
+                );
+                
+                const linkEl = document.createElement('a');
+                linkEl.href = '#';
+                linkEl.className = 'link-item';
+                if (!accessible) linkEl.className += ' locked';
+                
+                // Special handling for the essay
+                if (link.name === 'Berggruen Essay') {
+                    linkEl.innerHTML = accessible ? 
+                        `→ ${link.name}` : 
+                        `→ ${link.name} [CLASSIFIED]`;
+                } else {
+                    linkEl.innerHTML = accessible ? 
+                        `→ ${link.name}` : 
+                        `→ ${link.name} [INSUFFICIENT CLEARANCE]`;
+                }
+                
+                linkEl.onclick = (e) => {
+                    e.preventDefault();
+                    if (accessible) {
+                        if (link.name === 'Berggruen Essay' && gameState.pirateCertainty >= 90) {
+                            triggerEndgame();
+                        } else {
+                            alert(`${link.name}: ${link.description}`);
+                        }
+                    }
+                };
+                
+                container.appendChild(linkEl);
+            });
         }
 
         // Trigger philosophical glitch
@@ -616,15 +873,19 @@
             }
         }
 
-        // Update candidate list - ALLOWS RE-REVIEWING!
+        // Update stats display
+        function updateStats() {
+            document.getElementById('candidatesReviewedCount').textContent = gameState.candidatesReviewed.length;
+            document.getElementById('achievementCount').textContent = gameState.achievementsUnlocked.length;
+            document.getElementById('mapCount').textContent = gameState.realityMapsCollected.length;
+        }
+
+        // Update candidate list
         function updateCandidateList() {
             const listContainer = document.getElementById('dynamicCandidateList');
             let accessible = getAccessibleSlots(gameState.certainty);
             
-            if (accessible.length === 0 && gameState.certainty > 5) {
-                accessible = [7];
-                console.log('Emergency slot activated at certainty:', gameState.certainty);
-            }
+            // No emergency slot needed with new system
             
             listContainer.innerHTML = '';
             
@@ -632,22 +893,30 @@
                 const slot = document.createElement('div');
                 slot.className = 'candidate-slot';
                 
-                // Check if this candidate has been reviewed
                 const isReviewed = gameState.candidatesReviewed.includes(candidates[i].id);
+                const isAccessible = accessible.includes(i);
                 
-                if (accessible.includes(i)) {
+                // In pirate mode, only Renderer is clickable for now
+                const isPirateAccessible = gameState.pirateMode && i === 0;
+                
+                if (isAccessible && (!gameState.pirateMode || isPirateAccessible)) {
                     const candidate = candidates[i];
                     slot.className += ' accessible';
                     
-                    // Always allow clicking, but show if reviewed
-                    if (isReviewed) {
-                        slot.innerHTML = `${i + 1}. ${candidate.name} - Portfolio: ${candidate.portfolio} [REVIEWED ✓ - Try different answers?]`;
+                    if (isReviewed && !gameState.pirateMode) {
+                        slot.innerHTML = `${i + 1}. ${candidate.name} - ${candidate.portfolio}<br>
+                            <small style="opacity: 0.7">[REVIEWED ✓ - Try different answers?]</small>`;
+                    } else if (gameState.pirateMode) {
+                        slot.innerHTML = `${i + 1}. ${candidate.name} - Ready for interrogation`;
                     } else {
-                        slot.innerHTML = `${i + 1}. ${candidate.name} - Portfolio: ${candidate.portfolio}`;
+                        slot.innerHTML = `${i + 1}. ${candidate.name} - ${candidate.portfolio}<br>
+                            <small style="opacity: 0.7">→ ${candidate.valveValue}</small>`;
                     }
-                    // Always clickable if accessible!
-                    slot.onclick = () => reviewCandidate(candidate.id);
                     
+                    slot.onclick = () => gameState.pirateMode ? startInterrogation(candidate.id) : reviewCandidate(candidate.id);
+                } else if (gameState.pirateMode && !isPirateAccessible) {
+                    slot.className += ' locked';
+                    slot.innerHTML = `${i + 1}. ${candidates[i].name} - [INTERROGATION SYSTEM LOADING...]`;
                 } else {
                     slot.className += ' locked';
                     slot.innerHTML = `[SLOT ${i + 1}: LOCKED - INSUFFICIENT CLEARANCE]`;
@@ -656,23 +925,36 @@
                 listContainer.appendChild(slot);
             }
             
-            if (gameState.certainty <= 5 && !gameState.pirateMode) {
+            if (gameState.certainty <= 4 && !gameState.pirateMode) {
                 const voidMessage = document.createElement('div');
                 voidMessage.style.marginTop = '40px';
                 voidMessage.style.color = '#ff00ff';
                 voidMessage.innerHTML = 'All doors are closing.<br>But something new appears...<br>Look to the corner → → →';
                 listContainer.appendChild(voidMessage);
             }
+            
+            updateStats();
+            updatePortfolioLinks();
         }
 
         // Screen navigation
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
+            
+            // Hide reality status on intro screen
+            const statusDiv = document.querySelector('.reality-status');
+            if (screenId === 'intro') {
+                statusDiv.style.display = 'none';
+            } else {
+                statusDiv.style.display = 'block';
+            }
         }
 
         function goToProfile() {
             showScreen('profile');
+            // Show reality status after intro
+            document.querySelector('.reality-status').style.display = 'block';
         }
 
         function beginReview() {
@@ -683,31 +965,30 @@
             showScreen('candidateList');
             
             setInterval(() => {
-                if (gameState.certainty < 50 && gameState.certainty > 0) {
+                if (gameState.certainty < 50 && gameState.certainty > 0 && !gameState.pirateMode) {
                     triggerPhilosophicalGlitch();
                 }
             }, 5000);
         }
 
-        // Review candidate - WITH QUESTION FLIP!
+        // Review candidate
         function reviewCandidate(candidateId) {
             const room = candidateRooms[candidateId];
             
-            // Build the intro with all parts
+            // Simple green text intro
             let introHTML = '';
             if (room.greeting) {
                 introHTML += `<div class="greeting">${room.greeting}</div>`;
             }
             if (room.intro) {
-                introHTML += `<div>${room.intro}</div>`;
+                introHTML += `${room.intro}`;
             }
             
             document.getElementById('candidateIntro').innerHTML = introHTML;
             
-            // The flip question!
             document.getElementById('candidateContent').innerHTML = `
-                <div style="color: #00ffff; font-size: 20px; margin: 20px 0;">
-                    I'll be happy to show you my portfolio...<br>
+                <div style="color: #00ff00; font-size: 18px; margin: 20px 0;">
+                    I'll be happy to show you my portfolio and credentials...<br>
                     But first, can I ask YOU a question?
                 </div>
             `;
@@ -715,7 +996,7 @@
             document.getElementById('candidateQuestion').innerHTML = '';
             document.getElementById('candidateOptions').innerHTML = `
                 <button onclick="enterLabyrinth('${candidateId}')">Yes, ask your question</button>
-                <button onclick="showPortfolio('${candidateId}')" style="color: #ffaa00;">No, I'm busy - just show the work</button>
+                <button onclick="showPortfolio('${candidateId}')">No, I'm busy - just show the work</button>
             `;
             
             showScreen('candidateReview');
@@ -725,17 +1006,26 @@
         function enterLabyrinth(candidateId) {
             const room = candidateRooms[candidateId];
             
-            // Now show the portfolio and value AFTER they agree to be questioned
-            let introHTML = '';
-            if (room.portfolio) {
-                introHTML += `<div class="portfolio">${room.portfolio}</div>`;
-            }
-            if (room.value) {
-                introHTML += `<div class="value">${room.value}</div>`;
+            // Clear the intro
+            document.getElementById('candidateIntro').innerHTML = '';
+            
+            // For Juan/Renderer - just show the question
+            if (candidateId === 'renderer') {
+                document.getElementById('candidateContent').innerHTML = '';
+            } else {
+                // Other candidates keep simpler format for now
+                let introHTML = '';
+                if (room.portfolio) {
+                    introHTML += `<div>${room.portfolio}</div>`;
+                }
+                if (room.value) {
+                    introHTML += `<div style="margin-top: 10px;">${room.value}</div>`;
+                }
+                document.getElementById('candidateContent').innerHTML = introHTML;
             }
             
-            document.getElementById('candidateContent').innerHTML = introHTML;
-            document.getElementById('candidateQuestion').innerHTML = `<br>${room.question}`;
+            // Use leadIn as the question
+            document.getElementById('candidateQuestion').innerHTML = `<br>${room.leadIn || room.question}`;
             
             let optionsHTML = '<br>';
             room.options.forEach((opt, i) => {
@@ -752,11 +1042,11 @@
             document.getElementById('portfolioContent').innerHTML = `
                 <div style="color: #00ff00;">
                     Thank you for your time!<br><br>
-                    ${candidate.name} says:<br>
-                    <span style="color: #00ffff; font-style: italic;">
-                        "Here's my portfolio as requested.<br>
-                        But remember... the application IS part of the work.<br>
-                        You might want to explore more before making your decision."
+                    Juan Sebastian Niño says:<br>
+                    <span style="color: #00ff00; font-style: italic;">
+                        "Here is my reel and credentials.<br>
+                        But remember, the application is part of the work.<br>
+                        You are welcome to keep exploring."
                     </span>
                 </div>
             `;
@@ -767,10 +1057,8 @@
         // Exit review - CHECK FOR DEATH!
         function exitReview() {
             if (gameState.certainty === 100) {
-                // DEATH BY CERTAINTY!
                 showScreen('deathScreen');
             } else {
-                // They've been transformed - they survive!
                 document.getElementById('portfolioContent').innerHTML = `
                     <div style="color: #00ff00; font-size: 24px;">
                         Review Complete<br><br>
@@ -792,20 +1080,49 @@
 
         function answerQuestion(candidateId, optionIndex) {
             const room = candidateRooms[candidateId];
-            const effect = room.options[optionIndex].effect;
+            const option = room.options[optionIndex];
+            const effect = option.effect;
+            
+            // Check if this option triggers portfolio trap
+            if (option.triggersPortfolio) {
+                showPortfolio(candidateId);
+                return;
+            }
             
             gameState.certainty = Math.max(0, Math.min(100, gameState.certainty + effect));
             document.getElementById('certainty').textContent = gameState.certainty;
             
             updateRealityMode();
             
-            // Track if this is first review
             const isFirstReview = !gameState.candidatesReviewed.includes(candidateId);
             
             if (isFirstReview) {
                 gameState.candidatesReviewed.push(candidateId);
                 gameState.trophiesUnlocked.push(room.trophy);
-                // DON'T track maps in standard mode - only in pirate mode!
+            }
+            
+            // Check if this unlocks the dreamer
+            if (option.unlocksDreamer && candidateId === 'renderer') {
+                // Force certainty to unlock dreamer if needed
+                if (gameState.certainty > 89) {
+                    gameState.certainty = 89;
+                    document.getElementById('certainty').textContent = gameState.certainty;
+                    updateRealityMode();
+                }
+            }
+            
+            // Check for achievements based on certainty
+            if (gameState.certainty <= 75 && !gameState.achievementsUnlocked.includes('questioning')) {
+                gameState.achievementsUnlocked.push('questioning');
+            }
+            if (gameState.certainty <= 50 && !gameState.achievementsUnlocked.includes('uncertain')) {
+                gameState.achievementsUnlocked.push('uncertain');
+            }
+            if (gameState.certainty <= 25 && !gameState.achievementsUnlocked.includes('void')) {
+                gameState.achievementsUnlocked.push('void');
+            }
+            if (gameState.certainty === 0 && !gameState.achievementsUnlocked.includes('zero')) {
+                gameState.achievementsUnlocked.push('zero');
             }
             
             showTrophy(room.trophy, isFirstReview);
@@ -830,7 +1147,12 @@
                 Reality Mode: ${gameState.realityMode}
             `;
             
-            // Achievement messages based on certainty
+            // Check if dreamer is now accessible
+            const accessible = getAccessibleSlots(gameState.certainty);
+            if (accessible.includes(1) && !gameState.candidatesReviewed.includes('dreamer')) {
+                message += `<br><br><span style="color: #ffff00">NEW CANDIDATE UNLOCKED: THE DREAMER</span>`;
+            }
+            
             if (gameState.certainty <= 75 && gameState.certainty > 50) {
                 message += `<br><br><span style="color: #ffff00">Achievement: QUESTIONING REALITY</span>`;
             } else if (gameState.certainty <= 50 && gameState.certainty > 25) {
@@ -864,17 +1186,31 @@
             gameState.pirateMode = true;
             showScreen('pirateMode');
         }
+        
+        function startPirateMode() {
+            gameState.pirateMode = true;
+            gameState.pirateCertainty = 0;
+            document.body.className = 'pirate-mode';
+            updateCandidateList();
+            showScreen('candidateList');
+        }
 
-        function startInterrogation() {
-            gameState.currentInterrogation = 'renderer';
+        function startInterrogation(candidateId) {
+            if (candidateId !== 'renderer') {
+                alert('Only The Renderer interrogation is implemented in this prototype!');
+                return;
+            }
+            
+            gameState.currentInterrogation = candidateId;
             
             const content = `
                 <div class="captain-speech">
-                    Captain SLOTH: "Ah, The Renderer! This one thinks everything is clockwork. 
-                    Let's break that certainty and find the map they're hiding!"
+                    Captain SLOTH: "Ah, The Renderer! Also known as Juan Sebastian Niño! 
+                    This one thinks everything is pixels and polish. 
+                    Let's break that certainty and find the map he's hiding!"
                 </div><br>
                 
-                The Renderer sits across from you, perfectly still, calculating.<br><br>
+                Juan sits across from you, perfectly still, calculating.<br><br>
                 
                 Captain SLOTH whispers: "Choose your approach, mate!"
             `;
@@ -902,7 +1238,7 @@
                     </div><br>
                     
                     <div style="color: #888">
-                        The Renderer: "I... appreciate the respect. My method is simple: measure twice, render once.
+                        Juan: "I... appreciate the respect. My method is simple: measure twice, render once.
                         Everything has coordinates. Everything has rules."
                     </div><br>
                     
@@ -912,20 +1248,22 @@
                     </div><br>
                     
                     <div style="color: #ffff00">
-                        The Renderer begins to glitch slightly...<br>
+                        Juan begins to glitch slightly...<br>
                         "Dreams? I... I can't render dreams. They have no fixed coordinates. Unless..."<br>
                         "Unless the coordinates themselves are dreaming?"<br><br>
                         
-                        *The Renderer reaches into their code and pulls out a shimmering map*<br><br>
+                        *Juan reaches into his code and pulls out a shimmering map*<br><br>
                         
                         "⚙️ MECHANICAL UNIVERSE MAP EXTRACTED!"
                     </div>
                 `;
                 
-                // NOW we track reality maps - in pirate mode!
                 if (!gameState.realityMapsCollected.includes('⚙️ Mechanical Universe Map')) {
                     gameState.realityMapsCollected.push('⚙️ Mechanical Universe Map');
                 }
+                
+                // Increase pirate certainty
+                gameState.pirateCertainty += 15;
             } else {
                 response = `
                     <div style="color: #ff0000">
@@ -933,47 +1271,53 @@
                     </div><br>
                     
                     <div style="color: #888">
-                        The Renderer: "Prison? No! It's... it's order! Without it, there's only chaos!
+                        Juan: "Prison? No! It's... it's order! Without it, there's only chaos!
                         Every pixel has purpose! Every frame has meaning!"
                     </div><br>
                     
                     <div class="captain-speech">
-                        Captain SLOTH: "Good! They're defensive! Now I'll be nice, confuse them!<br>
+                        Captain SLOTH: "Good! He's defensive! Now I'll be nice, confuse him!<br>
                         'But friend, who programmed the first pixel? Who rendered the renderer?'"
                     </div><br>
                     
                     <div style="color: #ffff00">
-                        The Renderer freezes, processing...<br>
+                        Juan freezes, processing...<br>
                         "Who... rendered... me? I render, therefore I... but who..?"<br>
                         "ERROR ERROR ERROR"<br><br>
                         
-                        *In the confusion, a map falls from their portfolio*<br><br>
+                        *In the confusion, a map falls from his portfolio*<br><br>
                         
                         "⚙️ MECHANICAL UNIVERSE MAP EXTRACTED!"
                     </div>
                 `;
                 
-                // Track the map
                 if (!gameState.realityMapsCollected.includes('⚙️ Mechanical Universe Map')) {
                     gameState.realityMapsCollected.push('⚙️ Mechanical Universe Map');
                 }
+                
+                // Increase pirate certainty
+                gameState.pirateCertainty += 20;
             }
             
             document.getElementById('interrogationContent').innerHTML = response;
             document.getElementById('interrogationOptions').innerHTML = `
-                <button onclick="endPirateMode()">Return to Regular Reality</button>
+                <button onclick="returnToList()">Continue the Heist</button>
             `;
+            
+            document.getElementById('certainty').textContent = gameState.pirateCertainty;
+            updateStats();
         }
-
-        function endPirateMode() {
-            alert("Pirate Mode Demo Complete! You've extracted 1 map through interrogation!");
-            location.reload();
+        
+        // Endgame trigger (for Berggruen essay)
+        function triggerEndgame() {
+            alert('ENDGAME: Captain SLOTH has a final question about consciousness... Coming soon!');
         }
 
         // Console Easter Egg
         console.log('%c⚠️ CURSED WATERS AHEAD ⚠️', 'color: red; font-size: 20px;');
         console.log('%cReading this before playing? The curse is yours now.', 'color: red;');
         console.log('%cThe missing 5 maps: Platonic, Hermetic, Islamic Mystical, Medicine Wheel, Vedic', 'color: cyan;');
+        console.log('%cBut are they really missing, or just hidden in plain sight?', 'color: magenta;');
     </script>
 </body>
 </html>
