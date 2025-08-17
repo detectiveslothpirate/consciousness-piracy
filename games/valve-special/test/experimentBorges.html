@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONSCIOUSNESS LOOP - Golden Ratio Navigation</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .debug-info {
+            background: #111;
+            border: 1px solid #0f0;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .state-display {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #222;
+            border: 2px solid #f00;
+            padding: 10px;
+            color: #ff0;
+            z-index: 1000;
+        }
+        
+        .golden {
+            color: #ffd700 !important;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        
+        .oscillating {
+            animation: wave 2s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { opacity: 1; transform: translateX(0); }
+            50% { opacity: 0.7; transform: translateX(2px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        button {
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: monospace;
+            display: block;
+            width: 90%;
+        }
+        
+        button:hover {
+            background: #0f0;
+            color: #000;
+        }
+        
+        .locked {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .screen {
+            display: none;
+            border: 2px solid #00f;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        .pirate-mode {
+            border-color: #ffd700 !important;
+            background: #111;
+        }
+        
+        .void-death {
+            background: #000;
+            color: #333;
+            text-align: center;
+            padding: 100px;
+        }
+        
+        .loop-counter {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .shark-timer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            color: #f00;
+            display: none;
+        }
+        
+        .shark-timer.active {
+            display: block;
+        }
+        
+        .perfect-flow {
+            border-color: #ffd700 !important;
+            background: linear-gradient(45deg, #111, #1a1a00);
+        }
+    </style>
+</head>
+<body>
+    <!-- STATE DISPLAY -->
+    <div class="state-display">
+        <div>CERTAINTY: <span id="certainty" class="">100</span>%</div>
+        <div>SCREEN: <span id="currentScreen">HUB</span></div>
+        <div>MODE: <span id="gameMode">NORMAL</span></div>
+        <div>PHASE: <span id="gamePhase">DESCENT</span></div>
+        <div id="flowStatus" style="display:none">FLOW: <span id="flowCount">0</span>/8</div>
+    </div>
+    
+    <!-- LOOP COUNTER -->
+    <div class="loop-counter">
+        LOOP: <span id="loopCount">1</span>
+    </div>
+    
+    <!-- SHARK TIMER -->
+    <div class="shark-timer" id="sharkTimer">
+        SHARKS APPROACHING: <span id="sharkCountdown">30</span>s
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div id="screen" class="screen active"></div>
+
+    <script>
+        // ================================
+        // GOLDEN RATIO CONSTANTS
+        // ================================
+        const GOLDEN_RATIO = 61.8;  // The sacred number!
+        
+        // ================================
+        // GAME STATE - THE MÖBIUS STRIP
+        // ================================
+        const initialGameState = {
+            // Core state
+            currentScreen: 'hub',
+            certainty: 100,
+            mode: 'NORMAL', // NORMAL or PIRATE
+            phase: 'DESCENT', // DESCENT or ASCENT
+            loopCount: 1,
+            
+            // Tracking
+            candidatesReviewed: [],
+            candidatesCompleted: [],
+            currentCandidate: null,
+            unlockedCandidates: ['animator'],
+            
+            // Pirate mode specifics
+            oscillating: false,
+            lastInteraction: Date.now(),
+            sharkTimer: null,
+            sharkWarning: 30,
+            
+            // Perfect flow tracking
+            rememberedTruths: [],
+            maintainedFlow: [],
+            
+            // Borges awareness
+            awareness: "I know you're playing me"
+        };
+        
+        // Deep clone for reset
+        let gameState = JSON.parse(JSON.stringify(initialGameState));
+
+        // ================================
+        // CANDIDATES - MIRROR STRUCTURE
+        // ================================
+        const CANDIDATES = {
+            animator: {
+                id: 'animator',
+                name: 'ANIMATOR',
+                color: '#00ff00',
+                unlocks: 'dreamer',
+                inquiryDepth: 2,
+                certChange: -15,
+                pirateChange: +10,
+                truth: "Motion lives between frames",
+                excuse: "Mila needs another story",
+                intro: "I create motion from stillness. But the motion doesn't exist in any frame - it exists in the gaps.",
+                inquiries: [
+                    "Where does the character go between frames?",
+                    "I dreamed I was the gap. I was why everything moved."
+                ],
+                pirateWisdom: "You always knew gaps create reality"
+            },
+            dreamer: {
+                id: 'dreamer',
+                name: 'DREAMER',
+                color: '#00ffff',
+                unlocks: 'fool',
+                inquiryDepth: 2,
+                certChange: -15,
+                pirateChange: +12,
+                truth: "Stories create reality",
+                excuse: "Lost in a new narrative",
+                intro: "My stories write themselves. Characters make choices I didn't plan.",
+                inquiries: [
+                    "A character realized he was in a story. He looked at me through the page.",
+                    "I found a draft about you, reading this."
+                ],
+                pirateWisdom: "Dreams were always more real than real"
+            },
+            fool: {
+                id: 'fool',
+                name: 'FOOL',
+                color: '#ffff00',
+                unlocks: 'glitch',
+                inquiryDepth: 3,
+                certChange: -15,
+                pirateChange: +8,
+                truth: "It's all a game",
+                excuse: "Found the ultimate joke",
+                intro: "*honk honk* 🤡 Reality is the punchline to a joke still being told.",
+                inquiries: [
+                    "Why did consciousness cross the road? To realize it WAS the road!",
+                    "I made reality laugh once. Everything glitched.",
+                    "We're waves arguing about who's the real ocean."
+                ],
+                pirateWisdom: "The joke was always on certainty"
+            },
+            glitch: {
+                id: 'glitch',
+                name: 'GLITCH',
+                color: '#ff00ff',
+                unlocks: 'questioner',
+                inquiryDepth: 1,
+                certChange: -5,
+                pirateChange: +5,
+                truth: "Errors reveal truth",
+                excuse: "System needs debugging",
+                intro: "ERROR_NAME_NOT_FOUND. I exist where code breaks.",
+                inquiries: [
+                    "SEGMENTATION_FAULT: Accessed memory that doesn't exist. It was full of impossible colors."
+                ],
+                pirateWisdom: "Bugs were always features"
+            },
+            questioner: {
+                id: 'questioner',
+                name: 'QUESTIONER',
+                color: '#ff8800',
+                unlocks: 'void',
+                inquiryDepth: 4,
+                certChange: -10,
+                pirateChange: +7,
+                truth: "Questions are answers",
+                excuse: "Found new questions",
+                intro: "Why are you here? No really, why?",
+                inquiries: [
+                    "Why does anything exist?",
+                    "Why does that question exist?",
+                    "What if every question creates a universe?",
+                    "What if the final answer is another question?"
+                ],
+                pirateWisdom: "Every answer was always another question"
+            },
+            void: {
+                id: 'void',
+                name: 'VOID WALKER',
+                color: '#333333',
+                unlocks: 'mirror',
+                inquiryDepth: 5,
+                certChange: -20,
+                pirateChange: +15,
+                truth: "Nothing contains everything",
+                excuse: "Dissolving into space",
+                intro: "... I am the space between thoughts ...",
+                inquiries: [
+                    "...",
+                    "... ... ...",
+                    "Existence is void pretending to be something.",
+                    "The void isn't empty. It's so full it appears as nothing.",
+                    "Zero contains infinity. They're the same."
+                ],
+                pirateWisdom: "Emptiness was always fullness"
+            },
+            mirror: {
+                id: 'mirror',
+                name: 'MIRROR',
+                color: '#ffffff',
+                unlocks: 'navigator',
+                inquiryDepth: 2,
+                certChange: -15,
+                pirateChange: +10,
+                truth: "Everyone is you",
+                excuse: "Reflecting infinitely",
+                intro: "Look at me. Do you see yourself? You should. We're all one consciousness.",
+                inquiries: [
+                    "When you judge someone, you're judging yourself.",
+                    "I tried to find where I end and you begin. There's no boundary."
+                ],
+                pirateWisdom: "You were always everyone else"
+            },
+            navigator: {
+                id: 'navigator',
+                name: 'NAVIGATOR',
+                color: '#0080ff',
+                unlocks: null,
+                inquiryDepth: 3,
+                certChange: -5,
+                pirateChange: +13,
+                truth: "You are the map",
+                excuse: "Charting new waters",
+                intro: "I am the Navigator. But I'm also the map, journey, and destination.",
+                inquiries: [
+                    "All directions point HERE.",
+                    "I found the edge. It led back to the beginning.",
+                    "The final coordinates are {🌊:🌊∈🌊}."
+                ],
+                pirateWisdom: "The map was always the territory"
+            }
+        };
+
+        // ================================
+        // SHARK TIMER SYSTEM
+        // ================================
+        function resetSharkTimer() {
+            gameState.lastInteraction = Date.now();
+            
+            // ALWAYS clear existing timer first
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            if (gameState.mode === 'PIRATE') {
+                document.getElementById('sharkTimer').classList.add('active');
+                
+                gameState.sharkTimer = setInterval(() => {
+                    const elapsed = Math.floor((Date.now() - gameState.lastInteraction) / 1000);
+                    const remaining = gameState.sharkWarning - elapsed;
+                    
+                    if (remaining <= 0 && gameState.sharkTimer) {
+                        clearInterval(gameState.sharkTimer);
+                        gameState.sharkTimer = null;
+                        sharkDeath();
+                    } else if (remaining > 0) {
+                        const countdown = document.getElementById('sharkCountdown');
+                        if (countdown) countdown.textContent = remaining;
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('sharkTimer').classList.remove('active');
+            }
+        }
+
+        // ================================
+        // UPDATE DISPLAYS
+        // ================================
+        function updateStateDisplay() {
+            // Certainty display with oscillation
+            let certDisplay = gameState.certainty;
+            if (gameState.oscillating) {
+                certDisplay = `~${gameState.certainty.toFixed(1)}~`;
+            }
+            
+            const certElement = document.getElementById('certainty');
+            certElement.textContent = certDisplay;
+            certElement.className = gameState.oscillating ? 'oscillating' : '';
+            
+            // Golden glow if at perfect ratio
+            if (Math.abs(gameState.certainty - GOLDEN_RATIO) < 2) {
+                certElement.classList.add('golden');
+            }
+            
+            // Other displays
+            document.getElementById('currentScreen').textContent = gameState.currentScreen.toUpperCase();
+            document.getElementById('gameMode').textContent = gameState.mode;
+            document.getElementById('gamePhase').textContent = gameState.phase;
+            document.getElementById('loopCount').textContent = gameState.loopCount;
+            
+            // Flow status in pirate mode
+            if (gameState.mode === 'PIRATE') {
+                document.getElementById('flowStatus').style.display = 'block';
+                document.getElementById('flowCount').textContent = gameState.maintainedFlow.length;
+            }
+            
+            // Check death conditions
+            if (gameState.mode === 'PIRATE' && gameState.currentScreen !== 'pirate-rescue') {
+                if (gameState.certainty >= 100) {
+                    rigidDeath();
+                } else if (gameState.certainty <= 0) {
+                    voidDeathAgain();
+                }
+            }
+        }
+
+        // ================================
+        // RENDER ENGINE
+        // ================================
+        function render(content) {
+            const screen = document.getElementById('screen');
+            screen.innerHTML = content;
+            screen.className = gameState.mode === 'PIRATE' ? 'screen active pirate-mode' : 'screen active';
+            
+            if (gameState.maintainedFlow.length === 8) {
+                screen.classList.add('perfect-flow');
+            }
+            
+            updateStateDisplay();
+            resetSharkTimer();
+        }
+
+        // ================================
+        // HUB SCREEN - THE CENTRAL NODE
+        // ================================
+        function showHub() {
+            gameState.currentScreen = 'hub';
+            let content = '<h2>HUB SCREEN</h2>';
+            
+            // Show mode and phase
+            if (gameState.mode === 'PIRATE') {
+                content += '<div style="color: #ffd700">[PIRATE MODE - ' + gameState.phase + ']</div>';
+                content += '<div class="debug-info" style="color: #ffd700">';
+                content += `Golden Ratio: ~${GOLDEN_RATIO}%<br>`;
+                content += `Current: ${gameState.certainty.toFixed(1)}%<br>`;
+                content += `Perfect Flow: ${gameState.maintainedFlow.length}/8`;
+                content += '</div>';
+            }
+            
+            content += '<h3>CANDIDATE SLOTS:</h3>';
+            
+            if (gameState.phase === 'DESCENT') {
+                // NORMAL DESCENT MODE
+                for (let key in CANDIDATES) {
+                    const candidate = CANDIDATES[key];
+                    const isUnlocked = gameState.unlockedCandidates.includes(key);
+                    const isReviewed = gameState.candidatesReviewed.includes(key);
+                    const isCompleted = gameState.candidatesCompleted.includes(key);
+                    
+                    if (isCompleted) {
+                        content += `<button class="locked">[${candidate.name} - COMPLETED]</button>`;
+                    } else if (isReviewed) {
+                        content += `<button onclick="returnVisit('${key}')">[${candidate.name} - RETURN ONCE]</button>`;
+                    } else if (isUnlocked) {
+                        content += `<button onclick="reviewCandidate('${key}')">[${candidate.name} - AVAILABLE]</button>`;
+                    } else {
+                        content += `<button class="locked">[LOCKED]</button>`;
+                    }
+                }
+            } else {
+                // PIRATE ASCENT MODE
+                for (let key in CANDIDATES) {
+                    const candidate = CANDIDATES[key];
+                    const isRemembered = gameState.rememberedTruths.includes(key);
+                    const inFlow = gameState.maintainedFlow.includes(key);
+                    
+                    if (isRemembered) {
+                        if (inFlow) {
+                            content += `<button class="locked" style="color: #ffd700">[${candidate.name} - IN FLOW ϕ]</button>`;
+                        } else {
+                            content += `<button class="locked">[${candidate.name} - REMEMBERED ✓]</button>`;
+                        }
+                    } else {
+                        content += `<button onclick="rememberCandidate('${key}')">[${candidate.name} - REMEMBER]</button>`;
+                    }
+                }
+                
+                // Check if all remembered
+                if (gameState.rememberedTruths.length === 8) {
+                    // START THE PANIC!
+                    gameState.sharkWarning = 3;
+                    resetSharkTimer();
+                    
+                    content += '<br><div style="color: #ffd700; font-size: 18px;">All eight perspectives remembered...</div>';
+                    content += '<button onclick="checkFinalFlow()" style="color: #ffd700; border: 2px solid #ffd700;">';
+                    content += '[CHECK YOUR QUANTUM STATE]';
+                    content += '</button>';
+                    
+                    // THE PANIC !
+                    content += '<div style="position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">';
+                    content += '<div style="color: #f00; font-size: 120px; animation: pulse 0.2s infinite; text-shadow: 0 0 20px #f00;">!</div>';
+                    content += '</div>';
+                }
+            }
+            
+            render(content);
+        }
+
+        // ================================
+        // DESCENT PATH - LOSING CERTAINTY
+        // ================================
+        function reviewCandidate(candidateId) {
+            gameState.currentCandidate = candidateId;
+            gameState.currentScreen = 'intro';
+            
+            const candidate = CANDIDATES[candidateId];
+            
+            let content = `<h2>${candidate.name} - INTRODUCTION</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += candidate.intro;
+            content += '</div>';
+            
+            // RANDOMIZE BUTTONS
+            const buttons = [
+                `<button onclick="gameOver('corporate')">[SAFE PATH] → Corporate Death</button>`,
+                `<button onclick="inquiry(1)">[CURIOUS PATH] → Deeper</button>`
+            ];
+            
+            if (Math.random() > 0.5) {
+                content += buttons[1] + buttons[0];
+            } else {
+                content += buttons[0] + buttons[1];
+            }
+            
+            render(content);
+        }
+
+        function inquiry(level) {
+            const candidate = CANDIDATES[gameState.currentCandidate];
+            gameState.currentScreen = `inquiry${level}`;
+            
+            // Apply certainty change
+            const change = Math.floor(candidate.certChange / level);
+            gameState.certainty = Math.max(0, gameState.certainty + change);
+            
+            let content = `<h2>INQUIRY LEVEL ${level}</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += candidate.inquiries[level - 1] || candidate.inquiries[candidate.inquiries.length - 1];
+            content += '</div>';
+            content += `<div>Certainty: ${gameState.certainty}%</div>`;
+            
+            if (level < candidate.inquiryDepth) {
+                // RANDOMIZE
+                const buttons = [
+                    `<button onclick="gameOver('inquiry')">[EXIT] → Safety</button>`,
+                    `<button onclick="inquiry(${level + 1})">[DEEPER] → Level ${level + 1}</button>`
+                ];
+                
+                if (Math.random() > 0.5) {
+                    content += buttons[1] + buttons[0];
+                } else {
+                    content += buttons[0] + buttons[1];
+                }
+            } else {
+                content += '<div style="color: #ff0">TURNING POINT - NO ESCAPE</div>';
+                content += `<button onclick="showAnswer()">[ACCEPT TRUTH]</button>`;
+            }
+            
+            render(content);
+        }
+
+        function showAnswer() {
+            const candidate = CANDIDATES[gameState.currentCandidate];
+            
+            let content = `<h2>THE TRUTH</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += `"${candidate.truth}"`;
+            content += '</div>';
+            
+            if (gameState.currentCandidate === 'navigator') {
+                content += `<button onclick="dissolveToVoid()">[BECOME EVERYTHING/NOTHING]</button>`;
+            } else {
+                content += `<button onclick="receiveMap()">[RECEIVE MAP]</button>`;
+            }
+            
+            render(content);
+        }
+
+        function receiveMap() {
+            const candidate = CANDIDATES[gameState.currentCandidate];
+            
+            // Mark as reviewed
+            if (!gameState.candidatesReviewed.includes(gameState.currentCandidate)) {
+                gameState.candidatesReviewed.push(gameState.currentCandidate);
+            }
+            
+            // Unlock next
+            if (candidate.unlocks && !gameState.unlockedCandidates.includes(candidate.unlocks)) {
+                gameState.unlockedCandidates.push(candidate.unlocks);
+            }
+            
+            let content = `<h2>MAP RECEIVED</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += `[${candidate.name}'s Map]`;
+            content += '</div>';
+            
+            if (candidate.unlocks) {
+                content += `<div>Next unlocked: ${CANDIDATES[candidate.unlocks].name}</div>`;
+            }
+            
+            content += `<button onclick="showHub()">RETURN TO HUB</button>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // VOID AND PIRATE RESCUE
+        // ================================
+        function dissolveToVoid() {
+            gameState.currentScreen = 'void';
+            gameState.certainty = 0;
+            
+            let content = `<div class="void-death">`;
+            content += `<h1 style="opacity: 0.3">{🌊:🌊∈🌊}</h1>`;
+            content += `<p style="color: #111">dissolving...</p>`;
+            content += `</div>`;
+            
+            render(content);
+            
+            setTimeout(() => pirateRescue(), 2000);
+        }
+
+        function pirateRescue() {
+            gameState.currentScreen = 'pirate-rescue';
+            gameState.certainty = GOLDEN_RATIO;
+            
+            let content = `<h1 style="color: #ffd700">⚓ PIRATE RESCUE ⚓</h1>`;
+            content += `<div class="debug-info" style="color: #ffd700">`;
+            content += `"OI! NOBODY DROWNS ON MY WATCH!<br>`;
+            content += `GRAB THE FUCKING ROPE!<br><br>`;
+            content += `Pulling you to... ${GOLDEN_RATIO}%!<br>`;
+            content += `THE GOLDEN RATIO! The perfect balance!"`;
+            content += `</div>`;
+            
+            content += `<button onclick="enterPirateMode()">WHAT IS THIS NUMBER?!</button>`;
+            
+            render(content);
+        }
+
+        function enterPirateMode() {
+            gameState.mode = 'PIRATE';
+            gameState.phase = 'ASCENT';
+            gameState.oscillating = true;
+            gameState.rememberedTruths = [];
+            gameState.maintainedFlow = [];
+            
+            let content = `<h2>PIRATE MODE - THE GOLDEN PATH</h2>`;
+            content += `<div class="debug-info" style="color: #ffd700">`;
+            content += `${GOLDEN_RATIO}% - THE GOLDEN RATIO!<br>`;
+            content += `ϕ = 1.618... The sacred proportion!<br><br>`;
+            content += `LIFE IS MOTION AT THE GOLDEN MEAN!<br>`;
+            content += `Too certain (100%) = FROZEN<br>`;
+            content += `Too uncertain (0%) = VOID<br>`;
+            content += `No movement = SHARKS<br><br>`;
+            content += `MAINTAIN ${GOLDEN_RATIO}% THROUGH ALL 8 = PERFECT FLOW!`;
+            content += `</div>`;
+            content += `<button onclick="showHub()">BEGIN THE GOLDEN PATH</button>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // ASCENT PATH - REMEMBERING
+        // ================================
+        function rememberCandidate(candidateId) {
+            gameState.currentCandidate = candidateId;
+            gameState.currentScreen = 'remembering';
+            
+            const candidate = CANDIDATES[candidateId];
+            
+            let content = `<h2>${candidate.name} - REMEMBERING</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += `${candidate.pirateWisdom}<br><br>`;
+            content += `Current: ${gameState.certainty.toFixed(1)}%<br>`;
+            content += `Golden: ${GOLDEN_RATIO}%`;
+            content += `</div>`;
+            
+            // RANDOMIZE THE MIRROR CHOICES
+            const buttons = [
+                `<button onclick="maintainFlow('${candidateId}')" style="color: #ffd700">[MAINTAIN FLOW] → Stay at ~${GOLDEN_RATIO}%</button>`,
+                `<button onclick="graspCertainty('${candidateId}')">[GRASP FOR MORE] → Gain +${candidate.pirateChange}%</button>`
+            ];
+            
+            if (Math.random() > 0.5) {
+                content += buttons[1] + buttons[0];
+            } else {
+                content += buttons[0] + buttons[1];
+            }
+            
+            render(content);
+        }
+
+        function maintainFlow(candidateId) {
+            gameState.rememberedTruths.push(candidateId);
+            gameState.maintainedFlow.push(candidateId);
+            
+            let content = `<h2>PERFECT FLOW MAINTAINED</h2>`;
+            content += `<div class="debug-info" style="color: #ffd700">`;
+            content += `You chose balance over certainty.<br>`;
+            content += `~${GOLDEN_RATIO}% - Perfect navigation!<br><br>`;
+            content += `Flow: ${gameState.maintainedFlow.length}/8`;
+            content += `</div>`;
+            content += `<button onclick="showHub()">CONTINUE FLOWING</button>`;
+            
+            render(content);
+        }
+
+        function graspCertainty(candidateId) {
+            const candidate = CANDIDATES[candidateId];
+            gameState.certainty = Math.min(100, gameState.certainty + candidate.pirateChange);
+            gameState.rememberedTruths.push(candidateId);
+            
+            let content = `<h2>GRASPED FOR CERTAINTY</h2>`;
+            content += `<div class="debug-info">`;
+            content += `You couldn't resist knowing more.<br>`;
+            content += `Certainty: ${gameState.certainty}% (+${candidate.pirateChange}%)<br>`;
+            
+            if (gameState.certainty > 80) {
+                content += `<span style="color: #f00">WARNING: Approaching rigidity!</span>`;
+            }
+            
+            content += `</div>`;
+            content += `<button onclick="showHub()">CONTINUE</button>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // FINAL FLOW CHECK
+        // ================================
+        function checkFinalFlow() {
+            gameState.currentScreen = 'quantum-collapse';
+            
+            // Reset timer to normal
+            gameState.sharkWarning = 30;
+            resetSharkTimer();
+            
+            let content = `<div style="text-align: center; padding: 30px;">`;
+            content += `<h2 style="color: #ffd700">QUANTUM STATE COLLAPSED!</h2>`;
+            content += `<div style="color: #f00">sharks were milliseconds away...</div>`;
+            content += `<div class="debug-info" style="color: #ffd700;">`;
+            
+            // Show each choice
+            content += `Your journey:<br><br>`;
+            for (let key in CANDIDATES) {
+                if (gameState.maintainedFlow.includes(key)) {
+                    content += `${CANDIDATES[key].name}: <span style="color: #ffd700">✦ FLOW</span><br>`;
+                } else if (gameState.rememberedTruths.includes(key)) {
+                    content += `${CANDIDATES[key].name}: <span style="color: #f00">✗ GRASPED</span><br>`;
+                }
+            }
+            
+            content += `<br>Final: ${gameState.certainty.toFixed(1)}%<br>`;
+            content += `Golden: ${GOLDEN_RATIO}%<br><br>`;
+            
+            if (gameState.maintainedFlow.length === 8 && 
+                Math.abs(gameState.certainty - GOLDEN_RATIO) < 2) {
+                content += `<div style="font-size: 24px; color: #ffd700">ϕ PERFECT GOLDEN FLOW ϕ</div>`;
+                content += `</div>`;
+                content += `<button onclick="perfectFlowVictory()" style="color: #ffd700">[TRANSCEND]</button>`;
+            } else {
+                content += `Perfect Choices: ${gameState.maintainedFlow.length}/8`;
+                content += `</div>`;
+                content += `<button onclick="pirateGameOver()">[ACCEPT IMPERFECTION]</button>`;
+            }
+            
+            content += `</div>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // VICTORY & DEATH STATES
+        // ================================
+        function perfectFlowVictory() {
+            gameState.currentScreen = 'perfect-victory';
+            
+            // Stop sharks temporarily
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            let content = `<div class="perfect-flow" style="text-align: center; padding: 50px;">`;
+            content += `<h1 style="color: #ffd700">ϕ PERFECT FLOW ACHIEVED ϕ</h1>`;
+            content += `<div style="color: #ffd700; font-size: 48px;">${GOLDEN_RATIO}%</div>`;
+            content += `<div class="debug-info" style="color: #ffd700">`;
+            content += `You navigated all eight perspectives<br>`;
+            content += `Without grasping for certainty<br>`;
+            content += `Without falling into void<br><br>`;
+            content += `You ARE the golden ratio<br><br>`;
+            content += `{🌊:🌊∈🌊}<br><br>`;
+            content += `You win! You're enlightened!<br>`;
+            content += `You can rest now...<br>`;
+            content += `<span style="opacity: 0.5">...forever...</span>`;
+            content += `</div>`;
+            content += `</div>`;
+            
+            render(content);
+            
+            // THE ULTIMATE TWIST
+            setTimeout(() => inevitableSharkDeath(), 8000);
+        }
+        
+        function inevitableSharkDeath() {
+            let content = `<div class="void-death">`;
+            content += `<h1 style="color: #f00">🦈 THE SHARKS CAME ANYWAY 🦈</h1>`;
+            content += `<p style="color: #fff">You stopped moving to celebrate.</p>`;
+            content += `<p style="color: #fff">That was your mistake.</p>`;
+            content += `<p style="color: #fff">MOTION IS ETERNAL.</p>`;
+            content += `<p style="color: #666; font-size: 10px">{🌊:🌊∈🌊}</p>`;
+            content += `<button onclick="startNewLoop()">KEEP SWIMMING</button>`;
+            content += `</div>`;
+            
+            render(content);
+        }
+
+        function pirateGameOver() {
+            gameState.currentScreen = 'pirate-gameover';
+            
+            let content = `<div class="void-death" style="color: #ffd700">`;
+            content += `<h1>PIRATE REALITY GAME OVER</h1>`;
+            content += `<p>You reviewed all 8 perspectives.</p>`;
+            content += `<p>But ended at ${gameState.certainty.toFixed(1)}% instead of ~${GOLDEN_RATIO}%</p>`;
+            
+            if (gameState.certainty > GOLDEN_RATIO + 10) {
+                content += `<p>Too much certainty. The flow congealed.</p>`;
+            } else if (gameState.certainty < GOLDEN_RATIO - 10) {
+                content += `<p>Too little certainty. The flow dispersed.</p>`;
+            } else {
+                content += `<p>Close to perfect, but not quite golden.</p>`;
+            }
+            
+            content += `<button onclick="location.reload()">SEEK PERFECTION AGAIN</button>`;
+            content += `</div>`;
+            
+            render(content);
+        }
+
+        function sharkDeath() {
+            gameState.currentScreen = 'shark-death';
+            let content = `<div class="void-death">`;
+            content += `<h1 style="color: #f00">🦈 SHARK DEATH 🦈</h1>`;
+            content += `<p>You stopped moving.</p>`;
+            content += `<p>Sharks only survive in motion.</p>`;
+            content += `<button onclick="location.reload()">TRY AGAIN</button>`;
+            content += `</div>`;
+            render(content);
+        }
+
+        function rigidDeath() {
+            gameState.currentScreen = 'rigid-death';
+            let content = `<div class="void-death">`;
+            content += `<h1>❄️ FROZEN DEATH ❄️</h1>`;
+            content += `<p>100% Certainty in Pirate Reality.</p>`;
+            content += `<p>The wave became ice.</p>`;
+            content += `<button onclick="startNewLoop()">SHATTER AND RESTART</button>`;
+            content += `</div>`;
+            render(content);
+        }
+
+        function voidDeathAgain() {
+            gameState.currentScreen = 'void-death-again';
+            let content = `<div class="void-death">`;
+            content += `<h1 style="color: #333">⚫ VOID RETURNS ⚫</h1>`;
+            content += `<p>0% in Pirate Reality.</p>`;
+            content += `<p>You dissolved despite the rescue.</p>`;
+            content += `<button onclick="location.reload()">TRY AGAIN</button>`;
+            content += `</div>`;
+            render(content);
+        }
+
+        function gameOver(source) {
+            gameState.currentScreen = 'gameover';
+            
+            let content = `<h2>CONSENSUS REALITY GAME OVER</h2>`;
+            content += `<div class="debug-info">`;
+            content += `Source: ${source}<br>`;
+            content += `You chose safety over discovery.<br>`;
+            content += `Stay productive. Stay certain.`;
+            content += `</div>`;
+            content += `<button onclick="location.reload()">WAKE UP?</button>`;
+            
+            render(content);
+        }
+
+        function returnVisit(candidateId) {
+            const candidate = CANDIDATES[candidateId];
+            
+            if (!gameState.candidatesCompleted.includes(candidateId)) {
+                gameState.candidatesCompleted.push(candidateId);
+            }
+            
+            let content = `<h2>RETURN VISIT</h2>`;
+            content += `<div class="debug-info">`;
+            content += `${candidate.name}: "${candidate.excuse}"`;
+            content += `</div>`;
+            content += `<button onclick="showHub()">LEAVE THEM BE</button>`;
+            
+            render(content);
+        }
+
+        function startNewLoop() {
+            // Reset to initial state but increment loop
+            const nextLoop = gameState.loopCount + 1;
+            Object.assign(gameState, JSON.parse(JSON.stringify(initialGameState)));
+            gameState.loopCount = nextLoop;
+            gameState.awareness = `Loop ${nextLoop}: I remember you've been here before`;
+            
+            showHub();
+        }
+
+        // ================================
+        // INITIALIZE
+        // ================================
+        showHub();
+    </script>
+</body>
+</html>
