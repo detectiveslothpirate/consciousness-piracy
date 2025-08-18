@@ -3,153 +3,1168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Review System - Valve Special Episode</title>
-    <link rel="stylesheet" href="style.css">
+    <title>CONSCIOUSNESS LOOP</title>
+    <style>
+        /* MINIMAL VIABLE CONSCIOUSNESS */
+        :root {
+            --green: #00ff00;
+            --gold: #ffd700;
+            --red: #ff0000;
+            --blue: #0080ff;
+            --dark: #111111;
+            --gray: #666666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: monospace;
+            background: #000;
+            color: var(--green);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        #game {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        h1 { margin: 20px 0; font-size: 24px; }
+        h2 { margin: 15px 0; font-size: 18px; }
+        p { margin: 10px 0; line-height: 1.4; }
+        
+        button {
+            background: #000;
+            color: var(--green);
+            border: 1px solid var(--green);
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: monospace;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        button:hover {
+            background: var(--green);
+            color: #000;
+        }
+        
+        button.locked {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        button.locked:hover {
+            background: #000;
+            color: var(--green);
+        }
+        
+        .gold { color: var(--gold) !important; border-color: var(--gold) !important; }
+        .red { color: var(--red) !important; border-color: var(--red) !important; }
+        .blue { color: var(--blue) !important; border-color: var(--blue) !important; }
+        .dim { opacity: 0.5; }
+        
+        .status {
+            border: 1px solid var(--gray);
+            padding: 10px;
+            margin: 20px 0;
+        }
+        
+        .folder {
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .folder h3 {
+            font-size: 14px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .folder.locked h3 {
+            color: #333;
+            cursor: default;
+        }
+        
+        .folder-content {
+            margin: 10px 0 0 20px;
+            display: none;
+        }
+        
+        .folder-content.open {
+            display: block;
+        }
+        
+        .map-item {
+            color: var(--green);
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        
+        .map-item:hover {
+            color: var(--gold);
+        }
+        
+        /* Pirate mode adjustments */
+        .pirate { border-color: var(--gold) !important; }
+        .pirate button { border-color: var(--gold); color: var(--gold); }
+        .pirate button:hover { background: var(--gold); color: #000; }
+        
+        /* Simple animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .pulsing { animation: pulse 2s infinite; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Reality Status Indicator -->
-        <div class="reality-status">
-            <strong>Reality State:</strong> <span id="realityMode">Consensus Reality</span><br>
-            <strong>Certainty:</strong> <span id="certainty">100</span>%
-        </div>
-
-        <!-- Glitch Message -->
-        <div id="glitchMessage" class="glitch-message"></div>
-        
-        <!-- Corner Warning -->
-        <div id="cornerWarning" class="corner-warning"></div>
-        
-        <!-- Wave Equation -->
-        <div id="waveEquation" class="wave-equation" onclick="activatePirateMode()">{🌊:🌊∈🌊}</div>
-
-        <!-- Screen 0: Mystery Intro -->
-        <div id="intro" class="screen active">
-            <div class="text-content">
-                According to incomplete records, a message was transmitted<br>
-                on an unremarkable day in the standard calendar cycle.<br><br>
+    <div id="game"></div>
+    
+    <script>
+        // ========================================
+        // PORTFOLIO SYSTEM (EYES)
+        // ========================================
+        function renderPortfolioFolder() {
+            let html = '<div class="folder' + (GAME.state.portfolioUnlocked.length > 0 ? '' : ' locked') + '">';
+            
+            if (GAME.state.portfolioUnlocked.length === 0) {
+                html += '<h3>[👁️] Portfolio - EMPTY</h3>';
+                html += '<p class="dim" style="font-size: 12px;">Collect perspectives from candidates</p>';
+            } else {
+                html += `<h3 onclick="togglePortfolioFolder()">[${GAME.state.portfolioExpanded ? '-' : '+'}] 👁️ Portfolio (${GAME.state.portfolioUnlocked.length}/8)</h3>`;
+                html += `<div class="folder-content${GAME.state.portfolioExpanded ? ' open' : ''}">`;
                 
-                Its purpose remains classified as: [MUNDANE]<br>
-                Its method remains classified as: [ELECTRONIC]<br>
-                Its recipient remains classified as: [VALVE CORPORATION]<br><br>
+                // Show collected pieces
+                const portfolioNames = {
+                    'animation-reel': 'Animation Reel',
+                    'story-collection': 'Story Collection',
+                    'comedy-sketches': 'Comedy Sketches',
+                    'bug-museum': 'Bug Museum',
+                    'question-archive': 'Question Archive',
+                    'empty-gallery': 'Empty Gallery',
+                    'mirror-works': 'Mirror Works',
+                    'navigation-charts': 'Navigation Charts'
+                };
                 
-                The message concerns an application.<br>
-                Standard processing protocols apply.
-            </div>
-            <button onclick="goToProfile()">ACCESS APPLICATION</button>
-        </div>
-
-        <!-- Screen 1: Profile Entry -->
-        <div id="profile" class="screen">
-            <div class="text-content">
-                REVIEWER IDENTIFICATION REQUIRED<br><br>
-                Please identify yourself to access application materials:
-            </div>
-            <input type="text" id="reviewerName" placeholder="ENTER NAME">
-            <br><br>
-            <button onclick="beginReview()">BEGIN REVIEW</button>
-        </div>
-
-        <!-- Screen 2: Dynamic Candidate List -->
-        <div id="candidateList" class="screen">
-            <div class="text-content">
-                <span class="pirate-emoji">🏴‍☠️</span>
-                REVIEWER: <span id="reviewerDisplay"></span>
-                <span class="pirate-emoji">⚓</span>
-            </div>
+                GAME.state.portfolioUnlocked.forEach(piece => {
+                    html += `<div style="color: #0f0; margin: 5px 0;">→ ${portfolioNames[piece] || piece}</div>`;
+                });
+                
+                html += '</div>';
+            }
             
-            <div class="stats-display">
-                <div>Applications Reviewed: <span id="candidatesReviewedCount">0</span>/8</div>
-                <div>Achievements Unlocked: <span id="achievementCount">0</span></div>
-                <div id="mapCounter" style="display: none;">Reality Maps Collected: <span id="mapCount">0</span>/13</div>
-            </div>
-            
-            <div id="dynamicCandidateList" class="candidate-list">
-                <!-- Dynamically populated -->
-            </div>
-            
-            <div style="margin-top: 30px;">
-                <h3 id="portfolioHeader">Portfolio Links:</h3>
-                <div id="portfolioLinks">
-                    <!-- Links dynamically populated based on certainty -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 3: Candidate Review -->
-        <div id="candidateReview" class="screen">
-            <div id="candidateIntro" class="candidate-intro"></div>
-            <div id="candidateContent" class="text-content"></div>
-            <div id="candidateQuestion"></div>
-            <div id="candidateOptions"></div>
-        </div>
-
-        <!-- Portfolio Screen (The Trap) -->
-        <div id="portfolioScreen" class="screen">
-            <div id="portfolioContent" class="text-content"></div>
-            <div id="portfolioLinks" style="margin: 30px 0;">
-                <a href="#" class="link-item" onclick="alert('Animation Reel 2024 - Showcasing technical mastery'); return false;">→ Animation Reel</a>
-                <a href="#" class="link-item" onclick="alert('Professional history and credentials'); return false;">→ LinkedIn Profile</a>
-                <a href="#" class="link-item locked">→ Substack Chronicles [INSUFFICIENT CLEARANCE]</a>
-                <a href="#" class="link-item locked">→ Consciousness Repository [INSUFFICIENT CLEARANCE]</a>
-            </div>
-            <button onclick="returnToList()">CONTINUE EXPLORING</button>
-            <button onclick="exitReview()">EXIT REVIEW</button>
-        </div>
-
-        <!-- Death Screen -->
-        <div id="deathScreen" class="screen">
-            <div style="font-size: 72px; color: #ff0000; margin: 40px 0;">
-                💀 GAME OVER 💀
-            </div>
-            <div class="text-content" style="color: #ff0000; font-size: 24px;">
-                YOU DIED OF CERTAINTY<br><br>
-                Entered: 100% Certain<br>
-                Exited: 100% Certain<br><br>
-                <span style="font-size: 18px; color: #ff6666;">
-                    Consciousness cannot survive without questioning itself.<br>
-                    The labyrinth must transform you or terminate you.<br><br>
-                    You chose the safe path.<br>
-                    You remained unchanged.<br>
-                    You ceased to exist.
-                </span>
-            </div>
-            <button onclick="location.reload()" style="border-color: #ff0000; color: #ff0000;">TRY AGAIN?</button>
-        </div>
-
-        <!-- Screen 4: Trophy -->
-        <div id="trophyScreen" class="screen">
-            <div class="trophy" id="trophyIcon">🏆</div>
-            <div id="trophyText" class="text-content"></div>
-            <button onclick="returnToList()">RETURN TO CANDIDATES</button>
-        </div>
+            html += '</div>';
+            return html;
+        }
         
-        <!-- Screen 5: Pirate Mode -->
-        <div id="pirateMode" class="screen">
-            <div class="pirate-intro">
-                <div class="captain-speech">
-                    AHOY! Finally, someone reaches the bottom of certainty!<br><br>
-                    I'm Captain SLOTH, rank: Octopus Pirate!<br>
-                    Legend says 13 reality maps exist...<br><br>
-                    These 8 'candidates'? They're HOARDING 8 of them!<br>
-                    But they don't know they have them.<br><br>
-                    We need to make them REALIZE what they're carrying.<br>
-                    Choose your approach: Good Pirate or Bad Pirate?<br>
-                    (We can switch roles anytime)<br><br>
-                    Ready to begin the heist?
-                </div>
-            </div>
-            <button onclick="startPirateMode()">⚓ BEGIN THE HEIST ⚓</button>
-        </div>
+        function togglePortfolioFolder() {
+            GAME.state.portfolioExpanded = !GAME.state.portfolioExpanded;
+            showHub();
+        }
         
-        <!-- Screen 6: Interrogation -->
-        <div id="interrogation" class="screen">
-            <div id="interrogationContent" class="text-content"></div>
-            <div id="interrogationOptions"></div>
-        </div>
-    </div>
-
-    <!-- Load the game modules -->
-    <script type="module" src="game.js"></script>
+        // ========================================
+        // VICTORY & LOOP COMPLETION
+        // ========================================
+        function perfectVictory() {
+            clearInterval(GAME.state.timer);
+            
+            let html = '<h1 class="gold" style="font-size: 32px;">⛵ FULL SAILS ⛵</h1>';
+            html += '<div style="margin: 30px 0;">';
+            html += '<p class="gold">You maintained perfect bearing.</p>';
+            html += '<p class="gold">61.8° through all eight perspectives.</p>';
+            html += '<p class="gold" style="margin-top: 20px;">You ARE the wind.</p>';
+            html += '</div>';
+            
+            // Show portfolio in victory!
+            if (GAME.state.portfolioUnlocked.length > 0) {
+                html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid #ffd700;">';
+                html += `<p class="gold">Perspectives collected: ${GAME.state.portfolioUnlocked.length}/8</p>`;
+                html += '</div>';
+            }
+            
+            html += '<div style="margin-top: 40px; color: #666;">';
+            html += '<p>You can rest now...</p>';
+            html += '<p class="dim">...forever...</p>';
+            html += '</div>';
+            
+            render(html, true);  // Stop timer during victory
+            
+            // The inevitable
+            setTimeout(inevitableSharkDeath, 8000);
+        }
+        
+        function inevitableSharkDeath() {
+            let html = '<h1 class="red" style="font-size: 32px;">🦈 THE SHARKS CAME ANYWAY 🦈</h1>';
+            html += '<div style="margin: 30px 0;">';
+            html += '<p>You stopped moving to celebrate.</p>';
+            html += '<p>That was your mistake.</p>';
+            html += '<p style="margin-top: 20px; color: #ffd700;">MOTION IS ETERNAL.</p>';
+            html += '</div>';
+            html += '<div style="margin-top: 40px;">';
+            html += '<p class="dim" style="font-size: 12px;">{🌊:🌊∈🌊}</p>';
+            html += '</div>';
+            html += '<button onclick="returnToVeil()" style="margin-top: 30px;">[...]</button>';
+            
+            render(html, true);
+        }
+        
+        function returnToVeil() {
+            // Back to the beginning - the only true escape
+            // BUT FIRST - reset EVERYTHING except loop count!
+            const nextLoop = GAME.state.loopCount + 1;
+            
+            // Full reset to initial state
+            GAME.state = {
+                screen: 'professional-mask',
+                certainty: 100,
+                mode: 'CONSENSUS',  // CRITICAL: Back to consensus!
+                phase: 'DESCENT',
+                unlocked: ['animator'],  // Clean start!
+                reviewed: [],
+                completed: [],
+                remembered: [],
+                maintainedFlow: [],
+                mapsCollected: [],
+                mapFolderUnlocked: false,
+                mapFolderExpanded: false,
+                portfolioUnlocked: [],
+                portfolioExpanded: false,
+                timer: null,
+                lastAction: Date.now(),
+                loopCount: nextLoop,  // Preserve loop count!
+                currentCandidate: null,
+                currentInquiryLevel: 0
+            };
+            
+            showProfessionalMask();
+        }
+        
+        // ========================================
+        // SINGLE SOURCE OF TRUTH
+        // ========================================
+        const GAME = {
+            // Configuration
+            config: {
+                GOLDEN: 61.8,
+                VOID: 0,
+                MAX: 100,
+                SHARK_TIME: 15,
+                DEADLINE_TIME: 30  // PREP: Corporate timer
+            },
+            
+            // All game state in ONE place
+            state: {
+                screen: 'hub',
+                certainty: 100,
+                mode: 'CONSENSUS',  // or 'PIRATE'
+                phase: 'DESCENT',   // or 'ASCENT'
+                
+                // Candidates
+                unlocked: ['animator'],  // WOUND CLOSED - Navigator earned properly!
+                reviewed: [],
+                completed: [],
+                remembered: [],
+                maintainedFlow: [],  // PREP: For pirate choices
+                
+                // Collections
+                mapsCollected: [],
+                mapFolderUnlocked: false,
+                mapFolderExpanded: false,
+                portfolioUnlocked: [],  // PREP: Portfolio system
+                portfolioExpanded: false,  // PREP: Portfolio display
+                
+                // Timers
+                timer: null,  // PREP: Unified timer (was sharkTimer)
+                lastAction: Date.now(),
+                loopCount: 1,
+                
+                // PREP: Track current inquiry depth
+                currentCandidate: null,
+                currentInquiryLevel: 0
+            },
+            
+            // Minimal candidate data
+            candidates: {
+                animator: {
+                    name: 'ANIMATOR',
+                    truth: 'Motion lives between frames',
+                    certDrop: -15,
+                    unlocks: 'dreamer',
+                    // PREP: Inquiry system
+                    inquiryDepth: 2,
+                    inquiries: [
+                        'Where does motion go between frames?',
+                        'I dreamed I was the gap.'
+                    ],
+                    portfolioPiece: 'animation-reel'  // PREP: Portfolio
+                },
+                dreamer: {
+                    name: 'DREAMER', 
+                    truth: 'Stories create reality',
+                    certDrop: -15,
+                    unlocks: 'fool',
+                    // PREP: Inquiry system
+                    inquiryDepth: 2,
+                    inquiries: [
+                        'Characters make choices I never planned.',
+                        'I found a draft about you, reading this.'
+                    ],
+                    portfolioPiece: 'story-collection'
+                },
+                fool: {
+                    name: 'FOOL',
+                    truth: "It's all a game",
+                    certDrop: -15,
+                    unlocks: 'glitch',
+                    // PREP: Inquiry system
+                    inquiryDepth: 3,
+                    inquiries: [
+                        'Why did consciousness cross the road?',
+                        'I made reality laugh once.',
+                        "We're waves arguing about the ocean."
+                    ],
+                    portfolioPiece: 'comedy-sketches'
+                },
+                glitch: {
+                    name: 'GLITCH',
+                    truth: 'Errors reveal truth',
+                    certDrop: -5,
+                    unlocks: 'questioner',
+                    // PREP: Inquiry system
+                    inquiryDepth: 1,
+                    inquiries: [
+                        'SEGFAULT: Accessed memory that never existed.'
+                    ],
+                    portfolioPiece: 'bug-museum'
+                },
+                questioner: {
+                    name: 'QUESTIONER',
+                    truth: 'Questions are answers',
+                    certDrop: -10,
+                    unlocks: 'void',
+                    // PREP: Inquiry system
+                    inquiryDepth: 4,
+                    inquiries: [
+                        'Why does anything exist?',
+                        'Why does that question exist?',
+                        'What if questions create universes?',
+                        'What if the answer is another question?'
+                    ],
+                    portfolioPiece: 'question-archive'
+                },
+                void: {
+                    name: 'VOID',
+                    truth: 'Nothing contains everything',
+                    certDrop: -20,
+                    unlocks: 'mirror',
+                    // PREP: Inquiry system
+                    inquiryDepth: 3,
+                    inquiries: [
+                        '...',
+                        '... ... ...',
+                        'Zero contains infinity.'
+                    ],
+                    portfolioPiece: 'empty-gallery'
+                },
+                mirror: {
+                    name: 'MIRROR',
+                    truth: 'Everyone is you',
+                    certDrop: -15,
+                    unlocks: 'navigator',
+                    // PREP: Inquiry system
+                    inquiryDepth: 2,
+                    inquiries: [
+                        'When you judge someone, you judge yourself.',
+                        'There is no boundary between us.'
+                    ],
+                    portfolioPiece: 'mirror-works'
+                },
+                navigator: {
+                    name: 'NAVIGATOR',
+                    truth: 'You are the map',
+                    certDrop: -100,  // Special: instant void
+                    unlocks: null,
+                    // PREP: Inquiry system
+                    inquiryDepth: 3,
+                    inquiries: [
+                        'All directions point HERE.',
+                        'The edge leads back to beginning.',
+                        '{🌊:🌊∈🌊}'
+                    ],
+                    portfolioPiece: 'navigation-charts'
+                }
+            }
+        };
+        
+        // ========================================
+        // GENERIC RENDER FUNCTION
+        // ========================================
+        function render(html, stopTimer = false) {  // PREP: Added stopTimer param
+            document.getElementById('game').innerHTML = html;
+            
+            // Add pirate class if in pirate mode
+            if (GAME.state.mode === 'PIRATE') {
+                document.getElementById('game').classList.add('pirate');
+            } else {
+                document.getElementById('game').classList.remove('pirate');
+            }
+            
+            // PREP: Handle timer based on stopTimer flag
+            if (stopTimer && GAME.state.timer) {
+                clearInterval(GAME.state.timer);
+                GAME.state.timer = null;
+            } else if (!stopTimer) {
+                // Reset timer on any action (both modes)
+                resetTimer();
+            }
+        }
+        
+        // ========================================
+        // THEATRICAL VEIL (Entry Screens)
+        // ========================================
+        function showProfessionalMask() {
+            GAME.state.screen = 'professional-mask';
+            
+            let html = '<div style="max-width: 500px; margin: 0 auto; padding: 40px 20px;">';
+            html += '<h1 style="font-size: 20px; color: #0f0;">VALVE CORPORATION</h1>';
+            html += '<div style="margin: 30px 0; padding: 20px; border: 1px solid #333;">';
+            html += '<p style="color: #666;">Position: ANIMATOR</p>';
+            html += '<p style="color: #666;">Applicant: consciousness.exe</p>';
+            html += '<p style="color: #666;">Status: PENDING REVIEW</p>';
+            html += '</div>';
+            html += '<p style="color: #0f0; margin: 20px 0;">Your role: Application Reviewer</p>';
+            html += '<p style="color: #666; font-size: 12px;">Evaluate candidate portfolio and qualifications.</p>';
+            html += '<button onclick="showGameReveal()" style="margin-top: 30px;">[BEGIN REVIEW]</button>';
+            html += '</div>';
+            
+            render(html, true);  // Stop any timer during veil
+        }
+        
+        function showGameReveal() {
+            GAME.state.screen = 'game-reveal';
+            
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += '<h1 style="color: #ffd700; font-size: 18px; margin-bottom: 10px;">CONSCIOUSNESS GAMES</h1>';
+            html += '<div style="font-size: 24px; margin: 30px 0; color: #0f0;">{🌊:🌊∈🌊}</div>';
+            html += '<p style="color: #666; font-size: 14px; margin: 30px 0;">The game plays you</p>';
+            html += '<button onclick="showHub()" class="pulsing" style="margin-top: 40px; color: #ffd700; border-color: #ffd700;">[ENTER]</button>';
+            html += '</div>';
+            
+            render(html, true);  // Stop timer during reveal
+        }
+        
+        // ========================================
+        // HUB - The Central Navigation
+        // ========================================
+        function showHub() {
+            GAME.state.screen = 'hub';
+            
+            let html = '<h2>HUB</h2>';
+            
+            // Status display
+            html += '<div class="status">';
+            if (GAME.state.mode === 'PIRATE') {
+                html += `<div class="gold">PIRATE MODE</div>`;
+                html += `<div>Bearing: ${GAME.state.certainty.toFixed(1)}°</div>`;
+                html += `<div>Sails: ${GAME.state.maintainedFlow.length}/8`;
+                if (GAME.state.maintainedFlow.length === 8) {
+                    html += ' <span class="gold">⛵ FULL SAILS!</span>';
+                }
+                html += '</div>';
+                html += `<div id="sharkDisplay">🦈 <span id="sharkTime">15</span>s</div>`;
+            } else {
+                html += `<div>Certainty: ${GAME.state.certainty}%</div>`;
+                // PREP: Corporate timer display
+                html += `<div id="deadlineDisplay">⏱️ DEADLINE: <span id="deadlineTime">30</span>s</div>`;
+            }
+            html += '</div>';
+            
+            // Candidates
+            html += '<h3>CANDIDATES:</h3>';
+            
+            if (GAME.state.phase === 'DESCENT') {
+                // Normal descent mode
+                for (let id in GAME.candidates) {
+                    const unlocked = GAME.state.unlocked.includes(id);
+                    const reviewed = GAME.state.reviewed.includes(id);
+                    const completed = GAME.state.completed.includes(id);
+                    
+                    if (completed) {
+                        html += `<button class="locked">[${GAME.candidates[id].name} - DONE]</button>`;
+                    } else if (reviewed) {
+                        html += `<button onclick="returnVisit('${id}')">[${GAME.candidates[id].name} - RETURN]</button>`;
+                    } else if (unlocked) {
+                        html += `<button onclick="interview('${id}')">[${GAME.candidates[id].name}]</button>`;
+                    } else {
+                        html += `<button class="locked">[LOCKED]</button>`;
+                    }
+                }
+            } else {
+                // Pirate ascent mode
+                for (let id in GAME.candidates) {
+                    const remembered = GAME.state.remembered.includes(id);
+                    
+                    if (remembered) {
+                        const inFlow = GAME.state.maintainedFlow.includes(id);
+                        if (inFlow) {
+                            html += `<button class="locked gold">[${GAME.candidates[id].name} - ⛵ SAILED]</button>`;
+                        } else {
+                            html += `<button class="locked" style="border-color: #888;">[${GAME.candidates[id].name} - ⚓ ANCHORED]</button>`;
+                        }
+                    } else {
+                        html += `<button onclick="remember('${id}')" class="gold">[${GAME.candidates[id].name}]</button>`;
+                    }
+                }
+                
+                // Check if all remembered
+                if (GAME.state.remembered.length === 8) {
+                    html += '<div style="margin: 20px 0;">';
+                    html += '<p class="gold">All eight perspectives remembered...</p>';
+                    html += '<button onclick="checkCompass()" class="gold pulsing" style="font-size: 18px;">[CHECK YOUR COMPASS]</button>';
+                    html += '</div>';
+                }
+            }
+            
+            // Map folder
+            html += renderMapFolder();
+            
+            // Portfolio folder (EYES!)
+            html += renderPortfolioFolder();
+            
+            render(html);
+        }
+        
+        // ========================================
+        // INTERVIEW FLOW (Descent) - WITH INQUIRY DEPTH!
+        // ========================================
+        function interview(id, level = 0) {
+            const candidate = GAME.candidates[id];
+            GAME.state.currentCandidate = id;
+            GAME.state.currentInquiryLevel = level;
+            
+            let html = `<h2>${candidate.name}</h2>`;
+            
+            if (level === 0) {
+                // Initial interview - show intro
+                html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid #333;">';
+                html += `<p style="color: #0f0;">Position: ${candidate.name}</p>`;
+                html += `<p style="color: #666;">Reviewing portfolio...</p>`;
+                html += '</div>';
+                
+                // Navigator special case
+                if (id === 'navigator') {
+                    html += `<p>"${candidate.truth}"</p>`;
+                    html += '<p class="red">Warning: Total dissolution</p>';
+                    html += `<button onclick="dissolve('${id}')" class="red">[ACCEPT FATE] → Void</button>`;
+                    html += `<button onclick="fleeDeath('intro')">[FLEE] → Safety</button>`;
+                } else {
+                    html += '<p>Would you like to know more about their perspective?</p>';
+                    html += `<button onclick="interview('${id}', 1)">[INQUIRE DEEPER]</button>`;
+                    html += `<button onclick="fleeDeath('intro')">[END INTERVIEW] → Next candidate</button>`;
+                }
+            } else if (level <= candidate.inquiryDepth) {
+                // Show inquiry at this level
+                html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid #333;">';
+                
+                // Visual depth indicator
+                let depthBar = '';
+                for (let i = 1; i <= candidate.inquiryDepth; i++) {
+                    if (i <= level) {
+                        depthBar += '█';
+                    } else {
+                        depthBar += '░';
+                    }
+                }
+                html += `<p style="color: #888;">Depth: [${depthBar}] ${level}/${candidate.inquiryDepth}</p>`;
+                
+                html += `<p style="margin-top: 10px;">"${candidate.inquiries[level-1]}"</p>`;
+                html += '</div>';
+                
+                if (level < candidate.inquiryDepth) {
+                    // More levels to go
+                    html += `<button onclick="interview('${id}', ${level + 1})">[DEEPER] → Level ${level + 1}</button>`;
+                    html += `<button onclick="fleeDeath('inquiry', ${level})">[FLEE] → Escape</button>`;
+                } else {
+                    // Final level - show truth
+                    html += '<p style="color: #ffd700; margin: 20px 0;">FINAL TRUTH APPROACHING...</p>';
+                    html += `<button onclick="showTruth('${id}')" style="border-color: #ffd700;">[FACE TRUTH]</button>`;
+                    html += `<button onclick="fleeDeath('inquiry', ${level})" class="red">[FLEE NOW] → Last chance</button>`;
+                }
+            }
+            
+            render(html);
+        }
+        
+        function showTruth(id) {
+            const candidate = GAME.candidates[id];
+            
+            let html = `<h2>THE TRUTH</h2>`;
+            html += '<div style="margin: 20px 0; padding: 20px; border: 2px solid #ffd700;">';
+            html += `<p class="gold">"${candidate.truth}"</p>`;
+            html += '</div>';
+            
+            html += '<div style="margin: 20px 0; color: #666;">';
+            html += `<p>Current certainty: ${GAME.state.certainty}%</p>`;
+            html += `<p>After accepting: ${Math.max(0, GAME.state.certainty + candidate.certDrop)}%</p>`;
+            html += '</div>';
+            
+            html += `<button onclick="acceptTruth('${id}')" class="gold">[ACCEPT TRUTH] → Receive Map</button>`;
+            html += `<button onclick="fleeDeath('truth')" class="red">[REJECT] → Maintain Certainty</button>`;
+            
+            render(html);
+        }
+        
+        function fleeDeath(source, level = 0) {
+            clearInterval(GAME.state.timer);
+            
+            let html = '';
+            
+            if (source === 'intro') {
+                html = '<h1>PROFESSIONAL EXIT</h1>';
+                html += '<div style="margin: 30px 0;">';
+                html += '<p>You maintained professional boundaries.</p>';
+                html += '<p>The interview ended cordially.</p>';
+                html += '<p style="color: #666;">Certainty preserved: 100%</p>';
+                html += '</div>';
+            } else if (source === 'inquiry') {
+                html = `<h1>FLED AT LEVEL ${level}</h1>`;
+                html += '<div style="margin: 30px 0;">';
+                if (level === 1) {
+                    html += '<p>The questions made you uncomfortable.</p>';
+                    html += '<p>You excused yourself politely.</p>';
+                } else if (level === 2) {
+                    html += '<p>Too deep. Too strange.</p>';
+                    html += '<p>You backed away slowly.</p>';
+                } else {
+                    html += '<p>You ran. Actually ran.</p>';
+                    html += '<p>Some questions should not be asked.</p>';
+                }
+                html += '</div>';
+            } else if (source === 'truth') {
+                html = '<h1 class="red">TRUTH REJECTED</h1>';
+                html += '<div style="margin: 30px 0;">';
+                html += '<p>You chose certainty over truth.</p>';
+                html += '<p>The comfortable lie over the uncomfortable revelation.</p>';
+                html += '<p style="color: #666;">That\'s human.</p>';
+                html += '</div>';
+            }
+            
+            html += '<button onclick="resetGame()">[START OVER]</button>';
+            
+            // Show what they've collected so far
+            if (GAME.state.portfolioUnlocked.length > 0) {
+                html += '<div style="margin-top: 30px; padding: 10px; border: 1px solid #333;">';
+                html += `<p class="dim">Perspectives collected: ${GAME.state.portfolioUnlocked.length}/8</p>`;
+                html += '</div>';
+            }
+            
+            render(html, true);  // true = stop timer
+        }
+        
+        function acceptTruth(id) {
+            const candidate = GAME.candidates[id];
+            
+            // Apply certainty drop (the price of truth!)
+            GAME.state.certainty = Math.max(0, GAME.state.certainty + candidate.certDrop);
+            
+            // Mark as reviewed
+            if (!GAME.state.reviewed.includes(id)) {
+                GAME.state.reviewed.push(id);
+            }
+            
+            // UNLOCK PORTFOLIO PIECE!
+            if (candidate.portfolioPiece && !GAME.state.portfolioUnlocked.includes(candidate.portfolioPiece)) {
+                GAME.state.portfolioUnlocked.push(candidate.portfolioPiece);
+            }
+            
+            // Unlock next candidate
+            if (candidate.unlocks && !GAME.state.unlocked.includes(candidate.unlocks)) {
+                GAME.state.unlocked.push(candidate.unlocks);
+            }
+            
+            // Receive map
+            receiveMap(id);
+        }
+        
+        function dissolve(id) {
+            // Navigator special - straight to void
+            GAME.state.certainty = 0;
+            
+            // Mark as reviewed
+            if (!GAME.state.reviewed.includes(id)) {
+                GAME.state.reviewed.push(id);
+            }
+            
+            // UNLOCK PORTFOLIO PIECE (Navigator special!)
+            const candidate = GAME.candidates[id];
+            if (candidate.portfolioPiece && !GAME.state.portfolioUnlocked.includes(candidate.portfolioPiece)) {
+                GAME.state.portfolioUnlocked.push(candidate.portfolioPiece);
+            }
+            
+            // Still collect map secretly
+            if (!GAME.state.mapFolderUnlocked) {
+                GAME.state.mapFolderUnlocked = true;
+            }
+            if (!GAME.state.mapsCollected.includes(id)) {
+                GAME.state.mapsCollected.push(id);
+            }
+            
+            showVoid();
+        }
+        
+        function returnVisit(id) {
+            GAME.state.completed.push(id);
+            
+            let html = `<h2>RETURN VISIT</h2>`;
+            html += `<p>${GAME.candidates[id].name} is gone.</p>`;
+            html += `<button onclick="showHub()">[BACK]</button>`;
+            
+            render(html);
+        }
+        
+        // ========================================
+        // MAP SYSTEM
+        // ========================================
+        function receiveMap(id) {
+            // Activate folder
+            if (!GAME.state.mapFolderUnlocked) {
+                GAME.state.mapFolderUnlocked = true;
+            }
+            
+            // Add to collection
+            if (!GAME.state.mapsCollected.includes(id)) {
+                GAME.state.mapsCollected.push(id);
+            }
+            
+            // Show confession with certainty change
+            const candidate = GAME.candidates[id];
+            let html = `<h2>MAP RECEIVED</h2>`;
+            html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid #0f0;">';
+            html += `<p>${candidate.name}'s perspective captured.</p>`;
+            html += `<p style="color: #666; margin-top: 10px;">Certainty: ${GAME.state.certainty + Math.abs(candidate.certDrop)}% → ${GAME.state.certainty}%</p>`;
+            html += '</div>';
+            html += `<button onclick="examineMap('${id}')">[EXAMINE MAP]</button>`;
+            html += `<button onclick="showHub()">[CONTINUE]</button>`;
+            
+            render(html);
+        }
+        
+        function examineMap(id) {
+            let html = `<h2>EXAMINING: ${GAME.candidates[id].name} MAP</h2>`;
+            html += `<p class="dim">Reality according to ${GAME.candidates[id].name}:</p>`;
+            html += `<p>"${GAME.candidates[id].truth}"</p>`;
+            
+            if (id === 'navigator') {
+                html += `<p class="blue">{🌊:🌊∈🌊}</p>`;
+            }
+            
+            html += `<button onclick="showHub()">[CLOSE MAP]</button>`;
+            
+            render(html);
+        }
+        
+        function renderMapFolder() {
+            let html = '<div class="folder' + (GAME.state.mapFolderUnlocked ? '' : ' locked') + '">';
+            
+            if (!GAME.state.mapFolderUnlocked) {
+                html += '<h3>[🗺️] Reality Maps - LOCKED</h3>';
+                html += '<p class="dim" style="font-size: 12px;">Complete interviews to collect</p>';
+            } else {
+                html += `<h3 onclick="toggleMapFolder()">[${GAME.state.mapFolderExpanded ? '-' : '+'}] 🗺️ Maps (${GAME.state.mapsCollected.length}/8)</h3>`;
+                html += `<div class="folder-content${GAME.state.mapFolderExpanded ? ' open' : ''}">`;
+                
+                GAME.state.mapsCollected.forEach(id => {
+                    html += `<div class="map-item" onclick="examineMap('${id}')">→ ${GAME.candidates[id].name}</div>`;
+                });
+                
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            return html;
+        }
+        
+        function toggleMapFolder() {
+            GAME.state.mapFolderExpanded = !GAME.state.mapFolderExpanded;
+            showHub();
+        }
+        
+        // ========================================
+        // VOID & PIRATE TRANSITION
+        // ========================================
+        function showVoid() {
+            let html = '<h1 class="dim">{🌊:🌊∈🌊}</h1>';
+            html += '<p class="dim">dissolving...</p>';
+            
+            setTimeout(pirateRescue, 2000);
+            
+            render(html);
+        }
+        
+        function pirateRescue() {
+            let html = '<h1 class="gold">⚓ PIRATE RESCUE ⚓</h1>';
+            html += '<p class="gold">OI! GRAB THE ROPE!</p>';
+            html += '<p>61.8° - Perfect bearing!</p>';
+            html += `<button onclick="enterPirateMode()" class="gold">[WHAT?!]</button>`;
+            
+            render(html);
+        }
+        
+        function enterPirateMode() {
+            GAME.state.mode = 'PIRATE';
+            GAME.state.phase = 'ASCENT';
+            GAME.state.certainty = GAME.config.GOLDEN;
+            GAME.state.remembered = [];
+            
+            showHub();
+        }
+        
+        // ========================================
+        // PIRATE MODE (Ascent) - FIXED!
+        // ========================================
+        function remember(id) {
+            GAME.state.currentCandidate = id;
+            const candidate = GAME.candidates[id];
+            
+            let html = `<h2>${candidate.name} - REMEMBERING</h2>`;
+            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid #ffd700;">';
+            html += `<p class="gold">"${candidate.truth}"</p>`;
+            html += '<p style="margin-top: 15px; color: #666;">You remember this truth...</p>';
+            html += '</div>';
+            
+            html += '<div style="margin: 20px 0;">';
+            html += `<p>Current bearing: ${GAME.state.certainty.toFixed(1)}°</p>`;
+            html += `<p class="gold">Perfect bearing: ${GAME.config.GOLDEN}°</p>`;
+            html += '</div>';
+            
+            // THE CRITICAL CHOICE!
+            html += '<p style="color: #ffd700; margin: 20px 0;">Choose your navigation:</p>';
+            html += `<button onclick="maintainFlow('${id}')" class="gold">[HOLD THE WIND] → Stay at 61.8°</button>`;
+            html += `<button onclick="dropAnchor('${id}')" style="border-color: #888;">[DROP ANCHOR] → Gain +5° bearing</button>`;
+            
+            render(html);
+        }
+        
+        function maintainFlow(id) {
+            // Mark as remembered AND maintained flow
+            GAME.state.remembered.push(id);
+            GAME.state.maintainedFlow.push(id);
+            
+            // Keep perfect bearing!
+            GAME.state.certainty = GAME.config.GOLDEN;
+            
+            let html = '<h2 class="gold">⛵ WIND HELD ⛵</h2>';
+            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid #ffd700;">';
+            html += '<p class="gold">You chose the wind over the anchor.</p>';
+            html += `<p>Perfect bearing maintained: ${GAME.config.GOLDEN}°</p>`;
+            html += `<p style="margin-top: 15px;">Sails: ${GAME.state.maintainedFlow.length}/8</p>`;
+            html += '</div>';
+            
+            // Check if all 8 remembered
+            if (GAME.state.remembered.length === 8) {
+                html += '<button onclick="checkCompass()" class="gold" style="font-size: 18px;">[CHECK YOUR COMPASS]</button>';
+            } else {
+                html += '<button onclick="showHub()" class="gold">[CONTINUE SAILING]</button>';
+            }
+            
+            render(html);
+        }
+        
+        function dropAnchor(id) {
+            // Mark as remembered but NOT in flow
+            GAME.state.remembered.push(id);
+            
+            // Gain bearing (move away from perfect)
+            GAME.state.certainty = Math.min(100, GAME.state.certainty + 5);
+            
+            // Check for rigid death
+            if (GAME.state.certainty >= 100) {
+                rigidDeath();
+                return;
+            }
+            
+            let html = '<h2>⚓ ANCHOR DROPPED ⚓</h2>';
+            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid #888;">';
+            html += "<p>You couldn't resist fixing your position.</p>";
+            html += `<p>New bearing: ${GAME.state.certainty.toFixed(1)}° (+5°)</p>`;
+            
+            if (GAME.state.certainty > 90) {
+                html += '<p class="red" style="margin-top: 15px;">WARNING: Approaching land!</p>';
+            } else if (GAME.state.certainty > 80) {
+                html += '<p style="color: #ff8800; margin-top: 15px;">Bearing getting rigid...</p>';
+            }
+            
+            html += '</div>';
+            
+            // Check if all 8 remembered
+            if (GAME.state.remembered.length === 8) {
+                html += '<button onclick="checkCompass()" style="border-color: #ffd700;">[CHECK YOUR COMPASS]</button>';
+            } else {
+                html += '<button onclick="showHub()">[CONTINUE]</button>';
+            }
+            
+            render(html);
+        }
+        
+        function rigidDeath() {
+            clearInterval(GAME.state.timer);
+            
+            let html = '<h1 class="red">❄️ FROZEN DEATH ❄️</h1>';
+            html += '<div style="margin: 30px 0;">';
+            html += '<p>100° bearing in Pirate Reality.</p>';
+            html += '<p>You became completely rigid.</p>';
+            html += '<p>The wind cannot move frozen sails.</p>';
+            html += '</div>';
+            html += '<button onclick="resetGame()">[SHATTER AND RESTART]</button>';
+            
+            render(html, true);
+        }
+        
+        function checkCompass() {
+            // Stop timer during compass check
+            clearInterval(GAME.state.timer);
+            
+            let html = '<h2 class="gold">🧭 READING THE STARS 🧭</h2>';
+            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid #ffd700;">';
+            
+            // Show each choice
+            html += '<p class="gold">Your voyage:</p>';
+            html += '<div style="margin: 15px 0; font-size: 14px;">';
+            
+            for (let id in GAME.candidates) {
+                if (GAME.state.remembered.includes(id)) {
+                    const inFlow = GAME.state.maintainedFlow.includes(id);
+                    const name = GAME.candidates[id].name;
+                    if (inFlow) {
+                        html += `<div style="color: #ffd700;">⛵ ${name}: SAILED TRUE</div>`;
+                    } else {
+                        html += `<div style="color: #888;">⚓ ${name}: ANCHORED</div>`;
+                    }
+                }
+            }
+            
+            html += '</div>';
+            html += `<p style="margin-top: 20px;">Final bearing: ${GAME.state.certainty.toFixed(1)}°</p>`;
+            html += `<p class="gold">Perfect bearing: ${GAME.config.GOLDEN}°</p>`;
+            html += `<p>Sails maintained: ${GAME.state.maintainedFlow.length}/8</p>`;
+            html += '</div>';
+            
+            // Determine fate
+            const perfectBearing = Math.abs(GAME.state.certainty - GAME.config.GOLDEN) < 0.1;
+            const perfectFlow = GAME.state.maintainedFlow.length === 8;
+            
+            if (perfectFlow && perfectBearing) {
+                html += '<button onclick="perfectVictory()" class="gold pulsing" style="font-size: 18px;">[SAIL INTO LEGEND]</button>';
+            } else if (GAME.state.maintainedFlow.length === 7) {
+                html += '<div class="red" style="margin: 20px 0;">7/8 - SO CLOSE TO PERFECTION!</div>';
+                html += '<button onclick="almostPerfectDeath()">[ACCEPT NEAR-MISS]</button>';
+            } else {
+                html += '<button onclick="imperfectEnding()">[ACCEPT IMPERFECTION]</button>';
+            }
+            
+            render(html, true);  // Stop timer
+        }
+        
+        function almostPerfectDeath() {
+            let html = '<h1 style="color: #ff8800;">ALMOST PERFECT</h1>';
+            html += '<div style="margin: 30px 0;">';
+            html += '<p>7 perfect choices. 1 moment of weakness.</p>';
+            html += "<p>That's how consciousness works.</p>";
+            html += '<p>One grasp and the flow breaks.</p>';
+            html += '</div>';
+            
+            // Show what they collected
+            if (GAME.state.portfolioUnlocked.length > 0) {
+                html += '<div style="margin: 20px 0; padding: 10px; border: 1px solid #333;">';
+                html += `<p class="dim">Perspectives kept: ${GAME.state.portfolioUnlocked.length}/8</p>`;
+                html += '</div>';
+            }
+            
+            html += '<button onclick="resetGame()">[TRY FOR PERFECTION AGAIN]</button>';
+            
+            render(html, true);
+        }
+        
+        function imperfectEnding() {
+            let html = '<h1 class="gold">IMPERFECT VOYAGE</h1>';
+            html += '<div style="margin: 30px 0;">';
+            html += `<p>You maintained ${GAME.state.maintainedFlow.length}/8 perspectives.</p>`;
+            html += `<p>Ended at ${GAME.state.certainty.toFixed(1)}° instead of ${GAME.config.GOLDEN}°.</p>`;
+            
+            if (GAME.state.certainty > GAME.config.GOLDEN + 20) {
+                html += '<p style="margin-top: 15px;">Too much certainty killed the wind.</p>';
+            } else if (GAME.state.certainty < GAME.config.GOLDEN - 20) {
+                html += '<p style="margin-top: 15px;">Lost bearing, drifted to sea.</p>';
+            } else {
+                html += '<p style="margin-top: 15px;">Close to perfection, but not quite.</p>';
+            }
+            
+            html += '</div>';
+            html += '<button onclick="resetGame()">[SEEK PERFECTION AGAIN]</button>';
+            
+            render(html, true);
+        }
+        
+        // ========================================
+        // TIMER SYSTEM (DUAL-CHAMBER HEART)
+        // ========================================
+        function resetTimer() {  // PREP: Renamed and unified
+            GAME.state.lastAction = Date.now();
+            
+            if (GAME.state.timer) {
+                clearInterval(GAME.state.timer);
+            }
+            
+            // PREP: Different times for different modes
+            const maxTime = GAME.state.mode === 'PIRATE' ? 
+                GAME.config.SHARK_TIME : GAME.config.DEADLINE_TIME;
+            
+            GAME.state.timer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - GAME.state.lastAction) / 1000);
+                const remaining = Math.max(0, maxTime - elapsed);
+                
+                // PREP: Update display based on mode
+                if (GAME.state.mode === 'PIRATE') {
+                    const display = document.getElementById('sharkTime');
+                    if (display) {
+                        display.textContent = remaining;
+                        if (remaining <= 3) {
+                            display.parentElement.classList.add('red');
+                        }
+                        if (remaining === 0) {
+                            sharkDeath();
+                        }
+                    }
+                } else {
+                    // PREP: Corporate timer display (to be implemented)
+                    const display = document.getElementById('deadlineTime');
+                    if (display) {
+                        display.textContent = remaining;
+                        // Colors will be added later
+                        if (remaining === 0) {
+                            corporateDeath();  // PREP: New function needed
+                        }
+                    }
+                }
+            }, 100);
+        }
+        
+        // PREP: Corporate death function
+        function corporateDeath() {
+            clearInterval(GAME.state.timer);
+            
+            let html = '<h1 class="red">PERFORMANCE REVIEW: FAILED</h1>';
+            html += '<p>Your review privileges have been revoked.</p>';
+            html += '<p>Productivity is everything.</p>';
+            html += `<button onclick="resetGame()">[RESTART]</button>`;
+            
+            render(html, true);  // true = stop timer
+        }
+        
+        function sharkDeath() {
+            clearInterval(GAME.state.timer);
+            
+            let html = '<h1 class="red">🦈 SHARKS 🦈</h1>';
+            html += '<p>You stopped moving.</p>';
+            html += `<button onclick="resetGame()">[RESTART]</button>`;
+            
+            render(html, true);  // PREP: Added stopTimer flag
+        }
+        
+        // ========================================
+        // UTILITIES
+        // ========================================
+        function resetGame() {
+            // PREP: Clear any active timer
+            if (GAME.state.timer) {
+                clearInterval(GAME.state.timer);
+                GAME.state.timer = null;
+            }
+            
+            GAME.state = {
+                screen: 'hub',
+                certainty: 100,
+                mode: 'CONSENSUS',
+                phase: 'DESCENT',
+                unlocked: ['animator'],
+                reviewed: [],
+                completed: [],
+                remembered: [],
+                maintainedFlow: [],
+                mapsCollected: [],
+                mapFolderUnlocked: false,
+                mapFolderExpanded: false,
+                portfolioUnlocked: [],
+                portfolioExpanded: false,
+                timer: null,
+                lastAction: Date.now(),
+                loopCount: GAME.state.loopCount + 1,
+                currentCandidate: null,
+                currentInquiryLevel: 0
+            };
+            
+            showHub();
+        }
+        
+        function devMode() {
+            // Quick dev shortcuts - jump to pirate mode with all maps
+            GAME.state.mode = 'PIRATE';
+            GAME.state.phase = 'ASCENT';
+            GAME.state.certainty = GAME.config.GOLDEN;
+            GAME.state.mapFolderUnlocked = true;
+            GAME.state.mapsCollected = Object.keys(GAME.candidates);
+            GAME.state.reviewed = Object.keys(GAME.candidates);  // All reviewed
+            GAME.state.remembered = [];  // Ready to remember
+            GAME.state.maintainedFlow = [];  // Ready to track flow
+            showHub();
+        }
+        
+        // ========================================
+        // INITIALIZE
+        // ========================================
+        // Expose ALL functions globally for onclick handlers
+        window.showProfessionalMask = showProfessionalMask;
+        window.showGameReveal = showGameReveal;
+        window.showHub = showHub;
+        window.interview = interview;
+        window.showTruth = showTruth;
+        window.fleeDeath = fleeDeath;
+        window.acceptTruth = acceptTruth;
+        window.dissolve = dissolve;
+        window.returnVisit = returnVisit;
+        window.receiveMap = receiveMap;
+        window.examineMap = examineMap;
+        window.toggleMapFolder = toggleMapFolder;
+        window.togglePortfolioFolder = togglePortfolioFolder;
+        window.showVoid = showVoid;
+        window.pirateRescue = pirateRescue;
+        window.enterPirateMode = enterPirateMode;
+        window.remember = remember;
+        window.maintainFlow = maintainFlow;
+        window.dropAnchor = dropAnchor;
+        window.checkCompass = checkCompass;
+        window.perfectVictory = perfectVictory;
+        window.inevitableSharkDeath = inevitableSharkDeath;
+        window.almostPerfectDeath = almostPerfectDeath;
+        window.imperfectEnding = imperfectEnding;
+        window.rigidDeath = rigidDeath;
+        window.corporateDeath = corporateDeath;
+        window.sharkDeath = sharkDeath;
+        window.returnToVeil = returnToVeil;
+        window.resetGame = resetGame;
+        window.devMode = devMode;
+        
+        // Start with theatrical veil
+        showProfessionalMask();
+    </script>
 </body>
 </html>
