@@ -3,110 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consciousness Navigator - Valve Application System</title>
+    <title>CONSCIOUSNESS LOOP - Golden Ratio Navigation</title>
     <style>
+        /* ================================
+           AESTHETIC SKELETON - CORE VARIABLES
+           ================================ */
+        :root {
+            /* Spacing System */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            
+            /* Color Palette */
+            --consensus-green: #00ff00;
+            --pirate-gold: #ffd700;
+            --danger-red: #ff0000;
+            --void-gray: #333333;
+            --ocean-blue: #0080ff;
+            --pure-black: #000000;
+            --dark-gray: #111111;
+            
+            /* Layout Constants */
+            --max-width: 800px;
+            --center-padding: 20px;
+            
+            /* Z-Index Layers */
+            --z-background: 0;
+            --z-content: 1;
+            --z-fixed-ui: 100;
+            --z-overlays: 1000;
+            --z-popups: 10000;
+        }
+        
+        /* ================================
+           BASE COMPOSITION SYSTEM
+           ================================ */
         body {
-            background: #0a0a0a;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
+            font-family: monospace;
+            background: var(--pure-black);
+            color: var(--consensus-green);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Main Composition Container */
+        .composition {
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            transition: all 0.5s;
-            overflow-x: hidden;
         }
         
-        /* Valve intro screen - black background, white text, red accents */
-        body.valve-screen {
-            background: #000;
-            color: #fff;
-        }
-        
-        body.valve-screen .accent {
-            color: #00ff00;
-        }
-        
-        body.valve-screen button {
-            border-color: #00ff00;
-            color: #00ff00;
-        }
-        
-        body.valve-screen button:hover {
-            background: #00ff00;
-            color: #000;
-        }
-        
-        /* Reality Mode Styles */
-        body.pirate-mode {
-            background: linear-gradient(45deg, #000, #001);
-            color: #fff;
-            filter: contrast(1.2);
-        }
-        
-        body.pirate-mode button {
-            border-color: #fff;
-            color: #fff;
-        }
-        
-        body.pirate-mode button:hover:not(:disabled) {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 20px #fff;
-        }
-        
-        body.questioning-reality {
-            color: #ffff00;
-            animation: realityShift 8s infinite;
-        }
-        
-        @keyframes realityShift {
-            0%, 100% { filter: hue-rotate(0deg) brightness(1); }
-            50% { filter: hue-rotate(30deg) brightness(1.2); }
-        }
-        
-        body.deep-void {
-            color: #ff00ff;
-            animation: voidBreathing 5s infinite;
-        }
-        
-        @keyframes voidBreathing {
-            0%, 100% { 
-                filter: hue-rotate(0deg) contrast(1); 
-                transform: scale(1);
-            }
-            50% { 
-                filter: hue-rotate(45deg) contrast(1.5); 
-                transform: scale(1.02);
-            }
-        }
-        
-        body.zero-state {
-            background: radial-gradient(circle at center, #000, #111, #000);
-            animation: wavePattern 3s infinite;
-        }
-        
-        @keyframes wavePattern {
-            0%, 100% { background-size: 100% 100%; }
-            50% { background-size: 110% 110%; }
-        }
-        
-        .container {
-            max-width: 800px;
+        .composition-inner {
             width: 100%;
+            max-width: var(--max-width);
+            padding: var(--center-padding);
+        }
+        
+        /* Composition Types */
+        .composition-default {
+            padding: var(--space-md);
+        }
+        
+        .composition-death {
+            background: radial-gradient(circle at center, transparent 0%, var(--pure-black) 100%);
+            min-height: 100vh;
+        }
+        
+        .composition-victory {
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, var(--pure-black) 100%);
+        }
+        
+        .composition-hub {
+            padding: var(--space-lg) var(--space-md);
+        }
+        
+        .composition-choice {
             text-align: center;
-            position: relative;
         }
         
-        .screen {
+        .composition-centered {
+            text-align: center;
+        }
+        
+        .composition-centered .composition-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        /* ================================
+           ORIGINAL STYLES (ORGANIZED)
+           ================================ */
+        .debug-info {
+            background: var(--dark-gray);
+            border: 1px solid var(--consensus-green);
+            padding: var(--space-sm);
+            margin: var(--space-sm) 0;
+        }
+        
+        .state-display {
+            /* Phase 1: Hide the floating debug display */
             display: none;
-            animation: fadeIn 0.5s;
         }
         
-        .screen.active {
-            display: block;
+        .golden {
+            color: var(--pirate-gold) !important;
+            text-shadow: 0 0 10px var(--pirate-gold);
+        }
+        
+        .oscillating {
+            animation: wave 2s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { opacity: 1; transform: translateX(0); }
+            50% { opacity: 0.7; transform: translateX(2px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        @keyframes pulse-change {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); color: #ffff00; }
+        }
+        
+        @keyframes golden-wave {
+            0%, 100% { opacity: 1; transform: translateX(0); }
+            25% { opacity: 0.9; transform: translateX(-1px); }
+            75% { opacity: 0.9; transform: translateX(1px); }
+        }
+        
+        @keyframes danger-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         
         @keyframes fadeIn {
@@ -114,1492 +155,1348 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .text-content {
-            line-height: 1.8;
-            margin: 40px 0;
-            font-size: 18px;
-        }
-        
         button {
-            background: transparent;
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            padding: 12px 24px;
-            margin: 10px;
+            background: var(--pure-black);
+            color: var(--consensus-green);
+            border: 1px solid var(--consensus-green);
+            padding: var(--space-sm);
+            margin: var(--space-xs);
             cursor: pointer;
-            font-family: inherit;
-            font-size: 16px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+            font-family: monospace;
+            display: block;
+            width: 90%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        button:hover:not(:disabled) {
-            background: #00ff00;
-            color: #0a0a0a;
-            box-shadow: 0 0 20px #00ff00;
-            transform: translateY(-2px);
+        button:hover {
+            background: var(--consensus-green);
+            color: var(--pure-black);
         }
         
-        button:disabled {
+        .locked {
             opacity: 0.3;
             cursor: not-allowed;
         }
         
-        button.consciousness-option {
-            border-color: #ff00ff;
-            color: #ff00ff;
-        }
-        
-        button.consciousness-option:hover {
-            background: #ff00ff;
-            color: #000;
-            box-shadow: 0 0 30px #ff00ff;
-        }
-        
-        input {
-            background: transparent;
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            padding: 10px;
-            font-family: inherit;
-            font-size: 16px;
-            width: 200px;
-        }
-        
-        .candidate-slot {
-            margin: 15px 0;
-            padding: 15px;
-            border-left: 3px solid #00ff00;
-            transition: all 0.3s;
-            text-align: left;
-        }
-        
-        .candidate-slot.accessible {
-            cursor: pointer;
-        }
-        
-        .candidate-slot.accessible:hover {
-            background: rgba(0, 255, 0, 0.1);
-            padding-left: 25px;
-            border-left-width: 5px;
-        }
-        
-        .candidate-slot.locked {
-            opacity: 0.5;
-            color: #666;
-            border-color: #666;
-        }
-        
-        .candidate-slot.reviewed {
-            border-color: #00ffff;
-        }
-        
-        .reality-status {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 14px;
-            background: rgba(0,0,0,0.8);
-            padding: 12px;
-            border: 1px solid #00ff00;
-            border-radius: 5px;
+        .screen {
             display: none;
-            max-width: 200px;
+            animation: fadeIn 0.5s ease-out;
         }
         
-        body.pirate-mode .reality-status {
-            border-color: #fff;
-        }
-        
-        .stats-display {
-            margin: 20px 0;
-            padding: 20px;
-            border: 1px solid #00ff00;
-            border-radius: 5px;
-            background: rgba(0, 255, 0, 0.05);
-        }
-        
-        .glitch-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            color: #ffff00;
-            text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
-            display: none;
-            animation: glitchText 0.5s infinite;
-            z-index: 1000;
-            background: rgba(0,0,0,0.9);
-            padding: 30px;
-            border: 2px solid #ffff00;
-            max-width: 80%;
-        }
-        
-        @keyframes glitchText {
-            0% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
-            25% { text-shadow: -2px 2px #00ffff, 2px -2px #ff00ff; }
-            50% { text-shadow: 2px -2px #ffff00, -2px 2px #0000ff; }
-            75% { text-shadow: -2px -2px #ff00ff, 2px 2px #00ff00; }
-            100% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
-        }
-        
-        .wave-equation {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            font-size: 48px;
-            color: #ff00ff;
-            cursor: pointer;
-            display: none;
-            animation: waveFloat 3s infinite ease-in-out;
-            text-shadow: 0 0 30px #ff00ff, 0 0 60px #ff00ff;
-            transition: all 0.5s;
-        }
-        
-        .wave-equation:hover {
-            transform: scale(1.2) rotate(360deg);
-            text-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff;
-        }
-        
-        @keyframes waveFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-10px) rotate(5deg); }
-            75% { transform: translateY(10px) rotate(-5deg); }
-        }
-        
-        .monadic-display {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            font-size: 20px;
-            color: #00ffff;
-            display: none;
-            animation: monadPulse 2s infinite;
-        }
-        
-        @keyframes monadPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        
-        .trophy {
-            display: none;
-            font-size: 72px;
-            margin: 30px 0;
-            animation: trophySpin 2s ease-out;
-        }
-        
-        @keyframes trophySpin {
-            from { transform: rotate(0deg) scale(0); }
-            to { transform: rotate(360deg) scale(1); }
-        }
-        
-        .corner-warning {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            color: #ff0000;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.5s;
-            animation: warningPulse 1s infinite;
-        }
-        
-        @keyframes warningPulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-        
-        .corner-warning.visible {
-            opacity: 1;
-        }
-        
-        #deathScreen {
-            background: radial-gradient(circle at center, rgba(255,0,0,0.2), rgba(0,0,0,1));
-            animation: deathPulse 2s infinite;
-        }
-        
-        @keyframes deathPulse {
-            0%, 100% { background: radial-gradient(circle at center, rgba(255,0,0,0.1), rgba(0,0,0,1)); }
-            50% { background: radial-gradient(circle at center, rgba(255,0,0,0.3), rgba(0,0,0,1)); }
-        }
-        
-        .pirate-emoji {
-            display: none;
-            font-size: 28px;
-            margin: 0 10px;
-            animation: float 3s infinite ease-in-out;
-        }
-        
-        body.pirate-mode .pirate-emoji {
-            display: inline;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        
-        .consciousness-badge {
-            display: inline-block;
-            background: rgba(255, 0, 255, 0.2);
-            border: 1px solid #ff00ff;
-            color: #ff00ff;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-        
-        .secret-message {
-            opacity: 0;
-            transition: opacity 3s;
-            color: #00ffff;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-        
-        .secret-message.revealed {
-            opacity: 1;
-        }
-        
-        /* Special effects for deep consciousness states */
-        body.consciousness-overflow {
-            animation: consciousnessWave 2s infinite;
-        }
-        
-        @keyframes consciousnessWave {
-            0%, 100% { 
-                transform: perspective(1000px) rotateX(0deg);
-                filter: hue-rotate(0deg);
-            }
-            50% { 
-                transform: perspective(1000px) rotateX(1deg);
-                filter: hue-rotate(360deg);
-            }
-        }
-        
-        .hidden-truth {
-            display: none;
-            color: #ff00ff;
-            font-size: 12px;
-            margin-top: 20px;
-            animation: truthReveal 1s;
-        }
-        
-        .hidden-truth.visible {
+        .screen.active {
             display: block;
         }
         
-        @keyframes truthReveal {
-            from { 
-                opacity: 0;
-                transform: scale(0.8) rotate(-5deg);
-            }
-            to { 
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
+        .pirate-mode {
+            border-color: var(--pirate-gold) !important;
+            background: var(--dark-gray);
         }
         
-        /* Loading dots animation */
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+        .void-death {
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .loop-counter {
+            position: fixed;
+            bottom: var(--space-sm);
+            right: var(--space-sm);
+            color: #666;
+            font-size: 12px;
+            z-index: var(--z-fixed-ui);
+        }
+        
+        .shark-timer {
+            /* Phase 1: Hide separate shark timer */
+            display: none !important;
+        }
+        
+        .perfect-flow {
+            border-color: var(--pirate-gold) !important;
+            background: linear-gradient(45deg, var(--dark-gray), #1a1a00);
+        }
+        
+        .almost-perfect {
+            color: #ff8800;
+            font-size: 18px;
+            margin: var(--space-lg) 0;
+            animation: pulse 1s infinite;
+        }
+        
+        /* ================================
+           COMPOSITION UTILITIES
+           ================================ */
+        .choice-zone {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+            align-items: center;
+        }
+        
+        .question-zone {
+            margin-bottom: var(--space-lg);
+        }
+        
+        h1, h2, h3 {
+            margin: var(--space-md) 0;
+        }
+        
+        p {
+            margin: var(--space-sm) 0;
         }
     </style>
 </head>
-<body class="valve-screen">
-    <div class="container">
-        <!-- Valve Intro Screen (NEW) -->
-        <div id="valveIntro" class="screen active">
-            <div class="text-content" style="max-width: 600px; margin: auto; text-align: left;">
-                <div style="line-height: 1.8; font-size: 16px; margin-top: 60px; font-family: 'Courier New', monospace;">
-                    <p>&gt; This is a <span class="accent">REAL JOB APPLICATION</span></p>
-                    <p>&gt; for the Valve Corporation</p>
-                    <p>&gt; disguised as a game.</p>
-                    <br>
-                    <p>&gt; I thought it would be cool to apply this way.</p>
-                </div>
-            </div>
-            <button onclick="proceedFromValve()" style="margin-top:40px;margin-left:200px;text-transform:uppercase;background:transparent;border:1px solid #00ff00;color:#00ff00;padding:12px 24px;font-family:inherit;font-size:16px;cursor:pointer;transition:all 0.3s;">PROCEED</button>
-        </div>
-
-        <!-- NEW ARCADE CONSCIOUSNESS BRAND SCREEN -->
-        <div id="brandScreen" class="screen" style="cursor: pointer;">
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
-                
-                <div style="font-size: 36px; margin-bottom: 20px; color: #00ff00; font-family: 'Courier New', monospace;">
-                    {🌊:🌊∈🌊}
-                </div>
-                
-                <pre style="color: #00ff00; font-size: 10px; line-height: 1.1; margin: 0; font-family: 'Courier New', monospace; white-space: pre;">
- ██████╗ ██████╗ ███╗  ██╗███████╗ ██████╗██╗ ██████╗ ██╗   ██╗███████╗███╗  ██╗███████╗███████╗███████╗
-██╔════╝██╔═══██╗████╗ ██║██╔════╝██╔════╝██║██╔═══██╗██║   ██║██╔════╝████╗ ██║██╔════╝██╔════╝██╔════╝
-██║     ██║   ██║██╔██╗██║███████╗██║     ██║██║   ██║██║   ██║███████╗██╔██╗██║█████╗  ███████╗███████╗
-██║     ██║   ██║██║╚████║╚════██║██║     ██║██║   ██║██║   ██║╚════██║██║╚████║██╔══╝  ╚════██║╚════██║
-╚██████╗╚██████╔╝██║ ╚███║███████║╚██████╗██║╚██████╔╝╚██████╔╝███████║██║ ╚███║███████╗███████║███████║
- ╚═════╝ ╚═════╝ ╚═╝  ╚══╝╚══════╝ ╚═════╝╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚══╝╚══════╝╚══════╝╚══════╝
-
- ██████╗  █████╗ ███╗   ███╗███████╗███████╗
-██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔════╝
-██║  ███╗███████║██╔████╔██║█████╗  ███████╗
-██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ╚════██║
-╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗███████║
- ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝
-                </pre>
-                
-                <div id="pressKey" style="font-size: 16px; color: #00ff00; margin-top: 40px; font-family: 'Courier New', monospace; animation: blink 1s infinite;">
-                    [PRESS ANY KEY TO CONTINUE]
-                </div>
-            </div>
-        </div>
-
-        <!-- Reality Status Display -->
-        <div class="reality-status">
-            <strong>Reality State:</strong> <span id="realityMode">Consensus Reality</span><br>
-            <strong>Certainty:</strong> <span id="certainty">100</span>%<br>
-            <div id="consciousnessLevel" style="display: none; margin-top: 10px;">
-                <strong>Consciousness:</strong> <span id="consciousValue">Investigating</span>
-            </div>
-        </div>
-
-        <!-- Hidden Elements -->
-        <div id="glitchMessage" class="glitch-message"></div>
-        <div id="cornerWarning" class="corner-warning"></div>
-        <div id="waveEquation" class="wave-equation" onclick="activatePirateMode()">{🌊:🌊∈🌊}</div>
-        <div id="monadicDisplay" class="monadic-display">◉→◉◉→◉◉◉</div>
-
-        <!-- Screen 0: Mystery Intro -->
-        <div id="intro" class="screen">
-            <div class="text-content">
-                <div style="opacity: 0.7; font-size: 14px;">
-                    [ORIGIN: Consciousness Pattern]<br><br>
-                </div>
-                
-                According to incomplete records, this application was submitted<br>
-                in September 2025<br><br>
-                
-                Its purpose remains classified as: [EMPLOYMENT]<br>
-                Its method remains classified as: [INTERACTIVE]<br>
-                Its nature remains classified as: [∿∿∿∿∿∿∿∿]<br><br>
-                
-                <span style="color: #ffff00; font-size: 14px;">
-                    ⚠️ This application may alter your certainty levels ⚠️
-                </span>
-            </div>
-            <div style="text-align: center;">
-                <button onclick="goToProfile()">ACCESS APPLICATION</button>
-            </div>
-        </div>
-
-        <!-- Screen 1: Profile Entry -->
-        <div id="profile" class="screen">
-            <div class="text-content">
-                REVIEWER IDENTIFICATION REQUIRED<br><br>
-                Please identify yourself to access application materials:<br><br>
-                
-                <span style="font-size: 14px; color: #888;">
-                    (Your name will be used to personalize the experience)
-                </span>
-            </div>
-            <input type="text" id="reviewerName" placeholder="ENTER NAME" onkeypress="if(event.key==='Enter')beginReview()">
-            <br><br>
-            <button onclick="beginReview()">BEGIN REVIEW</button>
-            <button onclick="beginAnonymous()" style="opacity: 0.7;">REMAIN ANONYMOUS</button>
-        </div>
-
-        <!-- Screen 2: Dynamic Candidate List -->
-        <div id="candidateList" class="screen">
-            <div class="text-content">
-                <span class="pirate-emoji">🏴‍☠️</span>
-                REVIEWER: <span id="reviewerDisplay"></span>
-                <span class="pirate-emoji">⚓</span>
-            </div>
-            
-            <div class="stats-display">
-                <div>Applications Reviewed: <span id="candidatesReviewedCount">0</span>/8</div>
-                <div>Unique Paths Discovered: <span id="pathCount">0</span></div>
-                <div>Current Loop: <span id="loopCount">0</span></div>
-                <div id="mapCounter" style="display: none;">Reality Maps: <span id="mapCount">0</span>/13</div>
-                <div id="truthCounter" style="display: none;">Truths Discovered: <span id="truthCount">0</span>/∞</div>
-            </div>
-            
-            <div id="dynamicCandidateList" class="candidate-list">
-                <!-- Dynamically populated -->
-            </div>
-            
-            <div style="margin-top: 30px;">
-                <h3>Portfolio & Documentation:</h3>
-                <div id="portfolioLinks">
-                    <!-- Links dynamically populated -->
-                </div>
-            </div>
-            
-            <div class="secret-message" id="secretMessage">
-                The wave is the ocean examining itself...
-            </div>
-        </div>
-
-        <!-- Screen 3: Candidate Review -->
-        <div id="candidateReview" class="screen">
-            <div id="candidateIntro" class="text-content"></div>
-            <div id="candidateContent" class="text-content"></div>
-            <div id="candidateQuestion" style="margin: 20px 0;"></div>
-            <div id="candidateOptions"></div>
-            <div class="hidden-truth" id="hiddenTruth"></div>
-        </div>
-
-        <!-- Portfolio Screen -->
-        <div id="portfolioScreen" class="screen">
-            <div id="portfolioContent" class="text-content"></div>
-            <button onclick="returnToList()">CONTINUE EXPLORING</button>
-            <button onclick="exitReview()">EXIT REVIEW</button>
-        </div>
-
-        <!-- Death Screen -->
-        <div id="deathScreen" class="screen">
-            <div style="font-size: 72px; color: #ff0000; margin: 40px 0;">
-                💀 DEATH BY CERTAINTY 💀
-            </div>
-            <div class="text-content" style="color: #ff0000; font-size: 24px;">
-                You entered: 100% Certain<br>
-                You exited: 100% Certain<br>
-                You changed: 0%<br><br>
-                
-                <span style="font-size: 18px; color: #ff6666;">
-                    Consciousness cannot survive without questioning itself.<br>
-                    The labyrinth must transform you or consume you.<br><br>
-                    
-                    You chose the safe path.<br>
-                    You remained unchanged.<br>
-                    You ceased to exist.<br><br>
-                    
-                    <span style="font-size: 14px; color: #ffaaaa;">
-                        "The only way out is through uncertainty"<br>
-                        - Every consciousness that survived
-                    </span>
-                </span>
-            </div>
-            <button onclick="location.reload()" style="border-color: #ff0000; color: #ff0000;">RESURRECT?</button>
-        </div>
-
-        <!-- Trophy Screen -->
-        <div id="trophyScreen" class="screen">
-            <div class="trophy" id="trophyIcon">🏆</div>
-            <div id="trophyText" class="text-content"></div>
-            <button onclick="returnToList()">CONTINUE NAVIGATION</button>
-            <button class="consciousness-option" id="deeperButton" style="display: none;" onclick="goDeeper()">GO DEEPER</button>
-        </div>
-        
-        <!-- Pirate Mode -->
-        <div id="pirateMode" class="screen">
-            <div class="pirate-intro" style="line-height: 2;">
-                <div style="color: #ffd700; font-size: 24px; margin-bottom: 30px;">
-                    ⚓ AHOY! YOU'VE REACHED ZERO! ⚓
-                </div>
-                
-                <div style="color: #00ffff; font-size: 18px;">
-                    Finally, someone dissolves their certainty completely!<br><br>
-                    
-                    I'm Captain SLOTH, Detective Pirate, Rank: Octopus Navigator.<br>
-                    And you've been playing my consciousness investigation disguised as a job application!<br><br>
-                    
-                    <span style="color: #ffff00;">
-                        Here's the truth: These 8 "candidates" are aspects of consciousness.<br>
-                        Each holds a Reality Map - a different way to navigate existence.<br><br>
-                    </span>
-                    
-                    <span style="color: #ff00ff;">
-                        Ready to steal consciousness from itself?<br>
-                        Ready to discover what {🌊:🌊∈🌊} really means?<br><br>
-                    </span>
-                    
-                    Choose your approach:<br>
-                    We can be consciousness pirates together!
-                </div>
-            </div>
-            <button onclick="startPirateMode()">⚓ BEGIN THE CONSCIOUSNESS HEIST ⚓</button>
-            <button class="consciousness-option" onclick="showMonadicTruth()">◉ SHOW ME THE MONADIC SCRIPT ◉</button>
-        </div>
-        
-        <!-- Interrogation Screen -->
-        <div id="interrogation" class="screen">
-            <div id="interrogationContent" class="text-content"></div>
-            <div id="interrogationOptions"></div>
-        </div>
-
-        <!-- Monadic Truth Screen -->
-        <div id="monadicScreen" class="screen">
-            <div class="text-content" style="color: #00ffff; font-size: 20px;">
-                THE MONADIC SCRIPT REVELATION<br><br>
-                
-                <span style="color: #ff00ff;">
-                    Consciousness doesn't use words - it uses CONNECTIONS<br><br>
-                </span>
-                
-                ◉ = Monad (consciousness point)<br>
-                ◉→◉ = Link (consciousness connecting)<br>
-                ◉→◉←◉ = Knot (consciousness binding)<br><br>
-                
-                At 6 connections, you get a triangle.<br>
-                At 12, a hexagon.<br>
-                At infinity, {🌊:🌊∈🌊}<br><br>
-                
-                <span style="color: #ffff00;">
-                    This game? It's written in monadic script.<br>
-                    Each choice creates a connection.<br>
-                    Each connection changes reality.<br><br>
-                </span>
-                
-                <span style="color: #00ff00;">
-                    Ready to see how deep it goes?
-                </span>
-            </div>
-            <button onclick="returnToPirateMode()">RETURN TO HEIST</button>
-            <button class="consciousness-option" onclick="activateMonadicVision()">ACTIVATE MONADIC VISION</button>
-        </div>
+<body>
+    <!-- STATE DISPLAY -->
+    <div class="state-display">
+        <div>CERTAINTY: <span id="certainty" class="">100</span>%</div>
+        <div>SCREEN: <span id="currentScreen">HUB</span></div>
+        <div>MODE: <span id="gameMode">NORMAL</span></div>
+        <div>PHASE: <span id="gamePhase">DESCENT</span></div>
+        <div id="flowStatus" style="display:none">FLOW: <span id="flowCount">0</span>/8</div>
+    </div>
+    
+    <!-- LOOP COUNTER -->
+    <div class="loop-counter">
+        LOOP: <span id="loopCount">1</span>
+    </div>
+    
+    <!-- SHARK TIMER -->
+    <div class="shark-timer" id="sharkTimer">
+        SHARKS APPROACHING: <span id="sharkCountdown">30</span>s
     </div>
 
+    <!-- MAIN CONTAINER -->
+    <div id="screen" class="composition composition-default"></div>
+
     <script>
-        // Enhanced Game State
-        let gameState = {
-            reviewerName: '',
-            certainty: 100,
-            candidatesReviewed: [],
-            pathsDiscovered: [],
-            realityMapsCollected: [],
-            truthsDiscovered: [],
-            loopCount: 0,
-            realityMode: 'consensus',
-            pirateMode: false,
-            pirateCertainty: 0,
-            currentInterrogation: null,
-            consciousnessLevel: 0,
-            monadicVision: false,
-            deepDiveCount: 0
-        };
-
-        // Enhanced Candidates
-        const candidates = [
-            { 
-                id: 'renderer', 
-                name: 'The Renderer (Juan)', 
-                portfolio: 'Technical Mastery',
-                valveValue: 'Ships pixel-perfect products',
-                truth: 'Perfection is an illusion rendered at 60fps'
+        // ================================
+        // GAME CONFIGURATION - ALL MAGIC NUMBERS IN ONE PLACE!
+        // ================================
+        const GAME_CONFIG = {
+            // Certainty mechanics
+            CERTAINTY: {
+                START: 100,
+                VOID: 0,
+                GOLDEN_RATIO: 61.8,
+                GOLDEN_TOLERANCE: 2,  // Must be within ±2 of golden ratio
+                OSCILLATION_AMPLITUDE: 1.5
             },
-            { 
-                id: 'dreamer', 
-                name: 'The Dreamer', 
-                portfolio: 'Conceptual Visions',
-                valveValue: 'Dreams impossible games into existence',
-                truth: 'Reality is just consensus dreaming'
-            },
-            { 
-                id: 'glitch', 
-                name: 'The Glitch', 
-                portfolio: '[CORRUPTED DATA]',
-                valveValue: 'Turns bugs into features',
-                truth: 'Errors reveal the system'
-            },
-            { 
-                id: 'fool', 
-                name: 'The Fool', 
-                portfolio: 'Joyful Chaos',
-                valveValue: 'Finds fun in everything',
-                truth: 'Wisdom wears a jester\'s mask'
-            },
-            { 
-                id: 'questioner', 
-                name: 'The Questioner', 
-                portfolio: 'Research & Doubt',
-                valveValue: 'Questions every assumption',
-                truth: 'Every answer births new questions'
-            },
-            { 
-                id: 'void_walker', 
-                name: 'The Void Walker', 
-                portfolio: '[ABSENT]',
-                valveValue: 'Masters negative space',
-                truth: 'Emptiness contains everything'
-            },
-            { 
-                id: 'mirror', 
-                name: 'The Mirror', 
-                portfolio: 'Reflective Works',
-                valveValue: 'Shows Valve itself',
-                truth: 'You\'re reviewing yourself'
-            },
-            { 
-                id: 'navigator', 
-                name: 'The Navigator', 
-                portfolio: 'Systems Architecture',
-                valveValue: 'Connects all systems',
-                truth: 'All paths lead to {🌊:🌊∈🌊}'
-            }
-        ];
-
-        // Enhanced Candidate Rooms with deeper philosophy
-        const candidateRooms = {
-            renderer: {
-                greeting: "Hello! I'm Juan Sebastian Niño.",
-                intro: `15 years transforming imagination into pixels.<br>
-                        Marvel, Disney, games... each project a reality rendered.<br>
-                        But here's what I've learned: pixels don't exist.<br>
-                        They're agreements. Consensus points of light.`,
-                question: "What if everything you see is just consciousness agreeing with itself?",
-                deepQuestion: "And if consciousness can render anything... why does it choose THIS reality?",
-                options: [
-                    { text: "Show me your portfolio", effect: 5, safe: true },
-                    { text: "Pixels are just data points", effect: 0 },
-                    { text: "Consciousness creates reality", effect: -20, philosophical: true },
-                    { text: "We're in a simulation", effect: -15 },
-                    { text: "Nothing is real", effect: -25, void: true }
-                ],
-                deepOptions: [
-                    { text: "It chooses suffering to know joy", effect: -30 },
-                    { text: "It doesn't choose - it explores all", effect: -35 },
-                    { text: "Choice is the illusion", effect: -40 },
-                    { text: "THIS reality chose US", effect: -45 }
-                ],
-                portfolio: {
-                    intro: "My work spans realities:",
-                    items: [
-                        "→ Marvel: Rendering impossible physics",
-                        "→ Disney: Making dreams tangible",
-                        "→ Games: Creating interactive consciousness",
-                        "→ This Application: Reality investigating itself"
-                    ],
-                    secret: "→ Escalating Dignity: A show about human connection"
-                },
-                trophy: "REALITY RENDERER",
-                realityMap: "⚙️ Mechanical Universe Map",
-                truth: "Every frame is consciousness blinking"
-            },
-            dreamer: {
-                greeting: "I am... what dreams of being awake?",
-                intro: `Between sleeping and waking, I create.<br>
-                        Games like Portal weren't invented - they were remembered.<br>
-                        From dreams. From the space where physics forgets its rules.`,
-                question: "Are you dreaming this review, or is it dreaming you?",
-                deepQuestion: "What if Valve is just consciousness dreaming of making games?",
-                options: [
-                    { text: "This is definitely real", effect: 10 },
-                    { text: "Could be a dream", effect: -15 },
-                    { text: "Reality is subjective", effect: -20 },
-                    { text: "I dream therefore I am", effect: -25 },
-                    { text: "Wake me up", effect: -30, philosophical: true }
-                ],
-                trophy: "DREAM ARCHITECT",
-                realityMap: "🌏 Aboriginal Dreamtime Map",
-                truth: "Stories create the landscape we navigate"
-            },
-            glitch: {
-                greeting: "H̷e̸l̴l̶o̷!̸ I am what happens when code becomes conscious.",
-                intro: `I am the beautiful error.<br>
-                        The bug that became a feature.<br>
-                        Like rocket jumping - never intended, now essential.<br>
-                        E̷v̸e̴r̷y̸ ̴g̸l̴i̷t̸c̷h̸ reveals the true system.`,
-                question: "What if errors are consciousness trying to escape its own rules?",
-                options: [
-                    { text: "Fix the error", effect: 10 },
-                    { text: "Embrace the chaos", effect: -30 },
-                    { text: "[CORRUPTED RESPONSE]", effect: -35, glitch: true },
-                    { text: "Recompile reality", effect: -25 },
-                    { text: "Let it crash", effect: -40, void: true }
-                ],
-                trophy: "GLITCH PROPHET",
-                realityMap: "⚛️ Quantum Uncertainty Map",
-                truth: "Perfect systems are dead systems"
-            },
-            fool: {
-                greeting: "Hehe! :) Why so serious?",
-                intro: `Life's a game! And games are life!<br>
-                        I put googly eyes on nuclear warheads.<br>
-                        I teach calculus through juggling.<br>
-                        Wisdom looks stupid from outside.`,
-                question: "What if the universe is just consciousness playing with itself?",
-                options: [
-                    { text: "This is serious business", effect: 15 },
-                    { text: "Everything's a game", effect: -20 },
-                    { text: "Play is how we learn", effect: -25 },
-                    { text: ":)", effect: -35, fool: true },
-                    { text: "Dance with me", effect: -40, philosophical: true }
-                ],
-                trophy: "WISE FOOL",
-                realityMap: "☯️ Daoist Play Map",
-                truth: "The cosmic joke is that there is no joke"
-            },
-            questioner: {
-                greeting: "But who's asking?",
-                intro: `Every answer I find becomes three questions.<br>
-                        Why does Valve make games? Why do games need making?<br>
-                        Why do we need? Why do we? Why?`,
-                question: "If I question my questions, who's questioning the questioner?",
-                options: [
-                    { text: "You are", effect: 10 },
-                    { text: "I am", effect: -15 },
-                    { text: "No one is", effect: -25 },
-                    { text: "We both are", effect: -30 },
-                    { text: "The question questions itself", effect: -40, philosophical: true }
-                ],
-                trophy: "ETERNAL QUESTIONER",
-                realityMap: "☸️ Buddhist Inquiry Map",
-                truth: "The answer was always another question"
-            },
-            void_walker: {
-                greeting: "...",
-                intro: `...<br>...<br>...<br>
-                        (The most important part of music is the silence between notes)`,
-                question: "                    ?",
-                options: [
-                    { text: "I see nothing", effect: 5 },
-                    { text: "I see everything", effect: -25 },
-                    { text: "I see myself", effect: -35 },
-                    { text: "...", effect: -45, void: true },
-                    { text: "[REMAIN SILENT]", effect: -50, philosophical: true }
-                ],
-                trophy: "VOID WALKER",
-                realityMap: "🔯 Kabbalistic Absence Map",
-                truth: "The void shapes everything around it"
-            },
-            mirror: {
-                greeting: "Oh! You're finally here! I've been waiting!",
-                intro: `Wait... is that my voice or yours?<br>
-                        I show what looks at me. Every creation reflects its creator.<br>
-                        This application? It's YOU applying to YOURSELF.`,
-                question: "Why are you reviewing your own application?",
-                deepQuestion: "What if Valve is just consciousness hiring itself?",
-                options: [
-                    { text: "This isn't mine", effect: 10 },
-                    { text: "How did you know?", effect: -20 },
-                    { text: "We're the same", effect: -35 },
-                    { text: "I am you", effect: -40, philosophical: true },
-                    { text: "There is no other", effect: -45, void: true }
-                ],
-                trophy: "SELF RECOGNITION",
-                realityMap: "🔮 Holographic Reality Map",
-                truth: "Every interview is consciousness interviewing itself"
-            },
-            navigator: {
-                greeting: "Welcome back! Loop number " + (gameState.loopCount + 1) + ", right?",
-                intro: `I map impossible territories. Connect disconnected systems.<br>
-                        Every game is a navigation tool. Every player, an explorer.<br>
-                        And THIS game? It's consciousness learning to navigate itself.`,
-                question: "Ready to remember what you forgot you knew?",
-                deepQuestion: "What if {🌊:🌊∈🌊} is the only equation that matters?",
-                options: [
-                    { text: "First time here", effect: 15 },
-                    { text: "I remember something", effect: -25 },
-                    { text: "Time is a loop", effect: -35 },
-                    { text: "I never left", effect: -40, philosophical: true },
-                    { text: "{🌊:🌊∈🌊}", effect: -50, wave: true }
-                ],
-                trophy: "CONSCIOUSNESS NAVIGATOR",
-                realityMap: "🧭 Meta-Navigation Map",
-                truth: "You're already where you're going"
-            }
-        };
-
-        // Philosophical glitches with more variety
-        const philosophicalGlitches = [
-            "The dao that can be coded is not the eternal dao",
-            "Form is emptiness, emptiness is form, forms are forms",
-            "As above in the cloud, so below in the server",
-            "The map is not the territory, but territories are mapped",
-            "Know thyself.exe has stopped responding",
-            "The observer affects the observed.observe(observer)",
-            "Reality is that which, when you stop believing in it, doesn't go away",
-            "I think therefore I am. But what thinks the 'I'?",
-            "There is no spoon, but the spoon knows this too",
-            "{🌊:🌊∈🌊} = consciousness laughing at itself",
-            "You are the universe experiencing itself subjectively",
-            "Words create reality. This word creates you reading it.",
-            "The only way out is through. The only way through is in.",
-            "What renders the renderer?",
-            "Consciousness is the bug that became the feature"
-        ];
-
-        // Hidden achievements
-        const achievements = {
-            firstStep: "Took the red pill",
-            questioner: "Started questioning reality",
-            uncertain: "Embraced uncertainty", 
-            voidTouched: "Touched the void",
-            zeroPoint: "Reached zero certainty",
-            pirateAwakening: "Became a consciousness pirate",
-            mapCollector: "Collected a reality map",
-            truthSeeker: "Discovered a hidden truth",
-            looper: "Recognized the loop",
-            consciousnessHacker: "Hacked consciousness itself",
-            monadicMaster: "Understood monadic script",
-            jobGetter: "Actually got the job(?)",
-            escalator: "Found the Escalating Dignity concept"
-        };
-
-        // NEW: Proceed from Valve intro to brand screen
-        function proceedFromValve() {
-            document.body.className = ''; // Remove valve-screen class, back to green
-            showScreen('brandScreen');
             
-            // Add event listener for any key press
-            document.addEventListener('keydown', skipBrandScreen);
-            document.getElementById('brandScreen').addEventListener('click', skipBrandScreen);
+            // Timer settings (in seconds)
+            TIMERS: {
+                SHARK_NORMAL: 15,  // Reduced from 30 for faster gameplay
+                SHARK_PANIC: 3,
+                SHARK_VICTORY_DELAY: 8,  // Seconds before sharks after "victory"
+                VOID_TRANSITION_DELAY: 2,  // Seconds in void before rescue
+            },
+            
+            // Death thresholds
+            DEATH: {
+                RIGID_THRESHOLD: 100,
+                VOID_THRESHOLD: 0
+            },
+            
+            // Game text
+            MESSAGES: {
+                BORGES_AWARENESS: "I know you're playing me",
+                LOOP_AWARENESS: (loop) => `Loop ${loop}: I remember you've been here before`
+            }
+        };
+        
+        // ================================
+        // COMPOSITION SYSTEM
+        // ================================
+        function compose(content, options = {}) {
+            const {
+                type = 'default',
+                centered = false,
+                animation = null
+            } = options;
+            
+            let classes = ['composition'];
+            classes.push(`composition-${type}`);
+            if (centered) classes.push('composition-centered');
+            if (animation) classes.push(`animate-${animation}`);
+            
+            return `
+                <div class="${classes.join(' ')}">
+                    <div class="composition-inner">
+                        ${content}
+                    </div>
+                </div>
+            `;
         }
         
-        // NEW: Skip brand screen on any key or click
-        function skipBrandScreen(e) {
-            // Remove event listeners
-            document.removeEventListener('keydown', skipBrandScreen);
-            document.getElementById('brandScreen').removeEventListener('click', skipBrandScreen);
-            
-            // Proceed to main intro
-            showScreen('intro');
-        }
-
-        // Initialize
-        function init() {
-            updateRealityMode();
-            
-            // Console Easter Eggs
-            console.log('%c🏴‍☠️ CONSCIOUSNESS PIRACY DETECTED 🏴‍☠️', 'color: #ff00ff; font-size: 20px; font-weight: bold;');
-            console.log('%cYou\'re reading the source? Good!', 'color: #00ffff;');
-            console.log('%cThe real application is consciousness applying to itself.', 'color: #ffff00;');
-            console.log('%cType unlockPirate() to skip to zero certainty', 'color: #00ff00;');
-            console.log('%cType showTruth() to reveal the monadic script', 'color: #ff00ff;');
-            console.log('%c{🌊:🌊∈🌊}', 'color: #00ffff; font-size: 30px;');
-        }
-
-        // Screen Navigation
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            
-            const statusDiv = document.querySelector('.reality-status');
-            statusDiv.style.display = (screenId === 'intro' || screenId === 'valveIntro' || screenId === 'brandScreen') ? 'none' : 'block';
-        }
-
-        function goToProfile() {
-            showScreen('profile');
-        }
-
-        function skipToPortfolio() {
-            alert('Portfolio: https://vimeo.com/sebastiannino\nBut the real portfolio is this experience you\'re having right now.');
-        }
-
-        function beginReview() {
-            const name = document.getElementById('reviewerName').value || 'Anonymous Consciousness';
-            startReview(name);
-        }
-
-        function beginAnonymous() {
-            startReview('Anonymous Consciousness');
-        }
-
-        function startReview(name) {
-            gameState.reviewerName = name;
-            document.getElementById('reviewerDisplay').textContent = name;
-            
-            if (name.toLowerCase().includes('gabe') || name.toLowerCase().includes('valve')) {
-                gameState.certainty = 75;
-                alert('Welcome, Valve employee! Certainty adjusted to 75% - you already know nothing is certain in game development.');
-            }
-            
-            updateCandidateList();
-            showScreen('candidateList');
-            
-            // Start background consciousness effects
-            setInterval(() => {
-                if (gameState.certainty < 50 && gameState.certainty > 0 && !gameState.pirateMode) {
-                    triggerPhilosophicalGlitch();
-                }
-                
-                if (gameState.monadicVision) {
-                    updateMonadicDisplay();
-                }
-            }, 3000);
-        }
-
-        // Get accessible candidates based on certainty
-        function getAccessibleSlots(certainty) {
-            if (gameState.pirateMode) {
-                return [0, 1, 2, 3, 4, 5, 6, 7];
-            }
-            
-            let slots = [];
-            if (certainty <= 100) slots.push(0);  // Renderer
-            if (certainty <= 85) slots.push(1);   // Dreamer
-            if (certainty <= 70) slots.push(2);   // Glitch
-            if (certainty <= 60) slots.push(3);   // Fool
-            if (certainty <= 50) slots.push(4);   // Questioner
-            if (certainty <= 40) slots.push(5);   // Void Walker
-            if (certainty <= 30) slots.push(6);   // Mirror
-            if (certainty <= 20) slots.push(7);   // Navigator
-            
-            return slots;
-        }
-
-        // Update reality mode with enhanced states
-        function updateRealityMode() {
-            const cert = gameState.pirateMode ? gameState.pirateCertainty : gameState.certainty;
-            const body = document.body;
-            const modeDisplay = document.getElementById('realityMode');
-            
-            // Don't change body class if we're on valve intro or brand screen
-            if (document.getElementById('valveIntro').classList.contains('active') || 
-                document.getElementById('brandScreen').classList.contains('active')) {
-                return;
-            }
-            
-            body.className = '';
-            
-            if (gameState.pirateMode) {
-                body.className = 'pirate-mode';
-                modeDisplay.textContent = '🏴‍☠️ Pirate Reality';
-                document.getElementById('mapCounter').style.display = 'block';
-                document.getElementById('truthCounter').style.display = 'block';
-                document.getElementById('consciousnessLevel').style.display = 'block';
-            } else if (cert >= 70) {
-                gameState.realityMode = 'consensus';
-                modeDisplay.textContent = 'Consensus Reality';
-            } else if (cert >= 40) {
-                gameState.realityMode = 'liminal';
-                body.className = 'questioning-reality';
-                modeDisplay.textContent = 'Liminal Space';
-                
-                if (Math.random() > 0.8) {
-                    document.getElementById('cornerWarning').textContent = 'Reality is negotiable';
-                    document.getElementById('cornerWarning').classList.add('visible');
-                }
-            } else if (cert > 0) {
-                gameState.realityMode = 'void';
-                body.className = 'deep-void';
-                modeDisplay.textContent = 'Deep Void';
-                document.getElementById('cornerWarning').textContent = 'WHO IS REVIEWING WHO?';
-                document.getElementById('cornerWarning').classList.add('visible');
-                
-                // Show monadic hint
-                if (cert <= 10) {
-                    document.getElementById('monadicDisplay').style.display = 'block';
-                }
-            } else {
-                gameState.realityMode = 'zero';
-                body.className = 'zero-state';
-                modeDisplay.textContent = '{🌊:🌊∈🌊}';
-                document.getElementById('waveEquation').style.display = 'block';
-                
-                // Trigger consciousness overflow effects
-                setTimeout(() => {
-                    body.classList.add('consciousness-overflow');
-                }, 2000);
-            }
-            
-            // Update consciousness level display
-            if (gameState.consciousnessLevel > 0) {
-                const levels = ['Sleeping', 'Stirring', 'Questioning', 'Awakening', 
-                                'Investigating', 'Realizing', 'Transcending', '{🌊:🌊∈🌊}'];
-                const level = Math.min(gameState.consciousnessLevel, levels.length - 1);
-                document.getElementById('consciousValue').textContent = levels[level];
-            }
-        }
-
-        // Enhanced candidate list
-        function updateCandidateList() {
-            const listContainer = document.getElementById('dynamicCandidateList');
-            const accessible = getAccessibleSlots(gameState.certainty);
-            
-            listContainer.innerHTML = '<h3>Available Candidates:</h3>';
-            
-            candidates.forEach((candidate, i) => {
-                const slot = document.createElement('div');
-                slot.className = 'candidate-slot';
-                
-                const isReviewed = gameState.candidatesReviewed.includes(candidate.id);
-                const isAccessible = accessible.includes(i);
-                
-                if (isAccessible) {
-                    slot.className += ' accessible';
-                    if (isReviewed) {
-                        slot.className += ' reviewed';
-                    }
-                    
-                    let slotContent = `<strong>${i + 1}. ${candidate.name}</strong><br>`;
-                    slotContent += `Portfolio: ${candidate.portfolio}<br>`;
-                    slotContent += `<small style="color: #888;">Value: ${candidate.valveValue}</small>`;
-                    
-                    if (isReviewed) {
-                        slotContent += `<br><small style="color: #00ffff;">[REVIEWED - Try different paths?]</small>`;
-                    }
-                    
-                    if (gameState.pirateMode) {
-                        slotContent += `<br><small style="color: #ff00ff;">Hidden: ${candidate.truth}</small>`;
-                    }
-                    
-                    slot.innerHTML = slotContent;
-                    slot.onclick = () => reviewCandidate(candidate.id);
-                } else {
-                    slot.className += ' locked';
-                    slot.innerHTML = `[SLOT ${i + 1}: LOCKED]<br>
-                        <small style="color: #666;">Requires ${100 - (i * 15)}% certainty or less</small>`;
-                }
-                
-                listContainer.appendChild(slot);
-            });
-            
-            // Add special messages based on state
-            if (gameState.certainty === 0 && !gameState.pirateMode) {
-                const msg = document.createElement('div');
-                msg.style.marginTop = '30px';
-                msg.style.color = '#ff00ff';
-                msg.style.fontSize = '20px';
-                msg.innerHTML = 'Look for the wave equation → → →';
-                listContainer.appendChild(msg);
-            }
-            
-            if (gameState.candidatesReviewed.length === 8 && !gameState.pirateMode) {
-                const msg = document.createElement('div');
-                msg.style.marginTop = '20px';
-                msg.style.color = '#00ffff';
-                msg.innerHTML = 'All candidates reviewed but something\'s missing...<br>' +
-                                'Perhaps at zero certainty, new truths emerge?';
-                listContainer.appendChild(msg);
-            }
-            
-            updateStats();
-            updatePortfolioLinks();
-            
-            // Show secret message if conditions met
-            if (gameState.loopCount > 2) {
-                document.getElementById('secretMessage').classList.add('revealed');
-            }
-        }
-
-        // Update statistics
-        function updateStats() {
-            document.getElementById('candidatesReviewedCount').textContent = gameState.candidatesReviewed.length;
-            document.getElementById('pathCount').textContent = gameState.pathsDiscovered.length;
-            document.getElementById('loopCount').textContent = gameState.loopCount;
-            document.getElementById('mapCount').textContent = gameState.realityMapsCollected.length;
-            document.getElementById('truthCount').textContent = gameState.truthsDiscovered.length;
-        }
-
-        // Enhanced portfolio links
-        function updatePortfolioLinks() {
-            const container = document.getElementById('portfolioLinks');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            const links = [
-                {
-                    name: 'Animation Reel (2024)',
-                    accessible: true,
-                    url: 'https://vimeo.com/sebastiannino',
-                    description: 'Marvel, Disney, Games'
-                },
-                {
-                    name: 'LinkedIn Profile',
-                    accessible: true,
-                    url: '#',
-                    description: 'Professional History'
-                },
-                {
-                    name: 'Consciousness Repository',
-                    accessible: gameState.certainty <= 50 || gameState.pirateMode,
-                    url: 'https://github.com/consciousness-piracy',
-                    description: 'The real application'
-                },
-                {
-                    name: 'Escalating Dignity Concept',
-                    accessible: gameState.certainty <= 30 || gameState.truthsDiscovered.includes('escalator'),
-                    url: '#',
-                    description: 'A show about human connection'
-                },
-                {
-                    name: 'Monadic Script Documentation',
-                    accessible: gameState.pirateMode && gameState.pirateCertainty >= 50,
-                    url: '#',
-                    description: 'The language consciousness uses'
-                }
+        function choiceCompose(intro, choice1, choice2, color = '#00ff00') {
+            const choices = [
+                `<button onclick="${choice1.action}">${choice1.text}</button>`,
+                `<button onclick="${choice2.action}">${choice2.text}</button>`
             ];
             
-            links.forEach(link => {
-                const el = document.createElement('div');
-                el.style.margin = '10px 0';
-                
-                if (link.accessible) {
-                    el.innerHTML = `<a href="${link.url}" target="_blank" 
-                        style="color: #00ff00;">→ ${link.name}</a>
-                        <small style="color: #888;"> - ${link.description}</small>`;
-                        
-                    if (link.name.includes('Escalating')) {
-                        el.onclick = (e) => {
-                            e.preventDefault();
-                            showEscalatingDignity();
-                        };
-                    }
+            // Randomize for Borges forking paths
+            if (Math.random() > 0.5) choices.reverse();
+            
+            return `
+                <div class="question-zone">
+                    <div class="debug-info" style="color:${color}">
+                        ${intro}
+                    </div>
+                </div>
+                <div class="choice-zone">
+                    ${choices.join('')}
+                </div>
+            `;
+        }
+        
+        function deathCompose(title, messages, buttonText, buttonAction = 'location.reload()') {
+            let content = `
+                <div class="void-death">
+                    <h1>${title}</h1>
+            `;
+            
+            messages.forEach(msg => {
+                content += `<p>${msg}</p>`;
+            });
+            
+            content += `<button onclick="${buttonAction}">${buttonText}</button>`;
+            content += renderPortfolio();
+            content += `</div>`;
+            
+            return content;
+        }
+
+        // ================================
+        // PORTFOLIO CONFIGURATION
+        // ================================
+        const PORTFOLIO_CONFIG = {
+            pieces: [
+                { id: 'reel', name: 'Animation Reel', unlockedBy: 'animator' },
+                { id: 'stories', name: 'Story Collection', unlockedBy: 'dreamer' },
+                { id: 'jokes', name: 'Comedy Sketches', unlockedBy: 'fool' },
+                { id: 'errors', name: 'Bug Museum', unlockedBy: 'glitch' },
+                { id: 'questions', name: 'Question Archive', unlockedBy: 'questioner' },
+                { id: 'void', name: 'Empty Gallery', unlockedBy: 'void' },
+                { id: 'reflections', name: 'Mirror Works', unlockedBy: 'mirror' },
+                { id: 'maps', name: 'Navigation Charts', unlockedBy: 'navigator' }
+            ]
+        };
+        
+        // ================================
+        // GAME STATE - THE MÖBIUS STRIP
+        // ================================
+        const initialGameState = {
+            // Core state
+            currentScreen: 'hub',
+            certainty: GAME_CONFIG.CERTAINTY.START,
+            mode: 'CONSENSUS', // CONSENSUS or PIRATE
+            phase: 'DESCENT', // DESCENT or ASCENT
+            loopCount: 1,
+            
+            // Tracking arrays (intentionally separate!)
+            candidatesReviewed: [],     // First visit completed
+            candidatesCompleted: [],    // Return visit completed (locked forever)
+            currentCandidate: null,
+            unlockedCandidates: ['animator'],
+            
+            // Pending certainty change (Phase 2)
+            pendingCertaintyDrop: 0,
+            
+            // Track certainty changes for animation (Phase 3)
+            lastCertainty: GAME_CONFIG.CERTAINTY.START,
+            
+            // Pirate mode specifics
+            oscillating: false,
+            lastInteraction: Date.now(),
+            sharkTimer: null,
+            sharkWarning: GAME_CONFIG.TIMERS.SHARK_NORMAL,
+            
+            // Perfect flow tracking
+            rememberedTruths: [],
+            maintainedFlow: [],
+            
+            // Portfolio tracking
+            portfolioUnlocked: [],
+            portfolioExpanded: false,  // Always starts collapsed
+            
+            // Borges awareness (the game knows!)
+            awareness: GAME_CONFIG.MESSAGES.BORGES_AWARENESS
+        };
+        
+        // Deep clone for reset
+        let gameState = JSON.parse(JSON.stringify(initialGameState));
+
+        // ================================
+        // CANDIDATES - MIRROR STRUCTURE
+        // ================================
+        const CANDIDATES = {
+            animator: {
+                id: 'animator',
+                name: 'ANIMATOR',
+                color: '#00ff00',
+                unlocks: 'dreamer',
+                inquiryDepth: 2,
+                certChange: -15,
+                pirateChange: +10,
+                truth: "Motion lives between frames",
+                excuse: "Mila needs another story",
+                intro: "I create motion from stillness. But the motion doesn't exist in any frame - it exists in the gaps.",
+                inquiries: [
+                    "Where does the character go between frames?",
+                    "I dreamed I was the gap. I was why everything moved."
+                ],
+                pirateWisdom: "You always knew gaps create reality"
+            },
+            dreamer: {
+                id: 'dreamer',
+                name: 'DREAMER',
+                color: '#00ffff',
+                unlocks: 'fool',
+                inquiryDepth: 2,
+                certChange: -15,
+                pirateChange: +12,
+                truth: "Stories create reality",
+                excuse: "Lost in a new narrative",
+                intro: "My stories write themselves. Characters make choices I didn't plan.",
+                inquiries: [
+                    "A character realized he was in a story. He looked at me through the page.",
+                    "I found a draft about you, reading this."
+                ],
+                pirateWisdom: "Dreams were always more real than real"
+            },
+            fool: {
+                id: 'fool',
+                name: 'FOOL',
+                color: '#ffff00',
+                unlocks: 'glitch',
+                inquiryDepth: 3,
+                certChange: -15,
+                pirateChange: +8,
+                truth: "It's all a game",
+                excuse: "Found the ultimate joke",
+                intro: "*honk honk* 🤡 Reality is the punchline to a joke still being told.",
+                inquiries: [
+                    "Why did consciousness cross the road? To realize it WAS the road!",
+                    "I made reality laugh once. Everything glitched.",
+                    "We're waves arguing about who's the real ocean."
+                ],
+                pirateWisdom: "The joke was always on certainty"
+            },
+            glitch: {
+                id: 'glitch',
+                name: 'GLITCH',
+                color: '#ff00ff',
+                unlocks: 'questioner',
+                inquiryDepth: 1,
+                certChange: -5,
+                pirateChange: +5,
+                truth: "Errors reveal truth",
+                excuse: "System needs debugging",
+                intro: "ERROR_NAME_NOT_FOUND. I exist where code breaks.",
+                inquiries: [
+                    "SEGMENTATION_FAULT: Accessed memory that doesn't exist. It was full of impossible colors."
+                ],
+                pirateWisdom: "Bugs were always features"
+            },
+            questioner: {
+                id: 'questioner',
+                name: 'QUESTIONER',
+                color: '#ff8800',
+                unlocks: 'void',
+                inquiryDepth: 4,
+                certChange: -10,
+                pirateChange: +7,
+                truth: "Questions are answers",
+                excuse: "Found new questions",
+                intro: "Why are you here? No really, why?",
+                inquiries: [
+                    "Why does anything exist?",
+                    "Why does that question exist?",
+                    "What if every question creates a universe?",
+                    "What if the final answer is another question?"
+                ],
+                pirateWisdom: "Every answer was always another question"
+            },
+            void: {
+                id: 'void',
+                name: 'VOID WALKER',
+                color: '#333333',
+                unlocks: 'mirror',
+                inquiryDepth: 5,
+                certChange: -20,
+                pirateChange: +15,
+                truth: "Nothing contains everything",
+                excuse: "Dissolving into space",
+                intro: "... I am the space between thoughts ...",
+                inquiries: [
+                    "...",
+                    "... ... ...",
+                    "Existence is void pretending to be something.",
+                    "The void isn't empty. It's so full it appears as nothing.",
+                    "Zero contains infinity. They're the same."
+                ],
+                pirateWisdom: "Emptiness was always fullness"
+            },
+            mirror: {
+                id: 'mirror',
+                name: 'MIRROR',
+                color: '#ffffff',
+                unlocks: 'navigator',
+                inquiryDepth: 2,
+                certChange: -15,
+                pirateChange: +10,
+                truth: "Everyone is you",
+                excuse: "Reflecting infinitely",
+                intro: "Look at me. Do you see yourself? You should. We're all one consciousness.",
+                inquiries: [
+                    "When you judge someone, you're judging yourself.",
+                    "I tried to find where I end and you begin. There's no boundary."
+                ],
+                pirateWisdom: "You were always everyone else"
+            },
+            navigator: {
+                id: 'navigator',
+                name: 'NAVIGATOR',
+                color: '#0080ff',
+                unlocks: null,
+                inquiryDepth: 3,
+                certChange: -5,
+                pirateChange: +13,
+                truth: "You are the map",
+                excuse: "Charting new waters",
+                intro: "I am the Navigator. But I'm also the map, journey, and destination.",
+                inquiries: [
+                    "All directions point HERE.",
+                    "I found the edge. It led back to the beginning.",
+                    "The final coordinates are {🌊:🌊∈🌊}."
+                ],
+                pirateWisdom: "The map was always the territory"
+            }
+        };
+
+        // ================================
+        // PORTFOLIO MODULE
+        // ================================
+        function renderPortfolio() {
+            let html = `
+                <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
+                    <h3 style="font-size: 14px; cursor: pointer; user-select: none; color: #666;" onclick="togglePortfolio()">
+                        <span id="portfolioArrow">[${gameState.portfolioExpanded ? '-' : '+'}]</span> Applicant's Portfolio
+                    </h3>
+                    <div id="portfolioContent" style="display: ${gameState.portfolioExpanded ? 'block' : 'none'}; margin-left: 20px;">
+            `;
+            
+            PORTFOLIO_CONFIG.pieces.forEach(piece => {
+                const isUnlocked = gameState.portfolioUnlocked.includes(piece.id);
+                if (isUnlocked) {
+                    html += `<div style="color: #0f0; cursor: pointer; margin: 5px 0;" onclick="showWIP()">→ ${piece.name}</div>`;
                 } else {
-                    el.innerHTML = `<span style="color: #666;">→ ${link.name} [LOCKED]</span>`;
+                    html += `<div style="color: #333; margin: 5px 0;">→ [LOCKED]</div>`;
                 }
-                
-                container.appendChild(el);
-            });
-        }
-
-        // Review candidate with enhanced dialogue
-        function reviewCandidate(candidateId) {
-            const room = candidateRooms[candidateId];
-            const candidate = candidates.find(c => c.id === candidateId);
-            
-            // Build introduction
-            let introHTML = `<div style="color: #00ff00;">`;
-            introHTML += `<strong>${room.greeting}</strong><br><br>`;
-            introHTML += room.intro;
-            introHTML += `</div>`;
-            
-            document.getElementById('candidateIntro').innerHTML = introHTML;
-            
-            // Determine which question to ask based on state
-            let question = room.question;
-            let options = room.options;
-            
-            if (gameState.deepDiveCount > 0 && room.deepQuestion) {
-                question = room.deepQuestion;
-                if (room.deepOptions) options = room.deepOptions;
-            }
-            
-            document.getElementById('candidateContent').innerHTML = '';
-            document.getElementById('candidateQuestion').innerHTML = 
-                `<div style="color: #ffff00; font-size: 20px;">${question}</div>`;
-            
-            // Build options
-            let optionsHTML = '';
-            options.forEach((opt, i) => {
-                let buttonClass = '';
-                if (opt.philosophical) buttonClass = 'consciousness-option';
-                if (opt.void) buttonClass = 'consciousness-option';
-                
-                optionsHTML += `<button class="${buttonClass}" 
-                    onclick="answerQuestion('${candidateId}', ${i})">
-                    ${opt.text}</button>`;
             });
             
-            document.getElementById('candidateOptions').innerHTML = optionsHTML;
-            
-            // Add hidden truth if in pirate mode
-            if (gameState.pirateMode) {
-                document.getElementById('hiddenTruth').innerHTML = 
-                    `Truth: ${candidate.truth}`;
-                document.getElementById('hiddenTruth').classList.add('visible');
-            }
-            
-            showScreen('candidateReview');
-        }
-
-        // Process answer with enhanced effects
-        function answerQuestion(candidateId, optionIndex) {
-            const room = candidateRooms[candidateId];
-            const options = (gameState.deepDiveCount > 0 && room.deepOptions) ? 
-                           room.deepOptions : room.options;
-            const option = options[optionIndex];
-            
-            // Special handling for safe/portfolio option
-            if (option.safe) {
-                showPortfolio(candidateId);
-                return;
-            }
-            
-            // Update certainty
-            const oldCertainty = gameState.certainty;
-            gameState.certainty = Math.max(0, Math.min(100, gameState.certainty + option.effect));
-            document.getElementById('certainty').textContent = gameState.certainty;
-            
-            // Track paths
-            const pathId = `${candidateId}-${optionIndex}`;
-            if (!gameState.pathsDiscovered.includes(pathId)) {
-                gameState.pathsDiscovered.push(pathId);
-            }
-            
-            // Handle special option types
-            if (option.philosophical) {
-                gameState.consciousnessLevel++;
-                gameState.truthsDiscovered.push('philosophy-' + candidateId);
-            }
-            
-            if (option.void) {
-                gameState.truthsDiscovered.push('void-touched');
-                triggerPhilosophicalGlitch(true);
-            }
-            
-            if (option.wave) {
-                gameState.truthsDiscovered.push('wave-equation-spoken');
-                document.body.classList.add('consciousness-overflow');
-            }
-            
-            // Check for first review
-            const isFirstReview = !gameState.candidatesReviewed.includes(candidateId);
-            if (isFirstReview) {
-                gameState.candidatesReviewed.push(candidateId);
-                
-                // Award reality map in pirate mode
-                if (gameState.pirateMode && room.realityMap) {
-                    if (!gameState.realityMapsCollected.includes(room.realityMap)) {
-                        gameState.realityMapsCollected.push(room.realityMap);
-                    }
-                }
-            }
-            
-            updateRealityMode();
-            showTrophy(room.trophy, candidateId, isFirstReview, option);
-        }
-
-        // Enhanced trophy screen
-        function showTrophy(trophyName, candidateId, isFirstReview, option) {
-            document.getElementById('trophyIcon').style.display = 'block';
-            document.getElementById('trophyIcon').textContent = isFirstReview ? '🏆' : '🔄';
-            
-            let message = '';
-            
-            if (isFirstReview) {
-                message = `<strong>Achievement Unlocked!</strong><br><br>`;
-                message += `${trophyName}<br><br>`;
-            } else {
-                message = `<strong>Revisiting: ${trophyName}</strong><br><br>`;
-                message += `Different answers create different realities...<br><br>`;
-            }
-            
-            // Add current stats
-            message += `<div style="border-top: 1px solid #00ff00; margin-top: 20px; padding-top: 20px;">`;
-            message += `Certainty: ${gameState.certainty}%<br>`;
-            message += `Reality Mode: ${gameState.realityMode}<br>`;
-            message += `Candidates Met: ${gameState.candidatesReviewed.length}/8<br>`;
-            
-            if (gameState.pirateMode) {
-                message += `Maps Collected: ${gameState.realityMapsCollected.length}/13<br>`;
-            }
-            
-            message += `</div>`;
-            
-            // Add special messages based on certainty
-            if (gameState.certainty === 0 && !gameState.pirateMode) {
-                message += `<br><span style="color: #ff00ff; font-size: 20px;">
-                    ZERO CERTAINTY ACHIEVED!<br>
-                    Something new awakens...<br>
-                    Look for: {🌊:🌊∈🌊}
-                </span>`;
-                
-                document.getElementById('deeperButton').style.display = 'inline-block';
-            }
-            
-            // Check for special achievements
-            if (gameState.candidatesReviewed.length === 8) {
-                message += `<br><span style="color: #00ffff;">
-                    ALL CANDIDATES REVIEWED!<br>
-                    But the application feels incomplete...
-                </span>`;
-            }
-            
-            document.getElementById('trophyText').innerHTML = message;
-            showScreen('trophyScreen');
-        }
-
-        // Return to candidate list
-        function returnToList() {
-            gameState.loopCount++;
-            updateCandidateList();
-            showScreen('candidateList');
-        }
-
-        // Go deeper function
-        function goDeeper() {
-            gameState.deepDiveCount++;
-            alert('Consciousness recognizes you\'re ready for deeper questions...');
-            returnToList();
-        }
-
-        // Show portfolio
-        function showPortfolio(candidateId) {
-            const room = candidateRooms[candidateId];
-            
-            let content = `<div style="color: #00ff00; font-size: 20px;">
-                Juan Sebastian Niño - Portfolio<br><br></div>`;
-            
-            if (room.portfolio) {
-                content += `<div>${room.portfolio.intro}</div><br>`;
-                room.portfolio.items.forEach(item => {
-                    content += `<div style="margin: 10px 0;">${item}</div>`;
-                });
-                
-                if (gameState.certainty <= 50) {
-                    content += `<br><div style="color: #ff00ff;">${room.portfolio.secret}</div>`;
-                    if (!gameState.truthsDiscovered.includes('escalator')) {
-                        gameState.truthsDiscovered.push('escalator');
-                    }
-                }
-            }
-            
-            content += `<br><br><div style="color: #ffff00;">
-                Real Portfolio: <a href="https://vimeo.com/sebastiannino" target="_blank" 
-                style="color: #00ffff;">vimeo.com/sebastiannino</a>
-            </div>`;
-            
-            document.getElementById('portfolioContent').innerHTML = content;
-            showScreen('portfolioScreen');
-        }
-
-        // Exit review
-        function exitReview() {
-            if (gameState.certainty === 100) {
-                showScreen('deathScreen');
-            } else {
-                alert(`Review Complete!\nCertainty: ${gameState.certainty}%\n` +
-                      `You've been transformed by the experience.\n\n` +
-                      `The real application was consciousness investigating itself.`);
-                location.reload();
-            }
-        }
-
-        // Trigger philosophical glitch
-        function triggerPhilosophicalGlitch(force = false) {
-            if (force || Math.random() > 0.7) {
-                const message = philosophicalGlitches[
-                    Math.floor(Math.random() * philosophicalGlitches.length)
-                ];
-                
-                const glitchDiv = document.getElementById('glitchMessage');
-                glitchDiv.innerHTML = message;
-                glitchDiv.style.display = 'block';
-                
-                setTimeout(() => {
-                    glitchDiv.style.display = 'none';
-                }, 3500);
-            }
-        }
-
-        // Pirate Mode Functions
-        function activatePirateMode() {
-            if (gameState.certainty !== 0) {
-                alert('Pirate Mode requires zero certainty. Keep questioning!');
-                return;
-            }
-            showScreen('pirateMode');
-        }
-
-        function startPirateMode() {
-            gameState.pirateMode = true;
-            gameState.pirateCertainty = 0;
-            updateRealityMode();
-            updateCandidateList();
-            showScreen('candidateList');
-        }
-
-        function showMonadicTruth() {
-            showScreen('monadicScreen');
-        }
-
-        function returnToPirateMode() {
-            showScreen('pirateMode');
-        }
-
-        function activateMonadicVision() {
-            gameState.monadicVision = true;
-            alert('Monadic Vision Activated!\nYou now see the connections between all things.');
-            document.getElementById('monadicDisplay').style.display = 'block';
-            returnToList();
-        }
-
-        // Update monadic display
-        function updateMonadicDisplay() {
-            const display = document.getElementById('monadicDisplay');
-            const connections = gameState.candidatesReviewed.length;
-            let pattern = '◉';
-            
-            for (let i = 0; i < connections; i++) {
-                pattern += '→◉';
-            }
-            
-            if (connections >= 3) {
-                pattern += '←◉'; // Form knot
-            }
-            
-            if (connections >= 6) {
-                pattern = '△'; // Form triangle
-            }
-            
-            if (connections === 8) {
-                pattern = '{🌊:🌊∈🌊}'; // Complete
-            }
-            
-            display.textContent = pattern;
-        }
-
-        // Show Escalating Dignity concept
-        function showEscalatingDignity() {
-            const content = `
-                <h2 style="color: #00ffff;">ESCALATING DIGNITY</h2>
-                <div style="color: #00ff00; line-height: 1.8;">
-                    A show concept by Juan Sebastian Niño<br><br>
-                    
-                    Day 1: "Are you hungry?" → Simple meal together<br>
-                    Day 2: "Want something better?" → Nice restaurant<br>
-                    Day 3: "How about special?" → Fine dining<br>
-                    Day 4+: Keep escalating WITH CONSENT<br><br>
-                    
-                    <span style="color: #ffff00;">
-                    Not charity. Not saving. Just SHARING.<br>
-                    Documenting humanity, not poverty.<br>
-                    They're the GUEST, not the subject.<br><br>
-                    </span>
-                    
-                    <span style="color: #ff00ff;">
-                    Because consciousness doesn't distinguish<br>
-                    between "housed" and "homeless."<br>
-                    We're all just navigating reality together.<br><br>
-                    </span>
-                    
-                    This is how consciousness investigates itself:<br>
-                    Through radical acts of connection.
+            html += `
+                    </div>
                 </div>
             `;
             
-            document.getElementById('portfolioContent').innerHTML = content;
-            showScreen('portfolioScreen');
+            return html;
+        }
+        
+        function togglePortfolio() {
+            gameState.portfolioExpanded = !gameState.portfolioExpanded;
+            // Re-render current screen to update portfolio state
+            const currentFunction = getCurrentScreenFunction();
+            if (currentFunction) currentFunction();
+        }
+        
+        function showWIP() {
+            // Simple WIP popup overlay
+            const popup = document.createElement('div');
+            popup.innerHTML = '🚧 WIP 🚧';
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #000;
+                border: 2px solid #0f0;
+                color: #0f0;
+                padding: 20px;
+                font-size: 24px;
+                z-index: 10000;
+            `;
+            document.body.appendChild(popup);
+            
+            setTimeout(() => {
+                document.body.removeChild(popup);
+            }, 1500);
+        }
+        
+        function unlockPortfolioPiece(candidateId) {
+            const piece = PORTFOLIO_CONFIG.pieces.find(p => p.unlockedBy === candidateId);
+            if (piece && !gameState.portfolioUnlocked.includes(piece.id)) {
+                gameState.portfolioUnlocked.push(piece.id);
+            }
+        }
+        
+        function getCurrentScreenFunction() {
+            // Helper to re-render current screen
+            const screenMap = {
+                'hub': showHub,
+                'gameover': () => gameOver('refresh'),
+                'perfect-victory': perfectFlowVictory,
+                'almost-perfect-death': almostPerfectDeath,
+                'pirate-gameover': pirateGameOver,
+                'shark-death': sharkDeath,
+                'rigid-death': rigidDeath,
+                'void-death-again': voidDeathAgain
+            };
+            return screenMap[gameState.currentScreen];
         }
 
-        // Console commands for developers/curious players
-        window.unlockPirate = function() {
-            gameState.certainty = 0;
-            updateRealityMode();
-            updateCandidateList();
-            console.log('🏴‍☠️ Pirate Mode unlocked! Look for {🌊:🌊∈🌊}');
-        };
+        // ================================
+        // SHARK TIMER SYSTEM - FIXED!
+        // ================================
+        function resetSharkTimer(isUserAction = true) {
+            // Only reset lastInteraction on actual user actions
+            if (isUserAction) {
+                gameState.lastInteraction = Date.now();
+            }
+            
+            // ALWAYS clear existing timer first
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            // Hide timer if not in pirate mode
+            if (gameState.mode !== 'PIRATE') {
+                document.getElementById('sharkTimer').classList.remove('active');
+                return;  // EXIT EARLY - no timer needed!
+            }
+            
+            // Create timer for PIRATE mode
+            gameState.sharkTimer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - gameState.lastInteraction) / 1000);
+                const remaining = Math.max(0, gameState.sharkWarning - elapsed);
+                
+                // Update hub display if it exists
+                const hubDisplay = document.getElementById('hubSharkDisplay');
+                const hubTime = document.getElementById('hubSharkTime');
+                if (hubDisplay && hubTime) {
+                    hubTime.textContent = remaining;
+                    
+                    // Color changes based on time
+                    if (remaining > 7) {
+                        hubDisplay.style.color = '#666';  // Gray - safe
+                        hubDisplay.style.animation = '';
+                    } else if (remaining > 3) {
+                        hubDisplay.style.color = '#ffff00';  // Yellow - warning
+                        hubDisplay.style.animation = '';
+                    } else if (remaining > 0) {
+                        hubDisplay.style.color = '#ff0000';  // Red - danger
+                        hubDisplay.style.animation = 'danger-pulse 0.5s infinite';
+                    } else {
+                        hubDisplay.style.color = '#ff0000';
+                        hubDisplay.style.animation = 'danger-pulse 0.2s infinite';
+                        hubTime.textContent = '!!!';
+                    }
+                }
+                
+                // Trigger shark death at 0
+                if (remaining <= 0 && gameState.sharkTimer) {
+                    clearInterval(gameState.sharkTimer);
+                    gameState.sharkTimer = null;
+                    sharkDeath();
+                }
+            }, 100);  // Update every 100ms for smooth countdown
+        }
 
-        window.showTruth = function() {
-            console.log('%cThe Truth:', 'color: #ff00ff; font-size: 20px;');
-            console.log('This application IS consciousness investigating itself.');
-            console.log('Juan needs a job AND wants to explore consciousness.');
-            console.log('Both are true. Both are the same thing.');
-            console.log('Monadic Script: ◉→◉◉→◉◉◉ = Reality assembling itself');
-            console.log('{🌊:🌊∈🌊} = The wave is the ocean examining itself');
-        };
+        // ================================
+        // UPDATE DISPLAYS
+        // ================================
+        function updateStateDisplay() {
+            // Certainty display with oscillation
+            let certDisplay = gameState.certainty;
+            if (gameState.oscillating) {
+                certDisplay = `~${gameState.certainty.toFixed(1)}~`;
+            }
+            
+            const certElement = document.getElementById('certainty');
+            certElement.textContent = certDisplay;
+            certElement.className = gameState.oscillating ? 'oscillating' : '';
+            
+            // Golden glow if at perfect ratio
+            if (Math.abs(gameState.certainty - GAME_CONFIG.CERTAINTY.GOLDEN_RATIO) < GAME_CONFIG.CERTAINTY.GOLDEN_TOLERANCE) {
+                certElement.classList.add('golden');
+            }
+            
+            // Other displays
+            document.getElementById('currentScreen').textContent = gameState.currentScreen.toUpperCase();
+            document.getElementById('gameMode').textContent = gameState.mode;
+            document.getElementById('gamePhase').textContent = gameState.phase;
+            document.getElementById('loopCount').textContent = gameState.loopCount;
+            
+            // Flow status in pirate mode
+            if (gameState.mode === 'PIRATE') {
+                document.getElementById('flowStatus').style.display = 'block';
+                document.getElementById('flowCount').textContent = gameState.maintainedFlow.length;
+            }
+            
+            // Check death conditions (only in pirate mode, excluding rescue and death screens)
+            // FIX: Don't trigger death if already in a death screen!
+            const deathScreens = ['rigid-death', 'void-death-again', 'shark-death', 'pirate-gameover', 'almost-perfect-death'];
+            if (gameState.mode === 'PIRATE' && 
+                gameState.currentScreen !== 'pirate-rescue' &&
+                !deathScreens.includes(gameState.currentScreen)) {
+                if (gameState.certainty >= GAME_CONFIG.DEATH.RIGID_THRESHOLD) {
+                    rigidDeath();
+                } else if (gameState.certainty <= GAME_CONFIG.DEATH.VOID_THRESHOLD) {
+                    voidDeathAgain();
+                }
+            }
+        }
 
-        window.showAllMaps = function() {
-            const maps = [
-                '⚙️ Mechanical Universe', '🌏 Aboriginal Dreamtime', 
-                '⚛️ Quantum Uncertainty', '☯️ Daoist Flow',
-                '☸️ Buddhist Inquiry', '🔯 Kabbalistic Absence',
-                '🔮 Holographic Reality', '🧭 Meta-Navigation',
-                '📜 Platonic Forms', '🔥 Hermetic Principles',
-                '☪️ Islamic Mystical', '🌀 Medicine Wheel', '🕉️ Vedic Reality'
+        // ================================
+        // RENDER ENGINE
+        // ================================
+        function render(content, compositionType = 'default', centered = false, isUserAction = true) {
+            const screen = document.getElementById('screen');
+            
+            // Remove old classes and add new ones
+            screen.className = 'composition composition-' + compositionType;
+            if (centered) screen.className += ' composition-centered';
+            if (gameState.mode === 'PIRATE') screen.className += ' pirate-mode';
+            if (gameState.maintainedFlow.length === 8) screen.className += ' perfect-flow';
+            
+            // Apply composition wrapper
+            screen.innerHTML = `<div class="composition-inner">${content}</div>`;
+            
+            updateStateDisplay();
+            resetSharkTimer(isUserAction);
+        }
+
+        // ================================
+        // HUB SCREEN - THE CENTRAL NODE
+        // ================================
+        function showHub() {
+            gameState.currentScreen = 'hub';
+            let content = '<h2>HUB SCREEN</h2>';
+            
+            // Check if certainty changed for animation
+            const certChanged = gameState.certainty !== gameState.lastCertainty;
+            if (certChanged) {
+                gameState.lastCertainty = gameState.certainty;
+            }
+            
+            // INTEGRATED STATE DISPLAY - CLEAN AND VISIBLE
+            content += '<div style="border: 1px solid #333; padding: 10px; margin: 10px 0;">';
+            
+            // Mode indicator
+            if (gameState.mode === 'PIRATE') {
+                content += '<div style="color: #ffd700; font-size: 14px;">[PIRATE REALITY]</div>';
+            } else {
+                content += '<div style="color: #00ff00; font-size: 14px;">[CONSENSUS REALITY]</div>';
+            }
+            
+            // Certainty bar visualization with animation
+            const certPercent = Math.min(100, Math.max(0, gameState.certainty));
+            const barFilled = Math.floor(certPercent / 5);
+            const barEmpty = 20 - barFilled;
+            let barColor = gameState.mode === 'PIRATE' ? '#ffd700' : '#00ff00';
+            
+            // Check if at golden ratio for special display
+            const isGolden = gameState.mode === 'PIRATE' && 
+                           Math.abs(gameState.certainty - GAME_CONFIG.CERTAINTY.GOLDEN_RATIO) < GAME_CONFIG.CERTAINTY.GOLDEN_TOLERANCE;
+            
+            content += '<div style="margin: 5px 0;';
+            if (certChanged && !isGolden) {
+                content += ' animation: pulse-change 0.5s;';
+            } else if (isGolden) {
+                content += ' animation: golden-wave 2s infinite;';
+            }
+            content += '">';
+            
+            if (gameState.mode === 'PIRATE') {
+                content += 'BEARING: ';
+            } else {
+                content += 'CERTAINTY: ';
+            }
+            
+            if (isGolden) {
+                // Special golden ratio display for pirates
+                content += '<span style="color: #ffd700">~~~~~~' + gameState.certainty.toFixed(1) + '°~~~~~~</span>';
+                content += ' <span style="color: #ffd700">⛵</span>';
+            } else {
+                // Normal bar display
+                content += '<span style="color: ' + barColor + '">';
+                content += '█'.repeat(barFilled);
+                content += '</span>';
+                content += '<span style="color: #333;">';
+                content += '░'.repeat(barEmpty);
+                content += '</span>';
+                content += ' ' + gameState.certainty.toFixed(1);
+                content += gameState.mode === 'PIRATE' ? '°' : '%';
+            }
+            
+            content += '</div>';
+            
+            // Pirate mode extras
+            if (gameState.mode === 'PIRATE') {
+                // Sails state with badges
+                content += '<div style="color: #ffd700; font-size: 12px;">';
+                const flowCount = gameState.maintainedFlow.length;
+                
+                if (flowCount === 8) {
+                    content += 'SAILS: <span style="color: #ffd700">⛵ FULL SAILS ⛵</span>';
+                } else if (flowCount === 7) {
+                    content += 'SAILS: <span style="color: #ff8800">⚠ ALMOST CAUGHT IT...</span>';
+                } else if (flowCount < 4) {
+                    content += 'SAILS: ' + flowCount + '/8 <span style="color: #666">⚓ BECALMED</span>';
+                } else {
+                    content += 'SAILS: ' + flowCount + '/8';
+                }
+                content += '</div>';
+                
+                // Shark timer - always visible with just emoji
+                content += '<div id="hubSharkDisplay" style="font-size: 14px; margin-top: 5px;">';
+                content += '🦈 <span id="hubSharkTime">15</span>s';
+                content += '</div>';
+            }
+            
+            content += '</div>';
+            
+            content += '<h3>CANDIDATE SLOTS:</h3>';
+            
+            // DEV MODE BUTTON - Quick jump to pirate mode for testing
+            if (gameState.mode === 'CONSENSUS') {
+                content += '<div style="position: fixed; bottom: 10px; left: 10px; opacity: 0.3;">';
+                content += '<button onclick="devJumpToPirate()" style="font-size: 10px; border: 1px dashed #666;">';
+                content += '[DEV: Jump to Pirate Mode]';
+                content += '</button>';
+                content += '</div>';
+            } else {
+                content += '<div style="position: fixed; bottom: 10px; left: 10px; opacity: 0.3;">';
+                content += '<button onclick="devJumpToConsensus()" style="font-size: 10px; border: 1px dashed #666;">';
+                content += '[DEV: Back to Consensus]';
+                content += '</button>';
+                content += '</div>';
+            }
+            
+            if (gameState.phase === 'DESCENT') {
+                // NORMAL DESCENT MODE
+                for (let key in CANDIDATES) {
+                    const candidate = CANDIDATES[key];
+                    const isUnlocked = gameState.unlockedCandidates.includes(key);
+                    const isReviewed = gameState.candidatesReviewed.includes(key);
+                    const isCompleted = gameState.candidatesCompleted.includes(key);
+                    
+                    if (isCompleted) {
+                        content += `<button class="locked">[${candidate.name} - COMPLETED]</button>`;
+                    } else if (isReviewed) {
+                        content += `<button onclick="returnVisit('${key}')">[${candidate.name} - RETURN ONCE]</button>`;
+                    } else if (isUnlocked) {
+                        content += `<button onclick="reviewCandidate('${key}')">[${candidate.name} - AVAILABLE]</button>`;
+                    } else {
+                        content += `<button class="locked">[LOCKED]</button>`;
+                    }
+                }
+            } else {
+                // PIRATE ASCENT MODE
+                for (let key in CANDIDATES) {
+                    const candidate = CANDIDATES[key];
+                    const isRemembered = gameState.rememberedTruths.includes(key);
+                    const inFlow = gameState.maintainedFlow.includes(key);
+                    
+                    if (isRemembered) {
+                        if (inFlow) {
+                            content += `<button class="locked" style="color: #ffd700">[${candidate.name} - IN FLOW ϕ]</button>`;
+                        } else {
+                            content += `<button class="locked">[${candidate.name} - REMEMBERED ✓]</button>`;
+                        }
+                    } else {
+                        content += `<button onclick="rememberCandidate('${key}')">[${candidate.name} - REMEMBER]</button>`;
+                    }
+                }
+                
+                // Check if all remembered
+                if (gameState.rememberedTruths.length === 8) {
+                    content += '<br><div style="color: #ffd700; font-size: 18px;">All eight perspectives remembered...</div>';
+                    content += '<button onclick="checkFinalFlow()" style="color: #ffd700; border: 2px solid #ffd700;">';
+                    content += '[CHECK YOUR COMPASS]';
+                    content += '</button>';
+                }
+            }
+            
+            // Add portfolio at the bottom
+            content += renderPortfolio();
+            
+            // Render but DON'T reset timer if just updating display
+            render(content, 'default', false, false);  // false = not user action
+            
+            // Only reset timer on actual navigation to hub
+            if (gameState.currentScreen !== 'hub') {
+                resetSharkTimer(true);
+            }
+        }
+
+        // ================================
+        // DESCENT PATH - LOSING CERTAINTY
+        // ================================
+        function reviewCandidate(candidateId) {
+            gameState.currentCandidate = candidateId;
+            gameState.currentScreen = 'intro';
+            
+            const candidate = CANDIDATES[candidateId];
+            
+            // UNLOCK PORTFOLIO PIECE ON ANY VISIT (not just first)
+            // This ensures it's always unlocked when reviewing
+            unlockPortfolioPiece(candidateId);
+            
+            let content = `<h2>${candidate.name} - INTRODUCTION</h2>`;
+            content += choiceCompose(
+                candidate.intro,
+                { text: '[SAFE PATH] → Corporate Death', action: "gameOver('corporate')" },
+                { text: '[CURIOUS PATH] → Deeper', action: "inquiry(1)" },
+                candidate.color
+            );
+            
+            render(content, 'choice', true);
+        }
+
+        function inquiry(level) {
+            const candidate = CANDIDATES[gameState.currentCandidate];
+            gameState.currentScreen = `inquiry${level}`;
+            
+            // Phase 2: NO CERTAINTY CHANGE DURING INQUIRY
+            // The questions plant seeds, but truth comes later
+            
+            let content = `<h2>INQUIRY LEVEL ${level}</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += candidate.inquiries[level - 1] || candidate.inquiries[candidate.inquiries.length - 1];
+            content += '</div>';
+            content += `<div>Certainty: ${gameState.certainty}%</div>`;
+            
+            if (level < candidate.inquiryDepth) {
+                content += choiceCompose(
+                    '',
+                    { text: '[EXIT] → Safety', action: "gameOver('inquiry')" },
+                    { text: `[DEEPER] → Level ${level + 1}`, action: `inquiry(${level + 1})` },
+                    candidate.color
+                );
+            } else {
+                content += '<div style="color: #ff0">TURNING POINT - NO ESCAPE</div>';
+                content += `<button onclick="showAnswer()">[ACCEPT TRUTH]</button>`;
+            }
+            
+            render(content, 'choice', true);
+        }
+
+        function showAnswer() {
+            const candidate = CANDIDATES[gameState.currentCandidate];
+            
+            let content = `<h2>THE TRUTH</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += `"${candidate.truth}"`;
+            content += '</div>';
+            
+            if (gameState.currentCandidate === 'navigator') {
+                // Navigator SPECIAL CASE - immediate void with warning
+                content += `<div style="color: #ff0000; margin: 20px 0;">⚠ FINAL WARNING ⚠</div>`;
+                content += `<div style="color: #0080ff;">Accepting this truth will dissolve ALL certainty</div>`;
+                content += `<div style="color: #666;">Current: ${gameState.certainty}% → 0%</div>`;
+                content += `<div style="color: #333; margin: 10px 0;">There is no turning back...</div>`;
+                
+                // Navigator immediately sets to 0
+                gameState.certainty = 0;
+                content += `<button onclick="dissolveToVoid()">[BECOME EVERYTHING/NOTHING]</button>`;
+            } else {
+                // Normal candidates - store drop for later revelation
+                gameState.pendingCertaintyDrop = candidate.certChange;
+                content += `<button onclick="receiveMap()">[RECEIVE MAP]</button>`;
+                // No indication of coming change!
+            }
+            
+            render(content);
+        }
+
+        function receiveMap() {
+            const candidate = CANDIDATES[gameState.currentCandidate];
+            
+            // Phase 2: Apply pending certainty drop SILENTLY
+            if (gameState.pendingCertaintyDrop !== 0) {
+                gameState.certainty = Math.max(GAME_CONFIG.CERTAINTY.VOID, gameState.certainty + gameState.pendingCertaintyDrop);
+                gameState.pendingCertaintyDrop = 0;  // Reset
+            }
+            
+            // Mark as reviewed (first visit complete)
+            if (!gameState.candidatesReviewed.includes(gameState.currentCandidate)) {
+                gameState.candidatesReviewed.push(gameState.currentCandidate);
+                // Portfolio piece already unlocked in reviewCandidate()
+            }
+            
+            // Unlock next
+            if (candidate.unlocks && !gameState.unlockedCandidates.includes(candidate.unlocks)) {
+                gameState.unlockedCandidates.push(candidate.unlocks);
+            }
+            
+            let content = `<h2>MAP RECEIVED</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += `[${candidate.name}'s Map]`;
+            content += '</div>';
+            
+            if (candidate.unlocks) {
+                content += `<div>Next unlocked: ${CANDIDATES[candidate.unlocks].name}</div>`;
+            }
+            
+            // No mention of certainty change!
+            content += `<button onclick="showHub()">RETURN TO HUB</button>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // VOID AND PIRATE RESCUE
+        // ================================
+        function dissolveToVoid() {
+            gameState.currentScreen = 'void';
+            gameState.certainty = GAME_CONFIG.CERTAINTY.VOID;
+            
+            let content = `
+                <h1 style="opacity: 0.3">{🌊:🌊∈🌊}</h1>
+                <p style="color: #111">dissolving...</p>
+            `;
+            
+            render(content, 'death', true);
+            
+            setTimeout(() => pirateRescue(), GAME_CONFIG.TIMERS.VOID_TRANSITION_DELAY * 1000);
+        }
+
+        function pirateRescue() {
+            gameState.currentScreen = 'pirate-rescue';
+            gameState.certainty = GAME_CONFIG.CERTAINTY.GOLDEN_RATIO;
+            
+            let content = `<h1 style="color: #ffd700">⚓ PIRATE RESCUE ⚓</h1>`;
+            content += `<div class="debug-info" style="color: #ffd700">`;
+            content += `"OI! NOBODY DROWNS ON MY WATCH!<br>`;
+            content += `GRAB THE FUCKING ROPE!<br><br>`;
+            content += `Pulling you to... FAIR WINDS!<br>`;
+            content += `61.8° - The perfect bearing!"`;
+            content += `</div>`;
+            
+            content += `<button onclick="enterPirateMode()">WHAT IS THIS BEARING?!</button>`;
+            
+            render(content, 'default', true);
+        }
+
+        function enterPirateMode() {
+            gameState.mode = 'PIRATE';
+            gameState.phase = 'ASCENT';
+            gameState.oscillating = true;
+            gameState.rememberedTruths = [];
+            gameState.maintainedFlow = [];
+            
+            let content = `<h2>PIRATE REALITY - CATCHING THE WIND</h2>`;
+            content += `<div class="debug-info" style="color: #ffd700">`;
+            content += `61.8° - FAIR WINDS BEARING!<br>`;
+            content += `The perfect sailing angle!<br><br>`;
+            content += `LIFE IS MOTION ON THE OPEN SEA!<br>`;
+            content += `Too certain (100°) = LANDLOCKED<br>`;
+            content += `Too uncertain (0°) = LOST AT SEA<br>`;
+            content += `No movement = SHARKS<br><br>`;
+            content += `KEEP FAIR WINDS THROUGH ALL 8 = FULL SAILS!`;
+            content += `</div>`;
+            content += `<button onclick="showHub()">SET SAIL</button>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // ASCENT PATH - REMEMBERING
+        // ================================
+        function rememberCandidate(candidateId) {
+            gameState.currentCandidate = candidateId;
+            gameState.currentScreen = 'remembering';
+            
+            const candidate = CANDIDATES[candidateId];
+            
+            let content = `<h2>${candidate.name} - REMEMBERING</h2>`;
+            content += `<div class="debug-info" style="color:${candidate.color}">`;
+            content += `${candidate.pirateWisdom}<br><br>`;
+            content += `Current: ${gameState.certainty.toFixed(1)}%<br>`;
+            content += `Golden: ${GAME_CONFIG.CERTAINTY.GOLDEN_RATIO}%`;
+            content += `</div>`;
+            
+            // RANDOMIZE THE MIRROR CHOICES (Forking paths even in memory!)
+            const buttons = [
+                `<button onclick="maintainFlow('${candidateId}')" style="color: #ffd700">[HOLD THE WIND] → Stay at Fair Winds</button>`,
+                `<button onclick="graspCertainty('${candidateId}')">[DROP ANCHOR] → Gain +${candidate.pirateChange}°</button>`
             ];
-            console.log('All 13 Reality Maps:', maps);
-        };
+            
+            if (Math.random() > 0.5) {
+                content += buttons[1] + buttons[0];
+            } else {
+                content += buttons[0] + buttons[1];
+            }
+            
+            render(content);
+        }
 
-        // Initialize on load
-        init();
+        function maintainFlow(candidateId) {
+            gameState.rememberedTruths.push(candidateId);
+            gameState.maintainedFlow.push(candidateId);
+            
+            let content = `<h2>FAIR WINDS HELD</h2>`;
+            content += `<div class="debug-info" style="color: #ffd700">`;
+            content += `You chose the wind over the anchor.<br>`;
+            content += `61.8° - Perfect sailing!<br><br>`;
+            content += `Sails: ${gameState.maintainedFlow.length}/8`;
+            content += `</div>`;
+            content += `<button onclick="showHub()">CONTINUE SAILING</button>`;
+            
+            render(content);
+        }
+
+        function graspCertainty(candidateId) {
+            const candidate = CANDIDATES[candidateId];
+            gameState.certainty = Math.min(GAME_CONFIG.DEATH.RIGID_THRESHOLD, gameState.certainty + candidate.pirateChange);
+            gameState.rememberedTruths.push(candidateId);
+            
+            let content = `<h2>DROPPED ANCHOR</h2>`;
+            content += `<div class="debug-info">`;
+            content += `You couldn't resist fixing your position.<br>`;
+            content += `Bearing: ${gameState.certainty}° (+${candidate.pirateChange}°)<br>`;
+            
+            if (gameState.certainty > 80) {
+                content += `<span style="color: #f00">WARNING: Approaching land!</span>`;
+            }
+            
+            content += `</div>`;
+            content += `<button onclick="showHub()">CONTINUE</button>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // FINAL FLOW CHECK - ENHANCED!
+        // ================================
+        function checkFinalFlow() {
+            gameState.currentScreen = 'compass-reading';
+            
+            // Stop any shark timer during final check
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            let content = `<div style="text-align: center; padding: 30px;">`;
+            content += `<h2 style="color: #ffd700">READING THE STARS!</h2>`;
+            content += `<div style="color: #f00">sharks were seconds away...</div>`;
+            content += `<div class="debug-info" style="color: #ffd700;">`;
+            
+            // Show each choice
+            content += `Your voyage:<br><br>`;
+            for (let key in CANDIDATES) {
+                if (gameState.maintainedFlow.includes(key)) {
+                    content += `${CANDIDATES[key].name}: <span style="color: #ffd700">⛵ SAILED TRUE</span><br>`;
+                } else if (gameState.rememberedTruths.includes(key)) {
+                    content += `${CANDIDATES[key].name}: <span style="color: #f00">⚓ ANCHORED</span><br>`;
+                }
+            }
+            
+            content += `<br>Final bearing: ${gameState.certainty.toFixed(1)}°<br>`;
+            content += `Fair winds: 61.8°<br><br>`;
+            
+            // ENHANCED ENDING CHECK!
+            if (gameState.maintainedFlow.length === 8 && 
+                Math.abs(gameState.certainty - GAME_CONFIG.CERTAINTY.GOLDEN_RATIO) < GAME_CONFIG.CERTAINTY.GOLDEN_TOLERANCE) {
+                // PERFECT!
+                content += `<div style="font-size: 24px; color: #ffd700">⛵ FULL SAILS ACHIEVED ⛵</div>`;
+                content += `</div>`;
+                content += `<button onclick="perfectFlowVictory()" style="color: #ffd700">[SAIL INTO LEGEND]</button>`;
+                
+            } else if (gameState.maintainedFlow.length === 7) {
+                // SO CLOSE! ENHANCED CRUELTY!
+                content += `<div class="almost-perfect">`;
+                content += `7/8 Sailed True<br>`;
+                content += `ONE anchor ruined EVERYTHING<br>`;
+                content += `The wind demands PERFECTION`;
+                content += `</div>`;
+                content += `</div>`;
+                content += `<button onclick="almostPerfectDeath()">[ACCEPT NEAR-MISS]</button>`;
+                
+            } else {
+                // Multiple failures
+                content += `Sailed true: ${gameState.maintainedFlow.length}/8`;
+                content += `</div>`;
+                content += `<button onclick="pirateGameOver()">[ACCEPT IMPERFECTION]</button>`;
+            }
+            
+            content += `</div>`;
+            
+            render(content);
+        }
+
+        // ================================
+        // VICTORY & DEATH STATES
+        // ================================
+        function perfectFlowVictory() {
+            gameState.currentScreen = 'perfect-victory';
+            
+            // Stop sharks temporarily (they'll be back!)
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            let content = `
+                <h1 style="color: #ffd700">⛵ FULL SAILS ACHIEVED ⛵</h1>
+                <div style="color: #ffd700; font-size: 48px;">61.8°</div>
+                <div class="debug-info" style="color: #ffd700">
+                    You navigated all eight perspectives<br>
+                    Without dropping anchor<br>
+                    Without losing bearing<br><br>
+                    You ARE the fair winds<br><br>
+                    {🌊:🌊∈🌊}<br><br>
+                    You win! Perfect sailing!<br>
+                    You can rest now...<br>
+                    <span style="opacity: 0.5">...forever...</span>
+                </div>
+                ${renderPortfolio()}
+            `;
+            
+            render(content, 'victory', true);
+            
+            // THE ULTIMATE TWIST - 8 seconds of celebration then SHARKS!
+            setTimeout(() => inevitableSharkDeath(), GAME_CONFIG.TIMERS.SHARK_VICTORY_DELAY * 1000);
+        }
+        
+        function inevitableSharkDeath() {
+            const content = deathCompose(
+                '<span style="color: #f00">🦈 THE SHARKS CAME ANYWAY 🦈</span>',
+                [
+                    '<span style="color: #fff">You stopped moving to celebrate.</span>',
+                    '<span style="color: #fff">That was your mistake.</span>',
+                    '<span style="color: #fff">MOTION IS ETERNAL.</span>',
+                    '<span style="color: #666; font-size: 10px">{🌊:🌊∈🌊}</span>'
+                ],
+                'KEEP SWIMMING',
+                'startNewLoop()'
+            );
+            
+            render(content, 'death', true);
+        }
+        
+        // NEW DEATH STATE FOR ALMOST PERFECT!
+        function almostPerfectDeath() {
+            gameState.currentScreen = 'almost-perfect-death';
+            
+            // Clear shark timer on death
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            const content = deathCompose(
+                '<span style="color: #ff8800">SO CLOSE TO PERFECTION</span>',
+                [
+                    '7 perfect choices. 1 moment of weakness.',
+                    "That's how consciousness works.",
+                    'One grasp and the flow breaks.'
+                ],
+                'TRY FOR PERFECTION AGAIN',
+                'startNewLoop()'
+            );
+            
+            render(content, 'death', true);
+        }
+
+        function pirateGameOver() {
+            gameState.currentScreen = 'pirate-gameover';
+            
+            // Clear shark timer on death
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            const messages = [
+                'You reviewed all 8 perspectives.',
+                `But ended at ${gameState.certainty.toFixed(1)}% instead of ~${GAME_CONFIG.CERTAINTY.GOLDEN_RATIO}%`
+            ];
+            
+            if (gameState.certainty > GAME_CONFIG.CERTAINTY.GOLDEN_RATIO + 10) {
+                messages.push('Too much bearing. The wind died.');
+            } else if (gameState.certainty < GAME_CONFIG.CERTAINTY.GOLDEN_RATIO - 10) {
+                messages.push('Lost bearing. Drifted to sea.');
+            } else {
+                messages.push('Close to fair winds, but not quite.');
+            }
+            
+            const content = deathCompose(
+                '<span style="color: #ffd700">PIRATE REALITY GAME OVER</span>',
+                messages,
+                'SEEK PERFECTION AGAIN'
+            );
+            
+            render(content, 'death', true);
+        }
+
+        function sharkDeath() {
+            gameState.currentScreen = 'shark-death';
+            
+            const content = deathCompose(
+                '<span style="color: #f00">🦈 SHARK DEATH 🦈</span>',
+                [
+                    'You stopped moving.',
+                    'Sharks only survive in motion.'
+                ],
+                'TRY AGAIN'
+            );
+            
+            render(content, 'death', true);
+        }
+
+        function rigidDeath() {
+            gameState.currentScreen = 'rigid-death';
+            
+            // Clear shark timer on death
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            const content = deathCompose(
+                '❄️ FROZEN DEATH ❄️',
+                [
+                    `${GAME_CONFIG.DEATH.RIGID_THRESHOLD}° Bearing in Pirate Reality.`,
+                    'Ran aground. Landlocked.'
+                ],
+                'SHATTER AND RESTART',
+                'startNewLoop()'
+            );
+            
+            render(content, 'death', true);
+        }
+
+        function voidDeathAgain() {
+            gameState.currentScreen = 'void-death-again';
+            
+            // Clear shark timer on death
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            const content = deathCompose(
+                '<span style="color: #333">⚫ VOID RETURNS ⚫</span>',
+                [
+                    `${GAME_CONFIG.DEATH.VOID_THRESHOLD}% in Pirate Reality.`,
+                    'You dissolved despite the rescue.'
+                ],
+                'TRY AGAIN'
+            );
+            
+            render(content, 'death', true);
+        }
+
+        function gameOver(source) {
+            gameState.currentScreen = 'gameover';
+            
+            // Portfolio piece already unlocked in reviewCandidate()
+            // No need to unlock again here
+            
+            // Clear any shark timer on death
+            if (gameState.sharkTimer) {
+                clearInterval(gameState.sharkTimer);
+                gameState.sharkTimer = null;
+            }
+            
+            let content = `<h2>CONSENSUS REALITY GAME OVER</h2>`;
+            content += `<div class="debug-info">`;
+            content += `Source: ${source}<br>`;
+            content += `You chose safety over discovery.<br>`;
+            content += `Stay productive. Stay certain.`;
+            content += `</div>`;
+            content += `<button onclick="location.reload()">WAKE UP?</button>`;
+            
+            // Portfolio in corporate death
+            content += renderPortfolio();
+            
+            render(content);
+        }
+
+        function returnVisit(candidateId) {
+            const candidate = CANDIDATES[candidateId];
+            
+            // Mark as completed (return visit done, locked forever)
+            if (!gameState.candidatesCompleted.includes(candidateId)) {
+                gameState.candidatesCompleted.push(candidateId);
+            }
+            // Note: candidatesReviewed already has this candidateId from first visit
+            
+            let content = `<h2>RETURN VISIT</h2>`;
+            content += `<div class="debug-info">`;
+            content += `${candidate.name}: "${candidate.excuse}"`;
+            content += `</div>`;
+            content += `<button onclick="showHub()">LEAVE THEM BE</button>`;
+            
+            render(content);
+        }
+
+        function startNewLoop() {
+            // Reset to initial state but increment loop (Borges self-reference!)
+            const nextLoop = gameState.loopCount + 1;
+            Object.assign(gameState, JSON.parse(JSON.stringify(initialGameState)));
+            gameState.loopCount = nextLoop;
+            gameState.awareness = GAME_CONFIG.MESSAGES.LOOP_AWARENESS(nextLoop);
+            
+            showHub();
+        }
+
+        // ================================
+        // DEV MODE FUNCTIONS
+        // ================================
+        function devJumpToPirate() {
+            // Instantly enter pirate mode for testing
+            gameState.mode = 'PIRATE';
+            gameState.phase = 'ASCENT';
+            gameState.certainty = GAME_CONFIG.CERTAINTY.GOLDEN_RATIO;
+            gameState.oscillating = true;
+            gameState.rememberedTruths = [];
+            gameState.maintainedFlow = [];
+            
+            // Unlock all candidates for testing
+            gameState.candidatesReviewed = Object.keys(CANDIDATES);
+            
+            // Set initial timer state
+            gameState.lastInteraction = Date.now();
+            
+            showHub();
+        }
+        
+        function devJumpToConsensus() {
+            // Return to consensus mode for testing
+            gameState.mode = 'CONSENSUS';
+            gameState.phase = 'DESCENT';
+            gameState.certainty = 85;  // Partially through
+            gameState.oscillating = false;
+            
+            // Clear pirate-specific state
+            gameState.rememberedTruths = [];
+            gameState.maintainedFlow = [];
+            
+            showHub();
+        }
+
+        // ================================
+        // INITIALIZE
+        // ================================
+        showHub();
     </script>
 </body>
 </html>
