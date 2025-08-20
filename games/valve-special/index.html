@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CONSCIOUSNESS LOOP</title>
     <style>
-        /* MINIMAL VIABLE CONSCIOUSNESS */
         :root {
             --green: #00ff00;
             --gold: #ffd700;
@@ -14,30 +13,25 @@
             --dark: #111111;
             --gray: #666666;
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: monospace;
             background: #000;
-            color: var(--green);
+            color: #ccc;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        
         #game {
             width: 100%;
             max-width: 600px;
             text-align: center;
         }
-        
-        h1 { margin: 20px 0; font-size: 24px; }
-        h2 { margin: 15px 0; font-size: 18px; }
-        p { margin: 10px 0; line-height: 1.4; }
-        
+        h1 { margin: 20px 0; font-size: 24px; color: var(--green); }
+        h2 { margin: 15px 0; font-size: 18px; color: var(--green); }
+        p { margin: 10px 0; line-height: 1.6; font-size: 16px; }
         button {
             background: #000;
             color: var(--green);
@@ -46,83 +40,68 @@
             margin: 5px;
             cursor: pointer;
             font-family: monospace;
+            font-size: 14px;
             width: 100%;
             max-width: 400px;
         }
-        
         button:hover {
             background: var(--green);
             color: #000;
         }
-        
         button.locked {
             opacity: 0.3;
             cursor: not-allowed;
         }
-        
         button.locked:hover {
             background: #000;
             color: var(--green);
         }
-        
         .gold { color: var(--gold) !important; border-color: var(--gold) !important; }
         .red { color: var(--red) !important; border-color: var(--red) !important; }
         .blue { color: var(--blue) !important; border-color: var(--blue) !important; }
         .dim { opacity: 0.5; }
-        
         .status {
-            border: 1px solid var(--gray);
+            border: 1px solid var(--green);
             padding: 10px;
             margin: 20px 0;
+            color: var(--green);
         }
-        
         .folder {
             margin: 20px 0;
             padding: 15px 0;
             border-top: 1px solid #333;
         }
-        
         .folder h3 {
             font-size: 14px;
             cursor: pointer;
             user-select: none;
         }
-        
         .folder.locked h3 {
             color: #333;
             cursor: default;
         }
-        
         .folder-content {
             margin: 10px 0 0 20px;
             display: none;
         }
-        
         .folder-content.open {
             display: block;
         }
-        
         .map-item {
             color: var(--green);
             cursor: pointer;
             margin: 5px 0;
         }
-        
         .map-item:hover {
             color: var(--gold);
         }
-        
-        /* Pirate mode adjustments */
         .pirate { border-color: var(--gold) !important; }
         .pirate button { border-color: var(--gold); color: var(--gold); }
         .pirate button:hover { background: var(--gold); color: #000; }
-        
-        /* Simple animations */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
-        
         .pulsing { animation: pulse 2s infinite; }
     </style>
 </head>
@@ -258,7 +237,7 @@
                 VOID: 0,
                 MAX: 100,
                 SHARK_TIME: 15,
-                DEADLINE_TIME: 30  // PREP: Corporate timer
+                DEADLINE_TIME: 30
             },
             
             // All game state in ONE place
@@ -269,50 +248,99 @@
                 phase: 'DESCENT',   // or 'ASCENT'
                 
                 // Candidates
-                unlocked: ['animator'],  // WOUND CLOSED - Navigator earned properly!
+                unlocked: ['animator'],
                 reviewed: [],
                 completed: [],
                 remembered: [],
-                maintainedFlow: [],  // PREP: For pirate choices
+                maintainedFlow: [],
                 
                 // Collections
                 mapsCollected: [],
                 mapFolderUnlocked: false,
                 mapFolderExpanded: false,
-                portfolioUnlocked: [],  // PREP: Portfolio system
-                portfolioExpanded: false,  // PREP: Portfolio display
+                portfolioUnlocked: [],
+                portfolioExpanded: false,
                 
                 // Timers
-                timer: null,  // PREP: Unified timer (was sharkTimer)
+                timer: null,
                 lastAction: Date.now(),
                 loopCount: 1,
                 
-                // PREP: Track current inquiry depth
+                // Track current inquiry depth
                 currentCandidate: null,
                 currentInquiryLevel: 0
             },
             
-            // Minimal candidate data
+            // Minimal candidate data WITH JUAN'S TEXT
             candidates: {
                 animator: {
                     name: 'ANIMATOR',
                     truth: 'Motion lives between frames',
                     certDrop: -15,
                     unlocks: 'dreamer',
-                    // PREP: Inquiry system
                     inquiryDepth: 2,
                     inquiries: [
-                        'Where does motion go between frames?',
-                        'I dreamed I was the gap.'
+                        `Oh! OK so... *leans in*<br><br>
+                        
+                        When I animate Rocket punching Thor - frame 1: fist here, frame 2: fist in jaw. But the actual PUNCH? The motion? That's not in either frame. It's in the gap. Your brain creates it from nothing.<br><br>
+                        
+                        But here's what keeps me up at night...<br><br>
+                        
+                        WHO is watching? The frames are just dead pixels until YOUR... consciousness? awareness? - whatever that thing is - witnesses them in sequence.<br><br>
+                        
+                        *rubs neck*<br><br>
+                        
+                        Sorry, I know this sounds weird...`,
+                        
+                        `Well that's the thing - I don't really know what consciousness IS!<br><br>
+                        
+                        I just know something has to BE there to see motion where only stillness exists. Something that... experiences the continuity?<br><br>
+                        
+                        *laughs nervously*<br><br>
+                        
+                        Honestly, I'm just an animator who noticed something weird. Maybe one of the other candidates know more about this stuff...`
                     ],
-                    portfolioPiece: 'animation-reel'  // PREP: Portfolio
+                    portfolioPiece: 'animation-reel',
+                    introText: `Hello there, my name is Juan!<br><br>
+                    
+                    I've been translating imagination into pixels since forever. Now I work for big studios - same imagination, more expensive pixels.<br><br>
+                    
+                    But here's the thing - recently I've discovered that motion is way more interesting than animation...`,
+                    truthText: `Look, all I know is this:<br><br>
+                    
+                    Motion lives in the gaps between frames.<br><br>
+                    
+                    That's it. That's my whole discovery.<br><br>
+                    
+                    But maybe it helps? Here, let me give you my map - it's how I've been thinking about reality. Frame by frame. Maybe you'll see something I missed.`,
+                    deathFlee: `Juan lights up showing you his reel.<br><br>
+                    
+                    "Thank you so much for your time!<br><br>
+                    
+                    Let me show you the Rocket slapping Thor in the face - it felt nice to hit Chris Hemsworth's annoying perfect jawline through Rocket!"`,
+                    deathTruth: `You declined Juan's gift, but he got even MORE excited.<br><br>
+                    
+                    "Hey that's cool, I wish I knew as much as you about reality!<br><br>
+                    
+                    The only thing I really know is making fake stuff look real.<br><br>
+                    
+                    On that note - check out these jellyfish I did for the Little Mermaid underwater sequence! The asset count on that sequence was unreal!"`,
+                    btns: {
+                        i0a: 'Wait, isn\'t motion and animation the same thing?',
+                        i0r: 'I\'d love to see those expensive pixels',
+                        i1a: 'Consciousness? What do you mean?',
+                        i1r: 'That\'s... interesting. Let\'s see that animation now.',
+                        i2a: 'So what\'s your conclusion?',
+                        i2r: 'You\'re right, this is a bit weird. But hey, I\'d love to see your animation!',
+                        ta: 'Receive Juan\'s Map',
+                        tr: 'It\'s ok, thank you. I know what reality is all about.'
+                    }
                 },
                 dreamer: {
                     name: 'DREAMER', 
                     truth: 'Stories create reality',
                     certDrop: -15,
                     unlocks: 'fool',
-                    // PREP: Inquiry system
                     inquiryDepth: 2,
                     inquiries: [
                         'Characters make choices I never planned.',
@@ -325,7 +353,6 @@
                     truth: "It's all a game",
                     certDrop: -15,
                     unlocks: 'glitch',
-                    // PREP: Inquiry system
                     inquiryDepth: 3,
                     inquiries: [
                         'Why did consciousness cross the road?',
@@ -339,7 +366,6 @@
                     truth: 'Errors reveal truth',
                     certDrop: -5,
                     unlocks: 'questioner',
-                    // PREP: Inquiry system
                     inquiryDepth: 1,
                     inquiries: [
                         'SEGFAULT: Accessed memory that never existed.'
@@ -351,7 +377,6 @@
                     truth: 'Questions are answers',
                     certDrop: -10,
                     unlocks: 'void',
-                    // PREP: Inquiry system
                     inquiryDepth: 4,
                     inquiries: [
                         'Why does anything exist?',
@@ -366,7 +391,6 @@
                     truth: 'Nothing contains everything',
                     certDrop: -20,
                     unlocks: 'mirror',
-                    // PREP: Inquiry system
                     inquiryDepth: 3,
                     inquiries: [
                         '...',
@@ -380,7 +404,6 @@
                     truth: 'Everyone is you',
                     certDrop: -15,
                     unlocks: 'navigator',
-                    // PREP: Inquiry system
                     inquiryDepth: 2,
                     inquiries: [
                         'When you judge someone, you judge yourself.',
@@ -391,16 +414,32 @@
                 navigator: {
                     name: 'NAVIGATOR',
                     truth: 'You are the map',
-                    certDrop: -100,  // Special: instant void
+                    certDrop: -100,
                     unlocks: null,
-                    // PREP: Inquiry system
                     inquiryDepth: 3,
                     inquiries: [
                         'All directions point HERE.',
                         'The edge leads back to beginning.',
                         '{🌊:🌊∈🌊}'
                     ],
-                    portfolioPiece: 'navigation-charts'
+                    portfolioPiece: 'navigation-charts',
+                    introText: 'You are the map',
+                    truthText: 'All navigation leads to the same discovery: You ARE the map. There is no distance between the seeker and the sought.',
+                    deathFlee: 'The Navigator vanishes. "Can\'t flee from yourself, mate."',
+                    deathTruth: 'You rejected being the map. The Navigator laughs. "Fine, keep pretending you\'re separate."',
+                    btns: {
+                        i0a: 'What do you mean?',
+                        i0r: 'I need to think about this',
+                        i1a: 'But there must be a destination',
+                        i1r: 'This is too much',
+                        i2a: 'Show me',
+                        i2r: 'I\'m not ready',
+                        i3a: 'I accept',
+                        i3r: 'I need certainty',
+                        ta: '[DISSOLVE]',
+                        tr: 'I need my bearings'
+                    },
+                    isVoid: true
                 }
             }
         };
@@ -408,7 +447,7 @@
         // ========================================
         // GENERIC RENDER FUNCTION
         // ========================================
-        function render(html, stopTimer = false) {  // PREP: Added stopTimer param
+        function render(html, stopTimer = false) {
             document.getElementById('game').innerHTML = html;
             
             // Add pirate class if in pirate mode
@@ -418,7 +457,7 @@
                 document.getElementById('game').classList.remove('pirate');
             }
             
-            // PREP: Handle timer based on stopTimer flag
+            // Handle timer based on stopTimer flag
             if (stopTimer && GAME.state.timer) {
                 clearInterval(GAME.state.timer);
                 GAME.state.timer = null;
@@ -483,7 +522,6 @@
                 html += `<div id="sharkDisplay">🦈 <span id="sharkTime">15</span>s</div>`;
             } else {
                 html += `<div>Certainty: ${GAME.state.certainty}%</div>`;
-                // PREP: Corporate timer display
                 html += `<div id="deadlineDisplay">⏱️ DEADLINE: <span id="deadlineTime">30</span>s</div>`;
             }
             html += '</div>';
@@ -544,7 +582,7 @@
         }
         
         // ========================================
-        // INTERVIEW FLOW (Descent) - WITH INQUIRY DEPTH!
+        // INTERVIEW FLOW (Descent) - MINIMAL JUAN UPDATE
         // ========================================
         function interview(id, level = 0) {
             const candidate = GAME.candidates[id];
@@ -554,50 +592,41 @@
             let html = `<h2>${candidate.name}</h2>`;
             
             if (level === 0) {
-                // Initial interview - show intro
-                html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid #333;">';
-                html += `<p style="color: #0f0;">Position: ${candidate.name}</p>`;
-                html += `<p style="color: #666;">Reviewing portfolio...</p>`;
-                html += '</div>';
-                
-                // Navigator special case
-                if (id === 'navigator') {
-                    html += `<p>"${candidate.truth}"</p>`;
-                    html += '<p class="red">Warning: Total dissolution</p>';
-                    html += `<button onclick="dissolve('${id}')" class="red">[ACCEPT FATE] → Void</button>`;
-                    html += `<button onclick="fleeDeath('intro')">[FLEE] → Safety</button>`;
+                if (candidate.introText) {
+                    html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                    html += `<p>${candidate.introText}</p>`;
+                    html += '</div>';
+                    html += `<button onclick="interview('${id}', 1)">${candidate.btns.i0a}</button>`;
+                    html += `<button onclick="fleeDeath('intro')">${candidate.btns.i0r}</button>`;
                 } else {
                     html += '<p>Would you like to know more about their perspective?</p>';
                     html += `<button onclick="interview('${id}', 1)">[INQUIRE DEEPER]</button>`;
-                    html += `<button onclick="fleeDeath('intro')">[END INTERVIEW] → Next candidate</button>`;
+                    html += `<button onclick="fleeDeath('intro')">[END INTERVIEW]</button>`;
                 }
             } else if (level <= candidate.inquiryDepth) {
                 // Show inquiry at this level
-                html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid #333;">';
-                
-                // Visual depth indicator
-                let depthBar = '';
-                for (let i = 1; i <= candidate.inquiryDepth; i++) {
-                    if (i <= level) {
-                        depthBar += '█';
-                    } else {
-                        depthBar += '░';
-                    }
-                }
-                html += `<p style="color: #888;">Depth: [${depthBar}] ${level}/${candidate.inquiryDepth}</p>`;
-                
-                html += `<p style="margin-top: 10px;">"${candidate.inquiries[level-1]}"</p>`;
+                html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                html += `<p>"${candidate.inquiries[level-1]}"</p>`;
                 html += '</div>';
                 
                 if (level < candidate.inquiryDepth) {
                     // More levels to go
-                    html += `<button onclick="interview('${id}', ${level + 1})">[DEEPER] → Level ${level + 1}</button>`;
-                    html += `<button onclick="fleeDeath('inquiry', ${level})">[FLEE] → Escape</button>`;
+                    if (candidate.btns && candidate.btns[`i${level}a`]) {
+                        html += `<button onclick="interview('${id}', ${level + 1})">${candidate.btns[`i${level}a`]}</button>`;
+                        html += `<button onclick="fleeDeath('inquiry', ${level})">${candidate.btns[`i${level}r`]}</button>`;
+                    } else {
+                        html += `<button onclick="interview('${id}', ${level + 1})">[DEEPER]</button>`;
+                        html += `<button onclick="fleeDeath('inquiry', ${level})">[FLEE]</button>`;
+                    }
                 } else {
-                    // Final level - show truth
-                    html += '<p style="color: #ffd700; margin: 20px 0;">FINAL TRUTH APPROACHING...</p>';
-                    html += `<button onclick="showTruth('${id}')" style="border-color: #ffd700;">[FACE TRUTH]</button>`;
-                    html += `<button onclick="fleeDeath('inquiry', ${level})" class="red">[FLEE NOW] → Last chance</button>`;
+                    // Final level
+                    if (candidate.btns && candidate.btns[`i${level}a`]) {
+                        html += `<button onclick="showTruth('${id}')">${candidate.btns[`i${level}a`]}</button>`;
+                        html += `<button onclick="fleeDeath('inquiry', ${level})">${candidate.btns[`i${level}r`]}</button>`;
+                    } else {
+                        html += `<button onclick="showTruth('${id}')">[FACE TRUTH]</button>`;
+                        html += `<button onclick="fleeDeath('inquiry', ${level})">[FLEE NOW]</button>`;
+                    }
                 }
             }
             
@@ -607,9 +636,14 @@
         function showTruth(id) {
             const candidate = GAME.candidates[id];
             
-            let html = `<h2>THE TRUTH</h2>`;
-            html += '<div style="margin: 20px 0; padding: 20px; border: 2px solid #ffd700;">';
-            html += `<p class="gold">"${candidate.truth}"</p>`;
+            let html = `<h2>${candidate.name}</h2>`;
+            html += '<div style="margin: 20px 0; padding: 30px; border: 1px solid #666;">';
+            
+            if (candidate.truthText) {
+                html += `<p>${candidate.truthText}</p>`;
+            } else {
+                html += `<p>"${candidate.truth}"</p>`;
+            }
             html += '</div>';
             
             html += '<div style="margin: 20px 0; color: #666;">';
@@ -617,8 +651,13 @@
             html += `<p>After accepting: ${Math.max(0, GAME.state.certainty + candidate.certDrop)}%</p>`;
             html += '</div>';
             
-            html += `<button onclick="acceptTruth('${id}')" class="gold">[ACCEPT TRUTH] → Receive Map</button>`;
-            html += `<button onclick="fleeDeath('truth')" class="red">[REJECT] → Maintain Certainty</button>`;
+            if (candidate.btns && candidate.btns.ta) {
+                html += `<button onclick="acceptTruth('${id}')">${candidate.btns.ta}</button>`;
+                html += `<button onclick="fleeDeath('truth')">${candidate.btns.tr}</button>`;
+            } else {
+                html += `<button onclick="acceptTruth('${id}')">[ACCEPT TRUTH]</button>`;
+                html += `<button onclick="fleeDeath('truth')">[REJECT]</button>`;
+            }
             
             render(html);
         }
@@ -626,73 +665,65 @@
         function fleeDeath(source, level = 0) {
             clearInterval(GAME.state.timer);
             
-            let html = '';
+            let html = '<h1>GAME OVER</h1>';
             
-            if (source === 'intro') {
-                html = '<h1>PROFESSIONAL EXIT</h1>';
-                html += '<div style="margin: 30px 0;">';
-                html += '<p>You maintained professional boundaries.</p>';
-                html += '<p>The interview ended cordially.</p>';
-                html += '<p style="color: #666;">Certainty preserved: 100%</p>';
-                html += '</div>';
-            } else if (source === 'inquiry') {
-                html = `<h1>FLED AT LEVEL ${level}</h1>`;
-                html += '<div style="margin: 30px 0;">';
-                if (level === 1) {
-                    html += '<p>The questions made you uncomfortable.</p>';
-                    html += '<p>You excused yourself politely.</p>';
-                } else if (level === 2) {
-                    html += '<p>Too deep. Too strange.</p>';
-                    html += '<p>You backed away slowly.</p>';
+            const candidate = GAME.candidates[GAME.state.currentCandidate];
+            
+            if (candidate && candidate.deathFlee && candidate.deathTruth) {
+                if (source === 'truth') {
+                    html += '<div style="margin: 30px 0;">';
+                    html += `<p>${candidate.deathTruth}</p>`;
+                    html += '</div>';
                 } else {
-                    html += '<p>You ran. Actually ran.</p>';
-                    html += '<p>Some questions should not be asked.</p>';
+                    html += '<div style="margin: 30px 0;">';
+                    html += `<p>${candidate.deathFlee}</p>`;
+                    html += '</div>';
                 }
-                html += '</div>';
-            } else if (source === 'truth') {
-                html = '<h1 class="red">TRUTH REJECTED</h1>';
+            } else {
                 html += '<div style="margin: 30px 0;">';
-                html += '<p>You chose certainty over truth.</p>';
-                html += '<p>The comfortable lie over the uncomfortable revelation.</p>';
-                html += '<p style="color: #666;">That\'s human.</p>';
+                if (source === 'intro') {
+                    html += '<p>You maintained professional boundaries.</p>';
+                } else if (source === 'inquiry') {
+                    html += '<p>The questions became too strange.</p>';
+                } else if (source === 'truth') {
+                    html += '<p>You chose certainty over truth.</p>';
+                }
                 html += '</div>';
             }
             
             html += '<button onclick="resetGame()">[START OVER]</button>';
             
-            // Show what they've collected so far
-            if (GAME.state.portfolioUnlocked.length > 0) {
-                html += '<div style="margin-top: 30px; padding: 10px; border: 1px solid #333;">';
-                html += `<p class="dim">Perspectives collected: ${GAME.state.portfolioUnlocked.length}/8</p>`;
-                html += '</div>';
-            }
-            
-            render(html, true);  // true = stop timer
+            render(html, true);
         }
         
         function acceptTruth(id) {
             const candidate = GAME.candidates[id];
             
-            // Apply certainty drop (the price of truth!)
             GAME.state.certainty = Math.max(0, GAME.state.certainty + candidate.certDrop);
             
-            // Mark as reviewed
             if (!GAME.state.reviewed.includes(id)) {
                 GAME.state.reviewed.push(id);
             }
             
-            // UNLOCK PORTFOLIO PIECE!
             if (candidate.portfolioPiece && !GAME.state.portfolioUnlocked.includes(candidate.portfolioPiece)) {
                 GAME.state.portfolioUnlocked.push(candidate.portfolioPiece);
             }
             
-            // Unlock next candidate
             if (candidate.unlocks && !GAME.state.unlocked.includes(candidate.unlocks)) {
                 GAME.state.unlocked.push(candidate.unlocks);
             }
             
-            // Receive map
-            receiveMap(id);
+            if (candidate.isVoid) {
+                if (!GAME.state.mapFolderUnlocked) {
+                    GAME.state.mapFolderUnlocked = true;
+                }
+                if (!GAME.state.mapsCollected.includes(id)) {
+                    GAME.state.mapsCollected.push(id);
+                }
+                showVoid();
+            } else {
+                receiveMap(id);
+            }
         }
         
         function dissolve(id) {
@@ -704,7 +735,7 @@
                 GAME.state.reviewed.push(id);
             }
             
-            // UNLOCK PORTFOLIO PIECE (Navigator special!)
+            // Unlock portfolio piece
             const candidate = GAME.candidates[id];
             if (candidate.portfolioPiece && !GAME.state.portfolioUnlocked.includes(candidate.portfolioPiece)) {
                 GAME.state.portfolioUnlocked.push(candidate.portfolioPiece);
@@ -745,10 +776,9 @@
                 GAME.state.mapsCollected.push(id);
             }
             
-            // Show confession with certainty change
             const candidate = GAME.candidates[id];
             let html = `<h2>MAP RECEIVED</h2>`;
-            html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid #0f0;">';
+            html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
             html += `<p>${candidate.name}'s perspective captured.</p>`;
             html += `<p style="color: #666; margin-top: 10px;">Certainty: ${GAME.state.certainty + Math.abs(candidate.certDrop)}% → ${GAME.state.certainty}%</p>`;
             html += '</div>';
@@ -829,7 +859,7 @@
         }
         
         // ========================================
-        // PIRATE MODE (Ascent) - FIXED!
+        // PIRATE MODE (Ascent)
         // ========================================
         function remember(id) {
             GAME.state.currentCandidate = id;
@@ -846,7 +876,6 @@
             html += `<p class="gold">Perfect bearing: ${GAME.config.GOLDEN}°</p>`;
             html += '</div>';
             
-            // THE CRITICAL CHOICE!
             html += '<p style="color: #ffd700; margin: 20px 0;">Choose your navigation:</p>';
             html += `<button onclick="maintainFlow('${id}')" class="gold">[HOLD THE WIND] → Stay at 61.8°</button>`;
             html += `<button onclick="dropAnchor('${id}')" style="border-color: #888;">[DROP ANCHOR] → Gain +5° bearing</button>`;
@@ -982,13 +1011,6 @@
             html += '<p>One grasp and the flow breaks.</p>';
             html += '</div>';
             
-            // Show what they collected
-            if (GAME.state.portfolioUnlocked.length > 0) {
-                html += '<div style="margin: 20px 0; padding: 10px; border: 1px solid #333;">';
-                html += `<p class="dim">Perspectives kept: ${GAME.state.portfolioUnlocked.length}/8</p>`;
-                html += '</div>';
-            }
-            
             html += '<button onclick="resetGame()">[TRY FOR PERFECTION AGAIN]</button>';
             
             render(html, true);
@@ -1002,8 +1024,6 @@
             
             if (GAME.state.certainty > GAME.config.GOLDEN + 20) {
                 html += '<p style="margin-top: 15px;">Too much certainty killed the wind.</p>';
-            } else if (GAME.state.certainty < GAME.config.GOLDEN - 20) {
-                html += '<p style="margin-top: 15px;">Lost bearing, drifted to sea.</p>';
             } else {
                 html += '<p style="margin-top: 15px;">Close to perfection, but not quite.</p>';
             }
@@ -1015,16 +1035,15 @@
         }
         
         // ========================================
-        // TIMER SYSTEM (DUAL-CHAMBER HEART)
+        // TIMER SYSTEM
         // ========================================
-        function resetTimer() {  // PREP: Renamed and unified
+        function resetTimer() {
             GAME.state.lastAction = Date.now();
             
             if (GAME.state.timer) {
                 clearInterval(GAME.state.timer);
             }
             
-            // PREP: Different times for different modes
             const maxTime = GAME.state.mode === 'PIRATE' ? 
                 GAME.config.SHARK_TIME : GAME.config.DEADLINE_TIME;
             
@@ -1032,7 +1051,6 @@
                 const elapsed = Math.floor((Date.now() - GAME.state.lastAction) / 1000);
                 const remaining = Math.max(0, maxTime - elapsed);
                 
-                // PREP: Update display based on mode
                 if (GAME.state.mode === 'PIRATE') {
                     const display = document.getElementById('sharkTime');
                     if (display) {
@@ -1045,20 +1063,17 @@
                         }
                     }
                 } else {
-                    // PREP: Corporate timer display (to be implemented)
                     const display = document.getElementById('deadlineTime');
                     if (display) {
                         display.textContent = remaining;
-                        // Colors will be added later
                         if (remaining === 0) {
-                            corporateDeath();  // PREP: New function needed
+                            corporateDeath();
                         }
                     }
                 }
             }, 100);
         }
         
-        // PREP: Corporate death function
         function corporateDeath() {
             clearInterval(GAME.state.timer);
             
@@ -1067,7 +1082,7 @@
             html += '<p>Productivity is everything.</p>';
             html += `<button onclick="resetGame()">[RESTART]</button>`;
             
-            render(html, true);  // true = stop timer
+            render(html, true);
         }
         
         function sharkDeath() {
@@ -1077,14 +1092,13 @@
             html += '<p>You stopped moving.</p>';
             html += `<button onclick="resetGame()">[RESTART]</button>`;
             
-            render(html, true);  // PREP: Added stopTimer flag
+            render(html, true);
         }
         
         // ========================================
         // UTILITIES
         // ========================================
         function resetGame() {
-            // PREP: Clear any active timer
             if (GAME.state.timer) {
                 clearInterval(GAME.state.timer);
                 GAME.state.timer = null;
@@ -1112,19 +1126,6 @@
                 currentInquiryLevel: 0
             };
             
-            showHub();
-        }
-        
-        function devMode() {
-            // Quick dev shortcuts - jump to pirate mode with all maps
-            GAME.state.mode = 'PIRATE';
-            GAME.state.phase = 'ASCENT';
-            GAME.state.certainty = GAME.config.GOLDEN;
-            GAME.state.mapFolderUnlocked = true;
-            GAME.state.mapsCollected = Object.keys(GAME.candidates);
-            GAME.state.reviewed = Object.keys(GAME.candidates);  // All reviewed
-            GAME.state.remembered = [];  // Ready to remember
-            GAME.state.maintainedFlow = [];  // Ready to track flow
             showHub();
         }
         
@@ -1161,7 +1162,6 @@
         window.sharkDeath = sharkDeath;
         window.returnToVeil = returnToVeil;
         window.resetGame = resetGame;
-        window.devMode = devMode;
         
         // Start with theatrical veil
         showProfessionalMask();
