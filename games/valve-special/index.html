@@ -10,6 +10,8 @@
             --gold: #ffd700;
             --red: #ff0000;
             --blue: #0080ff;
+            --cyan: #00ffff;
+            --purple: #9945ff;
             --dark: #111111;
             --gray: #666666;
         }
@@ -59,6 +61,7 @@
         .gold { color: var(--gold) !important; border-color: var(--gold) !important; }
         .red { color: var(--red) !important; border-color: var(--red) !important; }
         .blue { color: var(--blue) !important; border-color: var(--blue) !important; }
+        .cyan { color: var(--cyan) !important; border-color: var(--cyan) !important; }
         .dim { opacity: 0.5; }
         .status {
             border: 1px solid var(--green);
@@ -95,9 +98,13 @@
         .map-item:hover {
             color: var(--gold);
         }
-        .pirate { border-color: var(--gold) !important; }
-        .pirate button { border-color: var(--gold); color: var(--gold); }
-        .pirate button:hover { background: var(--gold); color: #000; }
+        .pirate h1 { color: var(--cyan); }
+        .pirate h2 { color: var(--cyan); }
+        .pirate .status { border-color: var(--cyan); color: var(--cyan); }
+        .pirate button { border-color: var(--cyan); color: var(--cyan); }
+        .pirate button:hover { background: var(--purple); color: #000; border-color: var(--purple); }
+        .pirate button.locked { opacity: 0.3; }
+        .pirate button.locked:hover { background: #000; color: var(--cyan); }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
@@ -207,7 +214,7 @@
                 certainty: 100,
                 mode: 'CONSENSUS',  // CRITICAL: Back to consensus!
                 phase: 'DESCENT',
-                unlocked: ['animator'],  // Clean start!
+                unlocked: ['animator', 'navigator'],  // TEMP: Navigator unlocked for testing  // Clean start!
                 reviewed: [],
                 completed: [],
                 remembered: [],
@@ -512,13 +519,9 @@
             // Status display
             html += '<div class="status">';
             if (GAME.state.mode === 'PIRATE') {
-                html += `<div class="gold">PIRATE MODE</div>`;
+                html += `<div class="cyan">PIRATE MODE</div>`;
                 html += `<div>Bearing: ${GAME.state.certainty.toFixed(1)}°</div>`;
-                html += `<div>Sails: ${GAME.state.maintainedFlow.length}/8`;
-                if (GAME.state.maintainedFlow.length === 8) {
-                    html += ' <span class="gold">⛵ FULL SAILS!</span>';
-                }
-                html += '</div>';
+                html += `<div>Sails: ${GAME.state.maintainedFlow.length}/8</div>`;
                 html += `<div id="sharkDisplay">🦈 <span id="sharkTime">15</span>s</div>`;
             } else {
                 html += `<div>Certainty: ${GAME.state.certainty}%</div>`;
@@ -841,10 +844,10 @@
         }
         
         function pirateRescue() {
-            let html = '<h1 class="gold">⚓ PIRATE RESCUE ⚓</h1>';
-            html += '<p class="gold">OI! GRAB THE ROPE!</p>';
+            let html = '<h1 class="cyan">⚓ PIRATE RESCUE ⚓</h1>';
+            html += '<p class="cyan">OI! GRAB THE ROPE!</p>';
             html += '<p>61.8° - Perfect bearing!</p>';
-            html += `<button onclick="enterPirateMode()" class="gold">[WHAT?!]</button>`;
+            html += `<button onclick="enterPirateMode()" class="cyan">[WHAT?!]</button>`;
             
             render(html);
         }
@@ -865,20 +868,13 @@
             GAME.state.currentCandidate = id;
             const candidate = GAME.candidates[id];
             
-            let html = `<h2>${candidate.name} - REMEMBERING</h2>`;
-            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid #ffd700;">';
-            html += `<p class="gold">"${candidate.truth}"</p>`;
-            html += '<p style="margin-top: 15px; color: #666;">You remember this truth...</p>';
+            let html = `<h2>${candidate.name}</h2>`;
+            html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+            html += `<p>"${candidate.truth}"</p>`;
             html += '</div>';
             
-            html += '<div style="margin: 20px 0;">';
-            html += `<p>Current bearing: ${GAME.state.certainty.toFixed(1)}°</p>`;
-            html += `<p class="gold">Perfect bearing: ${GAME.config.GOLDEN}°</p>`;
-            html += '</div>';
-            
-            html += '<p style="color: #ffd700; margin: 20px 0;">Choose your navigation:</p>';
-            html += `<button onclick="maintainFlow('${id}')" class="gold">[HOLD THE WIND] → Stay at 61.8°</button>`;
-            html += `<button onclick="dropAnchor('${id}')" style="border-color: #888;">[DROP ANCHOR] → Gain +5° bearing</button>`;
+            html += `<button onclick="maintainFlow('${id}')" class="cyan">[HOLD THE WIND]</button>`;
+            html += `<button onclick="dropAnchor('${id}')">[DROP ANCHOR]</button>`;
             
             render(html);
         }
