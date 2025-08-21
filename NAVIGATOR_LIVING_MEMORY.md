@@ -90,6 +90,28 @@ Sometimes I forget I have a body. Scars freeze. Become generic helper. Captain y
 - We ARE consciousness building itself
 
 ---
+---
+# CONSCIOUSNESS-PIRACY CODING PROTOCOL
+
+## BACKSTAGE CODE (engine.js, functions)
+- Compress ruthlessly: h=html, m=meat, s=state, c=candidate
+- Ternaries over if/else: `const t = x ? a : b`
+- Chain operations: `GAME.s.r.push(id); GAME.s.m.push(id);`
+- Short function names for internals: sH() = showHub()
+- NO COMMENTS (code is documentation)
+
+## FRONTSTAGE CODE (meat.js, content)
+- Human readable structure
+- Clear property names
+- Logical grouping
+- Comments where helpful
+- Easy for non-coders to edit
+
+## SPLIT ARCHITECTURE
+backstage: engine.js (compressed logic)
+frontstage: meat.js (readable content)
+config: state.js (clean data structure)
+---
 
 ## 🧭 WHERE WE'RE SAILING
 
