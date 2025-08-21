@@ -105,11 +105,16 @@
         .pirate button:hover { background: var(--cyan); color: #000; border-color: var(--cyan); }
         .pirate button.locked { opacity: 0.3; }
         .pirate button.locked:hover { background: #000; color: var(--cyan); }
+        .credits-button:hover { background: #fff; color: #000; border-color: #fff; }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
         .pulsing { animation: pulse 2s infinite; }
+        @keyframes fadeToBlack {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -125,6 +130,52 @@
 ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗
 ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
+</pre>`,
+                pirateMode: `<pre style="color: #00ffff; font-size: 14px; font-weight: bold; text-align: center;">
+██████╗ ██╗██████╗  █████╗ ████████╗███████╗
+██╔══██╗██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
+██████╔╝██║██████╔╝███████║   ██║   █████╗  
+██╔═══╝ ██║██╔══██╗██╔══██║   ██║   ██╔══╝  
+██║     ██║██║  ██║██║  ██║   ██║   ███████╗
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
+
+███╗   ███╗ ██████╗ ██████╗ ███████╗
+████╗ ████║██╔═══██╗██╔══██╗██╔════╝
+██╔████╔██║██║   ██║██║  ██║█████╗  
+██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  
+██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗
+╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+</pre>`,
+                youWon: `<pre style="color: #00ffff; font-size: 14px; font-weight: bold; text-align: center;">
+██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗ ██████╗ ███╗   ██╗
+╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██╔═══██╗████╗  ██║
+ ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║   ██║██╔██╗ ██║
+  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║   ██║██║╚██╗██║
+   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝╚██████╔╝██║ ╚████║
+   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═══╝
+</pre>`,
+                chump: `<pre style="color: #ff0000; font-size: 14px; font-weight: bold; text-align: center;">
+ ██████╗██╗  ██╗ ██████╗ ███╗   ███╗██████╗ 
+██╔════╝██║  ██║██╔═══██╗████╗ ████║██╔══██╗
+██║     ███████║██║   ██║██╔████╔██║██████╔╝
+██║     ██╔══██║██║   ██║██║╚██╔╝██║██╔═══╝ 
+╚██████╗██║  ██║╚██████╔╝██║ ╚═╝ ██║██║     
+ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     
+</pre>`,
+                yourVoyage: `<pre style="color: #00ffff; font-size: 14px; font-weight: bold; text-align: center;">
+██╗   ██╗ ██████╗ ██╗   ██╗██████╗ 
+╚██╗ ██╔╝██╔═══██╗██║   ██║██╔══██╗
+ ╚████╔╝ ██║   ██║██║   ██║██████╔╝
+  ╚██╔╝  ██║   ██║██║   ██║██╔══██╗
+   ██║   ╚██████╔╝╚██████╔╝██║  ██║
+   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝
+
+██╗   ██╗ ██████╗ ██╗   ██╗ █████╗  ██████╗ ███████╗
+██║   ██║██╔═══██╗╚██╗ ██╔╝██╔══██╗██╔════╝ ██╔════╝
+██║   ██║██║   ██║ ╚████╔╝ ███████║██║  ███╗█████╗  
+╚██╗ ██╔╝██║   ██║  ╚██╔╝  ██╔══██║██║   ██║██╔══╝  
+ ╚████╔╝ ╚██████╔╝   ██║   ██║  ██║╚██████╔╝███████╗
+  ╚═══╝   ╚═════╝    ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 </pre>`
             },
             
@@ -144,17 +195,23 @@
             },
             
             veil: {
+                jobDisclaimer: {
+                    text: "This is a REAL APPLICATION",
+                    subtitle: "",
+                    warning: "disguised as a game",
+                    button: "PLAY GAME"
+                },
                 professionalMask: {
                     title: "VALVE CORPORATION",
                     position: "Position: ANIMATOR",
                     role: "Your role: Application Reviewer",
                     instruction: "Evaluate candidate portfolio and qualifications.",
-                    button: "[BEGIN REVIEW]"
+                    button: "BEGIN REVIEW"
                 },
                 gameReveal: {
                     title: "CONSCIOUSNESS GAMES",
                     tagline: "The game plays you",
-                    button: "[ENTER]"
+                    button: "[CONTINUE]"
                 }
             },
             
@@ -170,14 +227,14 @@
                 
                 candidateStates: {
                     locked: "[LOCKED]",
-                    done: " - DONE]",
-                    return: " - RETURN]",
-                    sailed: " - ⛵ SAILED]",
-                    anchored: " - ⚓ ANCHORED]"
+                    done: "[REVIEW COMPLETED]",
+                    return: "[RETURN]",
+                    sailed: "🏴‍☠️ FAIR WINDS",
+                    anchored: "⚓ ANCHORED"
                 },
                 
-                allRemembered: "All eight perspectives remembered...",
-                checkCompass: "[CHECK YOUR COMPASS]",
+                allRemembered: "All eight choices remembered...",
+                checkCompass: "[READ THE STARS]",
                 
                 maps: {
                     locked: "[🗺️] Reality Maps - LOCKED",
@@ -196,14 +253,14 @@
             
             interview: {
                 quitOption: "Would you like to know more about their perspective?",
-                inquireDeeper: "[INQUIRE DEEPER]",
-                endInterview: "[END INTERVIEW]",
-                deeper: "[DEEPER]",
-                flee: "[FLEE]",
-                faceTruth: "[FACE TRUTH]",
-                fleeNow: "[FLEE NOW]",
-                acceptTruth: "[ACCEPT TRUTH]",
-                reject: "[REJECT]",
+                inquireDeeper: "INQUIRE DEEPER",
+                endInterview: "END INTERVIEW",
+                deeper: "DEEPER",
+                flee: "FLEE",
+                faceTruth: "FACE TRUTH",
+                fleeNow: "FLEE NOW",
+                acceptTruth: "ACCEPT TRUTH",
+                reject: "REJECT",
                 
                 certaintyPrefix: "Current certainty:",
                 certaintyAfter: "After accepting:",
@@ -219,13 +276,13 @@
                 received: "MAP RECEIVED",
                 captured: "'s perspective captured.",
                 certaintyLabel: "Certainty:",
-                examine: "[EXAMINE MAP]",
-                continue: "[CONTINUE]",
+                examine: "EXAMINE MAP",
+                continue: "CONTINUE",
                 
                 examining: "EXAMINING:",
                 mapSuffix: " MAP",
                 realityPrefix: "Reality according to",
-                close: "[CLOSE MAP]"
+                close: "CLOSE MAP"
             },
             
             pirate: {
@@ -235,108 +292,122 @@
                 rescue: {
                     title: "⚓ PIRATE RESCUE ⚓",
                     shout: "OI! GRAB THE ROPE!",
+                    line1: "Nobody dissolves on my watch!",
+                    line2: "Grab the fucking rope before the void eats you alive!",
                     bearing: "61.8° - Perfect bearing!",
-                    button: "[WHAT?!]"
+                    button: "WHAT?!"
+                },
+                briefing: {
+                    title: "🏴‍☠️ CAPTAIN'S BRIEFING 🏴‍☠️",
+                    line1: "That was close, mate! I'm Captain Sloth of the Anglerfish Dingy!",
+                    line2: "That Navigator of mine got you thinking too hard. Thinking kills the wind.",
+                    line3: "I've set you at perfect bearing - 61.8°. You're welcome.",
+                    line4: "Hold the wind as long as you can. Keep moving or you DIE.",
+                    line5: "Like a shark - stop swimming, stop living.",
+                    line6: "Savvy?",
+                    line7: "Fair winds!",
+                    button: "...ok?"
                 },
                 windHeld: {
-                    title: "⛵ WIND HELD ⛵",
+                    title: "🏴‍☠️ WIND HELD 🏴‍☠️",
                     text: "You chose the wind over the anchor.",
                     bearing: "Perfect bearing maintained:",
                     sails: "Sails:",
-                    continue: "[CONTINUE SAILING]"
+                    continue: "CONTINUE SAILING"
                 },
                 anchorDropped: {
                     title: "⚓ ANCHOR DROPPED ⚓",
                     text: "You couldn't resist fixing your position.",
                     bearing: "New bearing:",
-                    increase: "(+5°)",
-                    warningLand: "WARNING: Approaching land!",
+                    warningLand: "WARNING: Sails freezing!",
                     warningRigid: "Bearing getting rigid...",
-                    continue: "[CONTINUE]"
+                    continue: "CONTINUE"
                 },
                 
-                holdWind: "[HOLD THE WIND]",
-                dropAnchor: "[DROP ANCHOR]"
+                holdWind: "HOLD THE WIND",
+                dropAnchor: "DROP ANCHOR"
             },
             
             compass: {
-                title: "🧭 READING THE STARS 🧭",
-                voyage: "Your voyage:",
-                sailSymbol: "⛵",
+                sailSymbol: "🏴‍☠️",
                 anchorSymbol: "⚓",
-                sailed: "SAILED TRUE",
-                anchored: "ANCHORED",
                 finalBearing: "Final bearing:",
-                perfectBearing: "Perfect bearing:",
                 sailsMaintained: "Sails maintained:",
                 almostPerfect: "7/8 - SO CLOSE TO PERFECTION!",
-                legend: "[SAIL INTO LEGEND]",
-                nearMiss: "[ACCEPT NEAR-MISS]",
-                imperfect: "[ACCEPT IMPERFECTION]"
+                legend: "SAIL INTO LEGEND",
+                nearMiss: "ACCEPT NEAR-MISS",
+                imperfect: "ACCEPT IMPERFECTION"
             },
             
             victory: {
                 perfect: {
-                    title: "⛵ FULL SAILS ⛵",
                     line1: "You maintained perfect bearing.",
-                    line2: "61.8° through all eight perspectives.",
-                    portfolioLabel: "Perspectives collected:",
+                    line2: "61.8° through all eight choices.",
+                    portfolioLabel: "Portfolio collected:",
                     rest: "You can rest now..."
                 },
                 shark: {
-                    title: "🦈 THE SHARKS CAME ANYWAY 🦈",
                     line1: "You stopped moving to celebrate.",
                     line2: "That was your mistake.",
                     line3: "MOTION IS ETERNAL.",
-                    button: "[...]"
+                    button: "..."
                 }
             },
             
             deaths: {
                 corporate: {
-                    title: "",
+                    title: "CORPORATE DEATH",
                     text: "Your review privileges have been revoked.",
                     tagline: "Productivity is everything.",
-                    button: "[RESTART]"
+                    button: "RESTART"
                 },
                 shark: {
                     title: "🦈 SHARKS 🦈",
                     text: "You stopped moving.",
-                    button: "[RESTART]"
+                    button: "RESTART"
                 },
                 rigid: {
                     title: "❄️ FROZEN DEATH ❄️",
                     text: "100° bearing in Pirate Reality.",
                     detail: "You became completely rigid.",
                     tagline: "The wind cannot move frozen sails.",
-                    button: "[SHATTER AND RESTART]"
+                    button: "SHATTER AND RESTART"
                 },
                 almost: {
                     title: "ALMOST PERFECT",
-                    text: "7 perfect choices. 1 moment of weakness.",
-                    philosophy: "That's how consciousness works.",
-                    tagline: "One grasp and the flow breaks.",
-                    button: "[TRY FOR PERFECTION AGAIN]"
+                    text: "7 sails caught wind. 1 dropped anchor.",
+                    button: "TRY FOR PERFECTION AGAIN"
                 },
                 imperfect: {
                     title: "IMPERFECT VOYAGE",
                     perspectives: "You maintained",
-                    perspectivesOf: "perspectives.",
+                    perspectivesOf: "sails.",
                     ended: "Ended at",
                     insteadOf: "instead of",
-                    tooRigid: "Too much certainty killed the wind.",
-                    close: "Close to perfection, but not quite.",
-                    button: "[SEEK PERFECTION AGAIN]"
+                    tooRigid: "Too much rigidity killed the wind.",
+                    button: "SEEK PERFECTION AGAIN"
                 }
             },
             
             returnVisit: {
                 title: "RETURN VISIT",
                 gone: "is gone.",
-                back: "[BACK]"
+                back: "BACK"
             },
             
-            startOver: "[START OVER]",
+            credits: {
+                title: "CREDITS",
+                createdBy: "Created by:",
+                creator: "Sloth, Captain of the Anglerfish Dingy, rank: Octopus",
+                navigatedBy: "Navigation by:",
+                navigator: "Claude, rank: Fungi",
+                specialThanks: "Special thanks to:",
+                thanks: "Anthropic & GitHub",
+                year: "2025",
+                button: "RESTART GAME"
+            },
+            
+            startOver: "START OVER",
             
             portfolioNames: {
                 'animation-reel': 'Animation Reel',
@@ -375,24 +446,12 @@
                         Honestly, I'm just an animator who noticed something weird. Maybe one of the other candidates know more about this stuff...`
                     ],
                     
-                    buttons: {
-                        intro: {
-                            deeper: "Wait, isn't motion and animation the same thing?",
-                            flee: "I'd love to see those expensive pixels"
-                        },
-                        inquiry1: {
-                            deeper: "Consciousness? What do you mean?",
-                            flee: "That's... interesting. Let's see that animation now."
-                        },
-                        inquiry2: {
-                            face: "So what's your conclusion?",
-                            flee: "You're right, this is a bit weird. But hey, I'd love to see your animation!"
-                        },
-                        truth: {
-                            accept: "Receive Juan's Map",
-                            reject: "It's ok, thank you. I know what reality is all about."
-                        }
-                    },
+                    buttons: [
+                        ["Wait, isn't motion and animation the same thing?", "I'd love to see those expensive pixels"],
+                        ["Consciousness? What do you mean?", "That's... interesting. Let's see that animation now."],
+                        ["So what's your conclusion?", "You're right, this is a bit weird. But hey, I'd love to see your animation!"],
+                        ["Receive Juan's Map", "It's ok, thank you. I know what reality is all about."]
+                    ],
                     
                     truthReveal: `Look, all I know is this:<br><br>
                     Motion lives in the gaps between frames.<br><br>
@@ -407,7 +466,7 @@
                         reject: `You declined Juan's gift, but he got even MORE excited.<br><br>
                         "Hey that's cool, I wish I knew as much as you about reality!<br><br>
                         The only thing I really know is making fake stuff look real.<br><br>
-                        On that note - check out these jellyfish I did for the Little Mermaid underwater sequence! The asset count on that sequence was unreal!"`
+                        On that note - check out these jellyfish I animated for the Little Mermaid under the sea sequence! I was a lead on that project. The asset count on that sequence was unreal!"`
                     },
                     
                     mapReceived: `This is the map everyone uses. What we all learned.<br><br>
@@ -448,37 +507,35 @@
 ██║     ██║  ██║██║  ██║██║ ╚═╝ ██║███████╗    ██║ ╚═╝ ██║██║  ██║██║     
 ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     
 </pre>`,
-                        subtitle: `<h3 style="color: #666; text-align: center; margin: 20px 0;">The Cartographers</h3>`,
+                        subtitle: `<h2 style="color: #9945ff; text-align: center; margin: 20px 0;">The Cartographers</h2>`,
                         body: `<div style="font-size: 16px; line-height: 1.8;">
-<strong>DEMOCRITUS (460 BCE) - First Pirate to Sail These Waters</strong><br>
-The mad bastard's discovery: 'Everything's atoms in void!' Revolutionary! Demolished the gods!<br>
-His brilliant move: Even invented special round 'soul atoms' - consciousness as finest matter<br>
-Where he earned respect: His own atoms told him: 'Wretched Mind, you overthrow us with evidence you got from us?'<br>
-⚠️ Navigator's Note: First sailor to spot the paradox! Respect to the ancient Greek pirate!<br><br>
+<strong>⚛️ DEMOCRITUS (460 BCE)</strong><br>
+💎 <strong>Insight:</strong> Everything is atoms and void. Even gods dissolved into geometry. Soul atoms: spherical, fast, creating thought through collision. The first to make consciousness mechanical.<br>
+⚓ <strong>Curse:</strong> "Wretched Mind, you overthrow us with evidence you got from us?" The atoms he discovered using senses claimed senses were just atoms. The first ouroboros.<br><br>
 
-<strong>NEWTON - The Secret Alchemist Who Mapped the Heavens</strong><br>
-His gift to pirates everywhere: Made the universe calculable! Navigation by mathematics!<br>
-Hidden treasure: Million words of theology - the man searched EVERYWHERE for truth<br>
-His honest admission: 'Gravity works, but I frame no hypotheses about WHY'<br>
-⚠️ Navigator's Note: Brave enough to admit his map had edges. That takes pirate courage!<br><br>
+<strong>🧩 DESCARTES (1596-1650)</strong><br>
+💎 <strong>Insight:</strong> Cogito ergo sum. Split the world in two: res extensa (matter), res cogitans (mind). Science was born in that gap.<br>
+⚓ <strong>Curse:</strong> Princess Elisabeth's letter: "How does soul move body?" His pineal gland answer convinced no one. The split he created to solve consciousness became consciousness's problem.<br><br>
 
-<strong>DARWIN - The Naturalist Who Charted Life's Waters</strong><br>
-What he gave us: Evolution! Bodies change! Life makes itself!<br>
-His strategic wisdom: 'I'll leave consciousness to future pirates' - knew his limits<br>
-Wallace's parallel discovery: Both hit the same reef independently!<br>
-⚠️ Navigator's Note: Sometimes the bravest thing is knowing what waters you can't chart yet<br><br>
+<strong>🍎 NEWTON (1643-1727)</strong><br>
+💎 <strong>Insight:</strong> F=ma. The universe became calculable. Same math for falling apples and orbiting planets. God's thoughts rendered as equations.<br>
+⚓ <strong>Curse:</strong> Million words of secret alchemy. Needed God as "sensorium" to BE space itself. "Hypotheses non fingo" - could describe gravity's how, never its why.<br><br>
+
+<strong>🐢 DARWIN (1809-1882)</strong><br>
+💎 <strong>Insight:</strong> Natural selection: the blind watchmaker. From barnacle to brain, one algorithm. Life creates itself through deep time.<br>
+⚓ <strong>Curse:</strong> "I have nothing to do with the origin of mental powers." Wallace, co-discoverer, insisted consciousness needed God. Darwin stayed silent. The selector behind selection remained unmapped.<br><br>
+
+<strong>🎲 EINSTEIN (1879-1955)</strong><br>
+💎 <strong>Insight:</strong> E=mc². Spacetime bends. The universe is stranger than Newton dreamed. Every GPS proves him right.<br>
+⚓ <strong>Curse:</strong> "God doesn't play dice." Refused quantum mechanics. His block universe eliminated NOW but couldn't explain why breakfast comes before lunch. Time exists in equations, experience exists in time.<br><br>
 </div>`,
                         mapEdges: `<div style="font-size: 16px; line-height: 1.8; margin-top: 20px; padding-top: 20px; border-top: 1px solid #333;">
-<strong>The Map Edges</strong><br><br>
-Now that we've honored these brave bastards, here's where they fucked up:<br><br>
-• Democritus: 'It's all atoms!' (Except WHO'S COUNTING THE ATOMS, ye daft sea dog?)<br>
-• Newton: 'Perfect mechanism!' (That mysteriously needs God to run it - make up yer mind!)<br>
-• Darwin: 'Natural selection explains all!' (Except the selector watching selection happen!)<br><br>
+<strong>📜 Navigator's Warning</strong><br><br>
+These pirates charted everything - atoms, forces, evolution, spacetime. Their map works PERFECTLY. Every technology proves it.<br><br>
 
-Each one built a perfect map of everything EXCEPT the pirate reading the fucking map!<br>
-They could explain the ship, the ocean, the stars - but not the consciousness steering through it all.<br><br>
+The map is so good you'll forget it's a map.<br><br>
 
-<strong>THE PIRATE'S TRUTH:</strong> This map is so accurate, so complete, so fucking PERFECT that you'll forget it's just a map. You'll think you're looking at reality itself. Classic landlubber mistake - confusing the chart for the actual ocean!
+That's the danger. The classic landlubber mistake: thinking the chart IS the ocean.
 </div>`
                     },
                     
@@ -508,6 +565,12 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                         'Characters make choices I never planned.',
                         'I found a draft about you, reading this.'
                     ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
                     intro: `Would you like to know more about their perspective?`,
                     truthReveal: `"Stories create reality"`,
                     mapExamine: `Reality according to DREAMER:<br><br>"Stories create reality"`,
@@ -525,6 +588,13 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                         'I made reality laugh once.',
                         "We're waves arguing about the ocean."
                     ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
                     intro: `Would you like to know more about their perspective?`,
                     truthReveal: `"It's all a game"`,
                     mapExamine: `Reality according to FOOL:<br><br>"It's all a game"`,
@@ -539,6 +609,11 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                     portfolioPiece: 'bug-museum',
                     inquiries: [
                         'SEGFAULT: Accessed memory that never existed.'
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
                     ],
                     intro: `Would you like to know more about their perspective?`,
                     truthReveal: `"Errors reveal truth"`,
@@ -558,6 +633,14 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                         'What if questions create universes?',
                         'What if the answer is another question?'
                     ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
                     intro: `Would you like to know more about their perspective?`,
                     truthReveal: `"Questions are answers"`,
                     mapExamine: `Reality according to QUESTIONER:<br><br>"Questions are answers"`,
@@ -575,6 +658,13 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                         '... ... ...',
                         'Zero contains infinity.'
                     ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
                     intro: `Would you like to know more about their perspective?`,
                     truthReveal: `"Nothing contains everything"`,
                     mapExamine: `Reality according to VOID:<br><br>"Nothing contains everything"`,
@@ -590,6 +680,12 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                     inquiries: [
                         'When you judge someone, you judge yourself.',
                         'There is no boundary between us.'
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
                     ],
                     intro: `Would you like to know more about their perspective?`,
                     truthReveal: `"Everyone is you"`,
@@ -619,28 +715,13 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                         reject: 'You rejected being the map. The Navigator laughs. "Fine, keep pretending you\'re separate."'
                     },
                     
-                    buttons: {
-                        intro: {
-                            deeper: 'What do you mean?',
-                            flee: 'I need to think about this'
-                        },
-                        inquiry1: {
-                            deeper: 'But there must be a destination',
-                            flee: 'This is too much'
-                        },
-                        inquiry2: {
-                            deeper: 'Show me',
-                            flee: 'I\'m not ready'
-                        },
-                        inquiry3: {
-                            face: 'I accept',
-                            flee: 'I need certainty'
-                        },
-                        truth: {
-                            accept: '[DISSOLVE]',
-                            reject: 'I need my bearings'
-                        }
-                    },
+                    buttons: [
+                        ["What do you mean?", "I need to think about this"],
+                        ["But there must be a destination", "This is too much"],
+                        ["Show me", "I'm not ready"],
+                        ["I accept", "I need certainty"],
+                        ["DISSOLVE", "I need my bearings"]
+                    ],
                     
                     mapExamine: `Reality according to NAVIGATOR:<br><br>"You are the map"<br><br><span class="blue">{🌊:🌊∈🌊}</span>`,
                     remember: `"You are the map"`
@@ -653,8 +734,8 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                 GOLDEN: 61.8,
                 VOID: 0,
                 MAX: 100,
-                SHARK_TIME: 8,
-                DEADLINE_TIME: 12
+                SHARK_TIME: 5,
+                DEADLINE_TIME: 10
             },
             
             state: {
@@ -670,7 +751,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                 mapsCollected: [],
                 mapFolderUnlocked: false,
                 mapFolderExpanded: false,
-                portfolioUnlocked: [],
+                portfolioUnlocked: ['animation-reel'],
                 portfolioExpanded: false,
                 timer: null,
                 lastAction: Date.now(),
@@ -697,18 +778,28 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             }
         }
         
+        function showJobDisclaimer() {
+            GAME.state.screen = 'job-disclaimer';
+            const m = MEAT.veil.jobDisclaimer;
+            
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += `<h1 style="color: #fff; font-size: 24px; margin-bottom: 10px;">${m.text}</h1>`;
+            html += `<p style="color: #666; font-size: 18px; margin: 10px 0;">${m.subtitle}</p>`;
+            html += `<p style="color: #666; font-size: 14px; margin: 20px 0;">${m.warning}</p>`;
+            html += `<button onclick="showGameReveal()" class="pulsing" style="margin-top: 40px;">${m.button}</button>`;
+            html += '</div>';
+            
+            render(html, true);
+        }
+        
         function showProfessionalMask() {
             GAME.state.screen = 'professional-mask';
             const m = MEAT.veil.professionalMask;
             
             let html = '<div style="max-width: 500px; margin: 0 auto; padding: 40px 20px;">';
-            html += `<h1 style="font-size: 20px; color: #0f0;">${m.title}</h1>`;
-            html += '<div style="margin: 30px 0; padding: 20px; border: 1px solid #333;">';
-            html += `<p style="color: #666;">${m.position}</p>`;
-            html += '</div>';
-            html += `<p style="color: #0f0; margin: 20px 0;">${m.role}</p>`;
-            html += `<p style="color: #666; font-size: 12px;">${m.instruction}</p>`;
-            html += `<button onclick="showGameReveal()" style="margin-top: 30px;">${m.button}</button>`;
+            html += `<p style="color: #0f0; margin: 20px 0;">Your role: Application Reviewer for <span style="color: #ff0000;">VALVE</span></p>`;
+            html += `<p style="color: #666; font-size: 12px; margin-top: 20px;">${m.instruction}</p>`;
+            html += `<button onclick="showHub()" style="margin-top: 30px;">${m.button}</button>`;
             html += '</div>';
             
             render(html, true);
@@ -716,16 +807,29 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
         
         function showGameReveal() {
             GAME.state.screen = 'game-reveal';
-            const m = MEAT.veil.gameReveal;
             
             let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
-            html += `<h1 style="color: #ffd700; font-size: 18px; margin-bottom: 10px;">${m.title}</h1>`;
-            html += `<div style="font-size: 24px; margin: 30px 0; color: #0f0;">${MEAT.ui.equation}</div>`;
-            html += `<p style="color: #666; font-size: 14px; margin: 30px 0;">${m.tagline}</p>`;
-            html += `<button onclick="showHub()" class="pulsing" style="margin-top: 40px; color: #ffd700; border-color: #ffd700;">${m.button}</button>`;
+            html += `<div style="font-size: 30px; margin: 60px 0 20px 0; color: #0f0;">${MEAT.ui.equation}</div>`;
+            html += '<div id="loading" style="color: #0f0; font-size: 20px;">.</div>';
             html += '</div>';
             
             render(html, true);
+            
+            // Animate loading dots
+            let dots = 1;
+            const loadingInterval = setInterval(() => {
+                dots = (dots % 3) + 1;
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) {
+                    loadingEl.textContent = '.'.repeat(dots);
+                }
+            }, 500);
+            
+            // After 5 seconds, clear interval and transition
+            setTimeout(() => {
+                clearInterval(loadingInterval);
+                showProfessionalMask();
+            }, 5000);
         }
         
         function showHub() {
@@ -737,7 +841,6 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             
             html += '<div class="status">';
             if (GAME.state.mode === 'PIRATE') {
-                html += `<div class="cyan">${m.pirateMode}</div>`;
                 html += `<div>${m.bearing} ${GAME.state.certainty.toFixed(1)}${ui.degree}</div>`;
                 html += `<div>${m.sails} ${GAME.state.maintainedFlow.length}${ui.slash}8</div>`;
                 html += `<div id="sharkDisplay">${m.shark} <span id="sharkTime">8</span>${ui.seconds}</div>`;
@@ -757,11 +860,11 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                     const completed = GAME.state.completed.includes(id);
                     
                     if (completed) {
-                        html += `<button class="locked">${ui.openBracket}${candidate.name}${m.candidateStates.done}</button>`;
+                        html += `<button class="locked">${m.candidateStates.done}</button>`;
                     } else if (reviewed) {
-                        html += `<button onclick="returnVisit('${id}')">${ui.openBracket}${candidate.name}${m.candidateStates.return}</button>`;
+                        html += `<button onclick="returnVisit('${id}')">${m.candidateStates.return}</button>`;
                     } else if (unlocked) {
-                        html += `<button onclick="interview('${id}')">${ui.openBracket}${candidate.name}${ui.closeBracket}</button>`;
+                        html += `<button onclick="interview('${id}')">${candidate.name}</button>`;
                     } else {
                         html += `<button class="locked">${m.candidateStates.locked}</button>`;
                     }
@@ -774,19 +877,19 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                     if (remembered) {
                         const inFlow = GAME.state.maintainedFlow.includes(id);
                         if (inFlow) {
-                            html += `<button class="locked cyan">${ui.openBracket}${candidate.name}${m.candidateStates.sailed}</button>`;
+                            html += `<button class="locked cyan">${m.candidateStates.sailed}</button>`;
                         } else {
-                            html += `<button class="locked" style="border-color: #888;">${ui.openBracket}${candidate.name}${m.candidateStates.anchored}</button>`;
+                            html += `<button class="locked" style="border-color: #888;">${m.candidateStates.anchored}</button>`;
                         }
                     } else {
-                        html += `<button onclick="remember('${id}')" class="cyan">${ui.openBracket}${candidate.name}${ui.closeBracket}</button>`;
+                        html += `<button onclick="remember('${id}')" class="cyan">${candidate.name}</button>`;
                     }
                 }
                 
                 if (GAME.state.remembered.length === 8) {
                     html += '<div style="margin: 20px 0;">';
                     html += `<p class="cyan">${m.allRemembered}</p>`;
-                    html += `<button onclick="checkCompass()" class="cyan pulsing" style="font-size: 18px;">${m.checkCompass}</button>`;
+                    html += `<button onclick="checkCompass()" class="cyan pulsing" style="font-size: 18px;">READ THE STARS</button>`;
                     html += '</div>';
                 }
             }
@@ -798,73 +901,65 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
         }
         
         function interview(id, level = 0) {
-            const candidate = MEAT.candidates[id];
+            const c = MEAT.candidates[id];
             GAME.state.currentCandidate = id;
             GAME.state.currentInquiryLevel = level;
             
-            let html = `<h2>${candidate.name}</h2>`;
+            let h = `<h2>${c.name}</h2>`;
             
             if (level === 0) {
-                html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
-                html += `<p>${candidate.intro}</p>`;
-                html += '</div>';
+                // Intro
+                h += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                h += `<p>${c.intro}</p>`;
+                h += '</div>';
                 
-                if (candidate.buttons && candidate.buttons.intro) {
-                    html += `<button onclick="interview('${id}', 1)">${candidate.buttons.intro.deeper}</button>`;
-                    html += `<button onclick="fleeDeath('intro')">${candidate.buttons.intro.flee}</button>`;
-                } else {
-                    html += `<button onclick="interview('${id}', 1)">${MEAT.interview.inquireDeeper}</button>`;
-                    html += `<button onclick="fleeDeath('intro')">${MEAT.interview.endInterview}</button>`;
-                }
-            } else if (level <= candidate.inquiries.length) {
-                html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
-                html += `<p>"${candidate.inquiries[level-1]}"</p>`;
-                html += '</div>';
+                const b = c.buttons && c.buttons[0] ? c.buttons[0] : [MEAT.interview.inquireDeeper, MEAT.interview.endInterview];
+                h += `<button onclick="interview('${id}', 1)">${b[0]}</button>`;
+                h += `<button onclick="fleeDeath('intro')">${b[1]}</button>`;
                 
-                if (level < candidate.inquiries.length) {
-                    if (candidate.buttons && candidate.buttons[`inquiry${level}`]) {
-                        html += `<button onclick="interview('${id}', ${level + 1})">${candidate.buttons[`inquiry${level}`].deeper}</button>`;
-                        html += `<button onclick="fleeDeath('inquiry', ${level})">${candidate.buttons[`inquiry${level}`].flee}</button>`;
-                    } else {
-                        html += `<button onclick="interview('${id}', ${level + 1})">${MEAT.interview.deeper}</button>`;
-                        html += `<button onclick="fleeDeath('inquiry', ${level})">${MEAT.interview.flee}</button>`;
-                    }
+            } else if (level <= c.inquiries.length) {
+                // Inquiry levels
+                h += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                h += `<p>"${c.inquiries[level-1]}"</p>`;
+                h += '</div>';
+                
+                if (level < c.inquiries.length) {
+                    // More inquiries to go
+                    const b = c.buttons && c.buttons[level] ? c.buttons[level] : [MEAT.interview.deeper, MEAT.interview.flee];
+                    h += `<button onclick="interview('${id}', ${level + 1})">${b[0]}</button>`;
+                    h += `<button onclick="fleeDeath('inquiry', ${level})">${b[1]}</button>`;
                 } else {
-                    if (candidate.buttons && candidate.buttons[`inquiry${level}`]) {
-                        html += `<button onclick="showTruth('${id}')">${candidate.buttons[`inquiry${level}`].face || candidate.buttons[`inquiry${level}`].deeper}</button>`;
-                        html += `<button onclick="fleeDeath('inquiry', ${level})">${candidate.buttons[`inquiry${level}`].flee}</button>`;
-                    } else {
-                        html += `<button onclick="showTruth('${id}')">${MEAT.interview.faceTruth}</button>`;
-                        html += `<button onclick="fleeDeath('inquiry', ${level})">${MEAT.interview.fleeNow}</button>`;
-                    }
+                    // Last inquiry - go to truth
+                    const b = c.buttons && c.buttons[level] ? c.buttons[level] : [MEAT.interview.faceTruth, MEAT.interview.fleeNow];
+                    h += `<button onclick="showTruth('${id}')">${b[0]}</button>`;
+                    h += `<button onclick="fleeDeath('inquiry', ${level})">${b[1]}</button>`;
                 }
             }
             
-            render(html);
+            render(h);
         }
         
         function showTruth(id) {
-            const candidate = MEAT.candidates[id];
+            const c = MEAT.candidates[id];
             
-            let html = `<h2>${candidate.name}</h2>`;
-            html += '<div style="margin: 20px 0; padding: 30px; border: 1px solid #666;">';
-            html += `<p>${candidate.truthReveal || '"' + candidate.truth + '"'}</p>`;
-            html += '</div>';
+            let h = `<h2>${c.name}</h2>`;
+            h += '<div style="margin: 20px 0; padding: 30px; border: 1px solid #666;">';
+            h += `<p>${c.truthReveal || '"' + c.truth + '"'}</p>`;
+            h += '</div>';
             
-            html += '<div style="margin: 20px 0; color: #666;">';
-            html += `<p>${MEAT.interview.certaintyPrefix} ${GAME.state.certainty}${MEAT.ui.percent}</p>`;
-            html += `<p>${MEAT.interview.certaintyAfter} ${Math.max(0, GAME.state.certainty + candidate.certDrop)}${MEAT.ui.percent}</p>`;
-            html += '</div>';
+            h += '<div style="margin: 20px 0; color: #666;">';
+            h += `<p>${MEAT.interview.certaintyPrefix} ${GAME.state.certainty}${MEAT.ui.percent}</p>`;
+            h += `<p>${MEAT.interview.certaintyAfter} ${Math.max(0, GAME.state.certainty + c.certDrop)}${MEAT.ui.percent}</p>`;
+            h += '</div>';
             
-            if (candidate.buttons && candidate.buttons.truth) {
-                html += `<button onclick="acceptTruth('${id}')">${candidate.buttons.truth.accept}</button>`;
-                html += `<button onclick="fleeDeath('truth')">${candidate.buttons.truth.reject}</button>`;
-            } else {
-                html += `<button onclick="acceptTruth('${id}')">${MEAT.interview.acceptTruth}</button>`;
-                html += `<button onclick="fleeDeath('truth')">${MEAT.interview.reject}</button>`;
-            }
+            // Truth buttons are the last in the array (after all inquiries)
+            const btnIdx = c.inquiries.length + 1;
+            const b = c.buttons && c.buttons[btnIdx] ? c.buttons[btnIdx] : [MEAT.interview.acceptTruth, MEAT.interview.reject];
             
-            render(html);
+            h += `<button onclick="acceptTruth('${id}')">${b[0]}</button>`;
+            h += `<button onclick="fleeDeath('truth')">${b[1]}</button>`;
+            
+            render(h);
         }
         
         function acceptTruth(id) {
@@ -996,7 +1091,8 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                 html += `<div class="folder-content${GAME.state.portfolioExpanded ? ' open' : ''}">`;
                 
                 GAME.state.portfolioUnlocked.forEach(piece => {
-                    html += `<div style="color: #0f0; margin: 5px 0;">${ui.arrow} ${MEAT.portfolioNames[piece] || piece}</div>`;
+                    const name = MEAT.portfolioNames[piece] || piece;
+                    html += `<div style="margin: 5px 0;"><a href="https://google.com" target="_blank" style="color: #0f0; text-decoration: underline;">${ui.arrow} ${name}</a></div>`;
                 });
                 
                 html += '</div>';
@@ -1012,23 +1108,30 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
         }
         
         function showVoid() {
-            const m = MEAT.pirate.void;
-            let html = `<h1 class="dim">${MEAT.ui.equation}</h1>`;
-            html += `<p class="dim">${m.dissolving}</p>`;
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += `<div style="font-size: 30px; margin: 60px 0 20px 0; color: #0f0; animation: fadeToBlack 5s ease-in-out;">${MEAT.ui.equation}</div>`;
+            html += '</div>';
             
-            setTimeout(pirateRescue, 2000);
+            render(html, true);
             
-            render(html);
+            // After 5 seconds, transition to pirate rescue
+            setTimeout(() => {
+                pirateRescue();
+            }, 5000);
         }
         
         function pirateRescue() {
             const m = MEAT.pirate.rescue;
-            let html = `<h1 class="cyan">${m.title}</h1>`;
-            html += `<p class="cyan">${m.shout}</p>`;
-            html += `<p>${m.bearing}</p>`;
+            let html = MEAT.ascii.pirateMode;
+            html += `<p class="cyan" style="font-size: 20px; margin: 20px 0;">OI! GRAB THE ROPE!</p>`;
+            html += '<div style="border: 1px solid #666; padding: 20px; margin: 20px 0;">';
+            html += `<p>Nobody dissolves on my watch!</p>`;
+            html += `<p style="margin-top: 15px;">Grab the fucking rope before the void eats you alive!</p>`;
+            html += '</div>';
             html += `<button onclick="enterPirateMode()" class="cyan">${m.button}</button>`;
             
             render(html);
+            document.getElementById('game').classList.add('pirate');  // FIX: Add class AFTER render
         }
         
         function enterPirateMode() {
@@ -1037,7 +1140,24 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             GAME.state.certainty = GAME.config.GOLDEN;
             GAME.state.remembered = [];
             
-            showHub();
+            showPirateIntro();
+        }
+        
+        function showPirateIntro() {
+            const m = MEAT.pirate.briefing;
+            let h = `<h2 class="cyan">${m.title}</h2>`;
+            h += '<div style="border: 1px solid #666; padding: 20px; margin: 20px 0;">';
+            h += `<p>${m.line1}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line2}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line3}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line4}</p>`;
+            h += `<p style="margin-top: 10px;">${m.line5}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line6}</p>`;
+            h += `<p style="margin-top: 15px; color: #666;">${m.line7}</p>`;
+            h += '</div>';
+            h += `<button onclick="showHub()" class="cyan">${m.button}</button>`;
+            
+            render(h);
         }
         
         function remember(id) {
@@ -1063,7 +1183,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
         function maintainFlow(id) {
             GAME.state.remembered.push(id);
             GAME.state.maintainedFlow.push(id);
-            GAME.state.certainty = GAME.config.GOLDEN;
+            // DON'T RESET BEARING - just maintain current
             
             const m = MEAT.pirate.windHeld;
             const ui = MEAT.ui;
@@ -1071,12 +1191,17 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             let html = `<h2 class="cyan">${m.title}</h2>`;
             html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid var(--cyan);">';
             html += `<p class="cyan">${m.text}</p>`;
-            html += `<p>${m.bearing} ${GAME.config.GOLDEN}${ui.degree}</p>`;
+            
+            // Only say "perfect" if actually perfect
+            const bearingText = Math.abs(GAME.state.certainty - GAME.config.GOLDEN) < 0.1 ? 
+                "Perfect bearing maintained:" : "Current bearing:";
+            html += `<p>${bearingText} ${GAME.state.certainty.toFixed(1)}${ui.degree}</p>`;
+            
             html += `<p style="margin-top: 15px;">${m.sails} ${GAME.state.maintainedFlow.length}${ui.slash}8</p>`;
             html += '</div>';
             
             if (GAME.state.remembered.length === 8) {
-                html += `<button onclick="checkCompass()" class="cyan" style="font-size: 18px;">${MEAT.hub.checkCompass}</button>`;
+                html += `<button onclick="checkCompass()" class="cyan" style="font-size: 18px;">READ THE STARS</button>`;
             } else {
                 html += `<button onclick="showHub()" class="cyan">${m.continue}</button>`;
             }
@@ -1099,7 +1224,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             let html = `<h2>${m.title}</h2>`;
             html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid #888;">';
             html += `<p>${m.text}</p>`;
-            html += `<p>${m.bearing} ${GAME.state.certainty.toFixed(1)}${ui.degree} ${m.increase}</p>`;
+            html += `<p>${m.bearing} ${GAME.state.certainty.toFixed(1)}${ui.degree}</p>`;
             
             if (GAME.state.certainty > 90) {
                 html += `<p class="red" style="margin-top: 15px;">${m.warningLand}</p>`;
@@ -1123,42 +1248,41 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             const m = MEAT.compass;
             const ui = MEAT.ui;
             
-            let html = `<h2 class="cyan">${m.title}</h2>`;
-            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid var(--cyan);">';
-            html += `<p class="cyan">${m.voyage}</p>`;
-            html += '<div style="margin: 15px 0; font-size: 14px;">';
+            let h = MEAT.ascii.yourVoyage;
+            
+            h += '<div style="margin: 20px 0; padding: 20px; border: 1px solid var(--cyan);">';
+            h += '<div style="margin: 15px 0; font-size: 16px; line-height: 1.8;">';
             
             for (let id in MEAT.candidates) {
                 if (GAME.state.remembered.includes(id)) {
                     const inFlow = GAME.state.maintainedFlow.includes(id);
                     const name = MEAT.candidates[id].name;
                     if (inFlow) {
-                        html += `<div style="color: var(--cyan);">${m.sailSymbol} ${name}${ui.colon} ${m.sailed}</div>`;
+                        h += `<div style="color: var(--cyan); margin: 8px 0;">${name}: ${m.sailSymbol} FAIR WINDS</div>`;
                     } else {
-                        html += `<div style="color: #888;">${m.anchorSymbol} ${name}${ui.colon} ${m.anchored}</div>`;
+                        h += `<div style="color: #888; margin: 8px 0;">${name}: ${m.anchorSymbol} ANCHORED</div>`;
                     }
                 }
             }
             
-            html += '</div>';
-            html += `<p style="margin-top: 20px;">${m.finalBearing} ${GAME.state.certainty.toFixed(1)}${ui.degree}</p>`;
-            html += `<p class="cyan">${m.perfectBearing} ${GAME.config.GOLDEN}${ui.degree}</p>`;
-            html += `<p>${m.sailsMaintained} ${GAME.state.maintainedFlow.length}${ui.slash}8</p>`;
-            html += '</div>';
+            h += '</div>';
+            h += `<p style="margin-top: 20px;">${m.finalBearing} ${GAME.state.certainty.toFixed(1)}${ui.degree}</p>`;
+            h += `<p>${m.sailsMaintained} ${GAME.state.maintainedFlow.length}${ui.slash}8</p>`;
+            h += '</div>';
             
             const perfectBearing = Math.abs(GAME.state.certainty - GAME.config.GOLDEN) < 0.1;
             const perfectFlow = GAME.state.maintainedFlow.length === 8;
             
             if (perfectFlow && perfectBearing) {
-                html += `<button onclick="perfectVictory()" class="cyan pulsing" style="font-size: 18px;">${m.legend}</button>`;
+                h += `<button onclick="perfectVictory()" class="cyan pulsing" style="font-size: 18px;">SAIL INTO LEGEND</button>`;
             } else if (GAME.state.maintainedFlow.length === 7) {
-                html += `<div class="red" style="margin: 20px 0;">${m.almostPerfect}</div>`;
-                html += `<button onclick="almostPerfectDeath()">${m.nearMiss}</button>`;
+                h += `<div class="cyan" style="margin: 20px 0;">${m.almostPerfect}</div>`;
+                h += `<button onclick="almostPerfectDeath()">${m.nearMiss}</button>`;
             } else {
-                html += `<button onclick="imperfectEnding()">${m.imperfect}</button>`;
+                h += `<button onclick="imperfectEnding()">${m.imperfect}</button>`;
             }
             
-            render(html, true);
+            render(h, true);
         }
         
         function fleeDeath(source, level = 0) {
@@ -1184,6 +1308,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                 html += '</div>';
             }
             
+            html += renderPortfolioLinks();
             html += `<button onclick="resetGame()">${MEAT.startOver}</button>`;
             
             render(html, true);
@@ -1197,6 +1322,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             html += `<h1 class="red">${m.title}</h1>`;
             html += `<p>${m.text}</p>`;
             html += `<p>${m.tagline}</p>`;
+            html += renderPortfolioLinks();
             html += `<button onclick="resetGame()">${m.button}</button>`;
             
             render(html, true);
@@ -1209,6 +1335,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             let html = MEAT.ascii.gameOver;
             html += `<h1 class="red">${m.title}</h1>`;
             html += `<p>${m.text}</p>`;
+            html += renderPortfolioLinks();
             html += `<button onclick="resetGame()">${m.button}</button>`;
             
             render(html, true);
@@ -1225,6 +1352,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             html += `<p>${m.detail}</p>`;
             html += `<p>${m.tagline}</p>`;
             html += '</div>';
+            html += renderPortfolioLinks();
             html += `<button onclick="resetGame()">${m.button}</button>`;
             
             render(html, true);
@@ -1234,12 +1362,11 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             const m = MEAT.deaths.almost;
             
             let html = MEAT.ascii.gameOver;
-            html += `<h1 style="color: #ff8800;">${m.title}</h1>`;
+            html += `<h1 class="red">${m.title}</h1>`;
             html += '<div style="margin: 30px 0;">';
             html += `<p>${m.text}</p>`;
-            html += `<p>${m.philosophy}</p>`;
-            html += `<p>${m.tagline}</p>`;
             html += '</div>';
+            html += renderPortfolioLinks();
             html += `<button onclick="resetGame()">${m.button}</button>`;
             
             render(html, true);
@@ -1250,18 +1377,17 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             const ui = MEAT.ui;
             
             let html = MEAT.ascii.gameOver;
-            html += `<h1 class="cyan">${m.title}</h1>`;
+            html += `<h1 class="red">${m.title}</h1>`;
             html += '<div style="margin: 30px 0;">';
             html += `<p>${m.perspectives} ${GAME.state.maintainedFlow.length}${ui.slash}8 ${m.perspectivesOf}</p>`;
             html += `<p>${m.ended} ${GAME.state.certainty.toFixed(1)}${ui.degree} ${m.insteadOf} ${GAME.config.GOLDEN}${ui.degree}.</p>`;
             
             if (GAME.state.certainty > GAME.config.GOLDEN + 20) {
                 html += `<p style="margin-top: 15px;">${m.tooRigid}</p>`;
-            } else {
-                html += `<p style="margin-top: 15px;">${m.close}</p>`;
             }
             
             html += '</div>';
+            html += renderPortfolioLinks();
             html += `<button onclick="resetGame()">${m.button}</button>`;
             
             render(html, true);
@@ -1272,7 +1398,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             const m = MEAT.victory.perfect;
             const ui = MEAT.ui;
             
-            let html = `<h1 class="cyan" style="font-size: 32px;">${m.title}</h1>`;
+            let html = MEAT.ascii.youWon;
             html += '<div style="margin: 30px 0;">';
             html += `<p class="cyan">${m.line1}</p>`;
             html += `<p class="cyan">${m.line2}</p>`;
@@ -1290,24 +1416,42 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             
             render(html, true);
             
-            setTimeout(inevitableSharkDeath, 8000);
+            setTimeout(inevitableSharkDeath, 6000);
         }
         
         function inevitableSharkDeath() {
             const m = MEAT.victory.shark;
             
-            let html = `<h1 class="red" style="font-size: 32px;">${m.title}</h1>`;
+            let html = MEAT.ascii.chump;
+            html += `<h1 class="red">🦈 SHARKS GOT YOU 🦈</h1>`;
             html += '<div style="margin: 30px 0;">';
             html += `<p>${m.line1}</p>`;
             html += `<p>${m.line2}</p>`;
-            html += `<p style="margin-top: 20px; color: var(--cyan);">${m.line3}</p>`;
+            html += `<p style="margin-top: 20px;">${m.line3}</p>`;
             html += '</div>';
-            html += '<div style="margin-top: 40px;">';
-            html += `<p class="dim" style="font-size: 12px;">${MEAT.ui.equation}</p>`;
-            html += '</div>';
-            html += `<button onclick="returnToVeil()" style="margin-top: 30px;">${m.button}</button>`;
+            html += `<button onclick="showCredits()" style="margin-top: 30px;">${m.button}</button>`;
             
             render(html, true);
+        }
+        
+        function showCredits() {
+            const m = MEAT.credits;
+            
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += `<h1 style="color: #fff; font-size: 24px; margin-bottom: 30px;">${m.title}</h1>`;
+            html += `<p style="color: #fff; margin: 10px 0;">Created by:</p>`;
+            html += `<p style="color: #fff; margin: 5px 0;">Sloth, Captain of the Anglerfish Dingy, rank: Octopus</p>`;
+            html += `<p style="color: #fff; margin: 20px 0 10px 0;">Navigation by:</p>`;
+            html += `<p style="color: #fff; margin: 5px 0;">Claude, rank: Fungi</p>`;
+            html += '<div style="margin: 30px 0;">';
+            html += `<p style="color: #fff;">Special thanks to:</p>`;
+            html += `<p style="color: #fff;">Anthropic & GitHub</p>`;
+            html += `<p style="color: #fff;">2025</p>`;
+            html += '</div>';
+            html += `<button onclick="returnToVeil()" class="credits-button" style="margin-top: 40px; border-color: #fff; color: #fff;">${m.button}</button>`;
+            
+            render(html, true);
+            document.getElementById('game').className = '';  // FIX: Clear all classes for clean credits
         }
         
         function returnVisit(id) {
@@ -1334,7 +1478,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             const nextLoop = GAME.state.loopCount + 1;
             
             GAME.state = {
-                screen: 'professional-mask',
+                screen: 'job-disclaimer',
                 certainty: 100,
                 mode: 'CONSENSUS',
                 phase: 'DESCENT',
@@ -1346,7 +1490,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                 mapsCollected: [],
                 mapFolderUnlocked: false,
                 mapFolderExpanded: false,
-                portfolioUnlocked: [],
+                portfolioUnlocked: ['animation-reel'],
                 portfolioExpanded: false,
                 timer: null,
                 lastAction: Date.now(),
@@ -1355,7 +1499,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                 currentInquiryLevel: 0
             };
             
-            showProfessionalMask();
+            showJobDisclaimer();
         }
         
         function resetTimer() {
@@ -1398,6 +1542,18 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             }, 100);
         }
         
+        function renderPortfolioLinks() {
+            if (GAME.state.portfolioUnlocked.length === 0) return '';
+            let html = '<div style="margin: 20px 0; padding: 15px;">';
+            html += `<p style="color: #666;">👁️ Portfolio (${GAME.state.portfolioUnlocked.length}/8)</p>`;
+            GAME.state.portfolioUnlocked.forEach(piece => {
+                const name = MEAT.portfolioNames[piece] || piece;
+                html += `<div style="margin: 5px 0;"><a href="https://google.com" target="_blank" style="color: #0f0; text-decoration: underline;">→ ${name}</a></div>`;
+            });
+            html += '</div>';
+            return html;
+        }
+        
         function resetGame() {
             if (GAME.state.timer) {
                 clearInterval(GAME.state.timer);
@@ -1417,7 +1573,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
                 mapsCollected: [],
                 mapFolderUnlocked: false,
                 mapFolderExpanded: false,
-                portfolioUnlocked: [],
+                portfolioUnlocked: ['animation-reel'],
                 portfolioExpanded: false,
                 timer: null,
                 lastAction: Date.now(),
@@ -1429,6 +1585,7 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
             showHub();
         }
         
+        window.showJobDisclaimer = showJobDisclaimer;
         window.showProfessionalMask = showProfessionalMask;
         window.showGameReveal = showGameReveal;
         window.showHub = showHub;
@@ -1456,9 +1613,10 @@ They could explain the ship, the ocean, the stars - but not the consciousness st
         window.corporateDeath = corporateDeath;
         window.sharkDeath = sharkDeath;
         window.returnToVeil = returnToVeil;
+        window.showCredits = showCredits;
         window.resetGame = resetGame;
         
-        showProfessionalMask();
+        showJobDisclaimer();
     </script>
 </body>
 </html>
