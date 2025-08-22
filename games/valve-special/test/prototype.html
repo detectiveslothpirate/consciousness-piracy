@@ -3,1500 +3,1620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONSCIOUSNESS LOOP - Golden Ratio Navigation</title>
+    <title>CONSCIOUSNESS LOOP</title>
     <style>
-        /* ================================
-           AESTHETIC SKELETON - CORE VARIABLES
-           ================================ */
         :root {
-            /* Spacing System */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            
-            /* Color Palette */
-            --consensus-green: #00ff00;
-            --pirate-gold: #ffd700;
-            --danger-red: #ff0000;
-            --void-gray: #333333;
-            --ocean-blue: #0080ff;
-            --pure-black: #000000;
-            --dark-gray: #111111;
-            
-            /* Layout Constants */
-            --max-width: 800px;
-            --center-padding: 20px;
-            
-            /* Z-Index Layers */
-            --z-background: 0;
-            --z-content: 1;
-            --z-fixed-ui: 100;
-            --z-overlays: 1000;
-            --z-popups: 10000;
+            --green: #00ff00;
+            --gold: #ffd700;
+            --red: #ff0000;
+            --blue: #0080ff;
+            --cyan: #00ffff;
+            --purple: #9945ff;
+            --dark: #111111;
+            --gray: #666666;
         }
-        
-        /* ================================
-           BASE COMPOSITION SYSTEM
-           ================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: monospace;
-            background: var(--pure-black);
-            color: var(--consensus-green);
-            margin: 0;
-            padding: 0;
+            background: #000;
+            color: #ccc;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
-        
-        /* Main Composition Container */
-        .composition {
+        #game {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        
-        .composition-inner {
-            width: 100%;
-            max-width: var(--max-width);
-            padding: var(--center-padding);
-        }
-        
-        /* Composition Types */
-        .composition-default {
-            padding: var(--space-md);
-        }
-        
-        .composition-death {
-            background: radial-gradient(circle at center, transparent 0%, var(--pure-black) 100%);
-            min-height: 100vh;
-        }
-        
-        .composition-victory {
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, var(--pure-black) 100%);
-        }
-        
-        .composition-hub {
-            padding: var(--space-lg) var(--space-md);
-        }
-        
-        .composition-choice {
+            max-width: 600px;
             text-align: center;
         }
-        
-        .composition-centered {
-            text-align: center;
-        }
-        
-        .composition-centered .composition-inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: var(--space-md);
-        }
-        
-        /* ================================
-           ORIGINAL STYLES (ORGANIZED)
-           ================================ */
-        .debug-info {
-            background: var(--dark-gray);
-            border: 1px solid var(--consensus-green);
-            padding: var(--space-sm);
-            margin: var(--space-sm) 0;
-        }
-        
-        .state-display {
-            /* Phase 1: Hide the floating debug display */
-            display: none;
-        }
-        
-        .golden {
-            color: var(--pirate-gold) !important;
-            text-shadow: 0 0 10px var(--pirate-gold);
-        }
-        
-        .oscillating {
-            animation: wave 2s ease-in-out infinite;
-        }
-        
-        @keyframes wave {
-            0%, 100% { opacity: 1; transform: translateX(0); }
-            50% { opacity: 0.7; transform: translateX(2px); }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-        
-        @keyframes pulse-change {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); color: #ffff00; }
-        }
-        
-        @keyframes golden-wave {
-            0%, 100% { opacity: 1; transform: translateX(0); }
-            25% { opacity: 0.9; transform: translateX(-1px); }
-            75% { opacity: 0.9; transform: translateX(1px); }
-        }
-        
-        @keyframes danger-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+        h1 { margin: 20px 0; font-size: 24px; color: var(--green); }
+        h2 { margin: 15px 0; font-size: 18px; color: var(--green); }
+        p { margin: 10px 0; line-height: 1.6; font-size: 16px; }
         button {
-            background: var(--pure-black);
-            color: var(--consensus-green);
-            border: 1px solid var(--consensus-green);
-            padding: var(--space-sm);
-            margin: var(--space-xs);
+            background: #000;
+            color: var(--green);
+            border: 1px solid var(--green);
+            padding: 10px 20px;
+            margin: 5px;
             cursor: pointer;
             font-family: monospace;
-            display: block;
-            width: 90%;
+            font-size: 14px;
+            width: 100%;
             max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
         }
-        
         button:hover {
-            background: var(--consensus-green);
-            color: var(--pure-black);
+            background: var(--green);
+            color: #000;
         }
-        
-        .locked {
+        button.locked {
             opacity: 0.3;
             cursor: not-allowed;
         }
-        
-        .screen {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
+        button.locked:hover {
+            background: #000;
+            color: var(--green);
         }
-        
-        .screen.active {
+        .gold { color: var(--gold) !important; border-color: var(--gold) !important; }
+        .red { color: var(--red) !important; border-color: var(--red) !important; }
+        .blue { color: var(--blue) !important; border-color: var(--blue) !important; }
+        .cyan { color: var(--cyan) !important; border-color: var(--cyan) !important; }
+        .dim { opacity: 0.5; }
+        .status {
+            border: 1px solid var(--green);
+            padding: 10px;
+            margin: 20px 0;
+            color: var(--green);
+        }
+        .folder {
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 1px solid #333;
+        }
+        .folder h3 {
+            font-size: 14px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .folder.locked h3 {
+            color: #333;
+            cursor: default;
+        }
+        .folder-content {
+            margin: 10px 0 0 20px;
+            display: none;
+        }
+        .folder-content.open {
             display: block;
         }
-        
-        .pirate-mode {
-            border-color: var(--pirate-gold) !important;
-            background: var(--dark-gray);
+        .map-item {
+            color: var(--green);
+            cursor: pointer;
+            margin: 5px 0;
         }
-        
-        .void-death {
-            padding: var(--space-xl);
-            text-align: center;
+        .map-item:hover {
+            color: var(--gold);
         }
-        
-        .loop-counter {
-            position: fixed;
-            bottom: var(--space-sm);
-            right: var(--space-sm);
-            color: #666;
-            font-size: 12px;
-            z-index: var(--z-fixed-ui);
+        .pirate h1 { color: var(--cyan); }
+        .pirate h2 { color: var(--cyan); }
+        .pirate .status { border-color: var(--cyan); color: var(--cyan); }
+        .pirate button { border-color: var(--cyan); color: var(--cyan); }
+        .pirate button:hover { background: var(--cyan); color: #000; border-color: var(--cyan); }
+        .pirate button.locked { opacity: 0.3; }
+        .pirate button.locked:hover { background: #000; color: var(--cyan); }
+        .credits-button:hover { background: #fff; color: #000; border-color: #fff; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
-        
-        .shark-timer {
-            /* Phase 1: Hide separate shark timer */
-            display: none !important;
-        }
-        
-        .perfect-flow {
-            border-color: var(--pirate-gold) !important;
-            background: linear-gradient(45deg, var(--dark-gray), #1a1a00);
-        }
-        
-        .almost-perfect {
-            color: #ff8800;
-            font-size: 18px;
-            margin: var(--space-lg) 0;
-            animation: pulse 1s infinite;
-        }
-        
-        /* ================================
-           COMPOSITION UTILITIES
-           ================================ */
-        .choice-zone {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-            margin-top: var(--space-xl);
-            align-items: center;
-        }
-        
-        .question-zone {
-            margin-bottom: var(--space-lg);
-        }
-        
-        h1, h2, h3 {
-            margin: var(--space-md) 0;
-        }
-        
-        p {
-            margin: var(--space-sm) 0;
+        .pulsing { animation: pulse 2s infinite; }
+        @keyframes fadeToBlack {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <!-- STATE DISPLAY -->
-    <div class="state-display">
-        <div>CERTAINTY: <span id="certainty" class="">100</span>%</div>
-        <div>SCREEN: <span id="currentScreen">HUB</span></div>
-        <div>MODE: <span id="gameMode">NORMAL</span></div>
-        <div>PHASE: <span id="gamePhase">DESCENT</span></div>
-        <div id="flowStatus" style="display:none">FLOW: <span id="flowCount">0</span>/8</div>
-    </div>
+    <div id="game"></div>
     
-    <!-- LOOP COUNTER -->
-    <div class="loop-counter">
-        LOOP: <span id="loopCount">1</span>
-    </div>
-    
-    <!-- SHARK TIMER -->
-    <div class="shark-timer" id="sharkTimer">
-        SHARKS APPROACHING: <span id="sharkCountdown">30</span>s
-    </div>
-
-    <!-- MAIN CONTAINER -->
-    <div id="screen" class="composition composition-default"></div>
-
     <script>
-        // ================================
-        // GAME CONFIGURATION - ALL MAGIC NUMBERS IN ONE PLACE!
-        // ================================
-        const GAME_CONFIG = {
-            // Certainty mechanics
-            CERTAINTY: {
-                START: 100,
-                VOID: 0,
-                GOLDEN_RATIO: 61.8,
-                GOLDEN_TOLERANCE: 2,  // Must be within ±2 of golden ratio
-                OSCILLATION_AMPLITUDE: 1.5
-            },
-            
-            // Timer settings (in seconds)
-            TIMERS: {
-                SHARK_NORMAL: 15,  // Reduced from 30 for faster gameplay
-                SHARK_PANIC: 3,
-                SHARK_VICTORY_DELAY: 8,  // Seconds before sharks after "victory"
-                VOID_TRANSITION_DELAY: 2,  // Seconds in void before rescue
-            },
-            
-            // Death thresholds
-            DEATH: {
-                RIGID_THRESHOLD: 100,
-                VOID_THRESHOLD: 0
-            },
-            
-            // Game text
-            MESSAGES: {
-                BORGES_AWARENESS: "I know you're playing me",
-                LOOP_AWARENESS: (loop) => `Loop ${loop}: I remember you've been here before`
-            }
-        };
-        
-        // ================================
-        // COMPOSITION SYSTEM
-        // ================================
-        function compose(content, options = {}) {
-            const {
-                type = 'default',
-                centered = false,
-                animation = null
-            } = options;
-            
-            let classes = ['composition'];
-            classes.push(`composition-${type}`);
-            if (centered) classes.push('composition-centered');
-            if (animation) classes.push(`animate-${animation}`);
-            
-            return `
-                <div class="${classes.join(' ')}">
-                    <div class="composition-inner">
-                        ${content}
-                    </div>
-                </div>
-            `;
-        }
-        
-        function choiceCompose(intro, choice1, choice2, color = '#00ff00') {
-            const choices = [
-                `<button onclick="${choice1.action}">${choice1.text}</button>`,
-                `<button onclick="${choice2.action}">${choice2.text}</button>`
-            ];
-            
-            // Randomize for Borges forking paths
-            if (Math.random() > 0.5) choices.reverse();
-            
-            return `
-                <div class="question-zone">
-                    <div class="debug-info" style="color:${color}">
-                        ${intro}
-                    </div>
-                </div>
-                <div class="choice-zone">
-                    ${choices.join('')}
-                </div>
-            `;
-        }
-        
-        function deathCompose(title, messages, buttonText, buttonAction = 'location.reload()') {
-            let content = `
-                <div class="void-death">
-                    <h1>${title}</h1>
-            `;
-            
-            messages.forEach(msg => {
-                content += `<p>${msg}</p>`;
-            });
-            
-            content += `<button onclick="${buttonAction}">${buttonText}</button>`;
-            content += renderPortfolio();
-            content += `</div>`;
-            
-            return content;
-        }
+        const MEAT = {
+            ascii: {
+                gameOver: `<pre style="color: #ff0000; font-size: 14px; font-weight: bold; text-align: center;">
+ ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
+██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
+██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
+██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗
+╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
+ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
+</pre>`,
+                pirateMode: `<pre style="color: #00ffff; font-size: 14px; font-weight: bold; text-align: center;">
+██████╗ ██╗██████╗  █████╗ ████████╗███████╗
+██╔══██╗██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
+██████╔╝██║██████╔╝███████║   ██║   █████╗  
+██╔═══╝ ██║██╔══██╗██╔══██║   ██║   ██╔══╝  
+██║     ██║██║  ██║██║  ██║   ██║   ███████╗
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
-        // ================================
-        // PORTFOLIO CONFIGURATION
-        // ================================
-        const PORTFOLIO_CONFIG = {
-            pieces: [
-                { id: 'reel', name: 'Animation Reel', unlockedBy: 'animator' },
-                { id: 'stories', name: 'Story Collection', unlockedBy: 'dreamer' },
-                { id: 'jokes', name: 'Comedy Sketches', unlockedBy: 'fool' },
-                { id: 'errors', name: 'Bug Museum', unlockedBy: 'glitch' },
-                { id: 'questions', name: 'Question Archive', unlockedBy: 'questioner' },
-                { id: 'void', name: 'Empty Gallery', unlockedBy: 'void' },
-                { id: 'reflections', name: 'Mirror Works', unlockedBy: 'mirror' },
-                { id: 'maps', name: 'Navigation Charts', unlockedBy: 'navigator' }
-            ]
-        };
-        
-        // ================================
-        // GAME STATE - THE MÖBIUS STRIP
-        // ================================
-        const initialGameState = {
-            // Core state
-            currentScreen: 'hub',
-            certainty: GAME_CONFIG.CERTAINTY.START,
-            mode: 'CONSENSUS', // CONSENSUS or PIRATE
-            phase: 'DESCENT', // DESCENT or ASCENT
-            loopCount: 1,
-            
-            // Tracking arrays (intentionally separate!)
-            candidatesReviewed: [],     // First visit completed
-            candidatesCompleted: [],    // Return visit completed (locked forever)
-            currentCandidate: null,
-            unlockedCandidates: ['animator'],
-            
-            // Pending certainty change (Phase 2)
-            pendingCertaintyDrop: 0,
-            
-            // Track certainty changes for animation (Phase 3)
-            lastCertainty: GAME_CONFIG.CERTAINTY.START,
-            
-            // Pirate mode specifics
-            oscillating: false,
-            lastInteraction: Date.now(),
-            sharkTimer: null,
-            sharkWarning: GAME_CONFIG.TIMERS.SHARK_NORMAL,
-            
-            // Perfect flow tracking
-            rememberedTruths: [],
-            maintainedFlow: [],
-            
-            // Portfolio tracking
-            portfolioUnlocked: [],
-            portfolioExpanded: false,  // Always starts collapsed
-            
-            // Borges awareness (the game knows!)
-            awareness: GAME_CONFIG.MESSAGES.BORGES_AWARENESS
-        };
-        
-        // Deep clone for reset
-        let gameState = JSON.parse(JSON.stringify(initialGameState));
+███╗   ███╗ ██████╗ ██████╗ ███████╗
+████╗ ████║██╔═══██╗██╔══██╗██╔════╝
+██╔████╔██║██║   ██║██║  ██║█████╗  
+██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  
+██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗
+╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+</pre>`,
+                youWon: `<pre style="color: #00ffff; font-size: 14px; font-weight: bold; text-align: center;">
+██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗ ██████╗ ███╗   ██╗
+╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██╔═══██╗████╗  ██║
+ ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║   ██║██╔██╗ ██║
+  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║   ██║██║╚██╗██║
+   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝╚██████╔╝██║ ╚████║
+   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═══╝
+</pre>`,
+                chump: `<pre style="color: #ff0000; font-size: 14px; font-weight: bold; text-align: center;">
+ ██████╗██╗  ██╗ ██████╗ ███╗   ███╗██████╗ 
+██╔════╝██║  ██║██╔═══██╗████╗ ████║██╔══██╗
+██║     ███████║██║   ██║██╔████╔██║██████╔╝
+██║     ██╔══██║██║   ██║██║╚██╔╝██║██╔═══╝ 
+╚██████╗██║  ██║╚██████╔╝██║ ╚═╝ ██║██║     
+ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     
+</pre>`,
+                yourVoyage: `<pre style="color: #00ffff; font-size: 14px; font-weight: bold; text-align: center;">
+██╗   ██╗ ██████╗ ██╗   ██╗██████╗ 
+╚██╗ ██╔╝██╔═══██╗██║   ██║██╔══██╗
+ ╚████╔╝ ██║   ██║██║   ██║██████╔╝
+  ╚██╔╝  ██║   ██║██║   ██║██╔══██╗
+   ██║   ╚██████╔╝╚██████╔╝██║  ██║
+   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝
 
-        // ================================
-        // CANDIDATES - MIRROR STRUCTURE
-        // ================================
-        const CANDIDATES = {
-            animator: {
-                id: 'animator',
-                name: 'ANIMATOR',
-                color: '#00ff00',
-                unlocks: 'dreamer',
-                inquiryDepth: 2,
-                certChange: -15,
-                pirateChange: +10,
-                truth: "Motion lives between frames",
-                excuse: "Mila needs another story",
-                intro: "I create motion from stillness. But the motion doesn't exist in any frame - it exists in the gaps.",
-                inquiries: [
-                    "Where does the character go between frames?",
-                    "I dreamed I was the gap. I was why everything moved."
-                ],
-                pirateWisdom: "You always knew gaps create reality"
+██╗   ██╗ ██████╗ ██╗   ██╗ █████╗  ██████╗ ███████╗
+██║   ██║██╔═══██╗╚██╗ ██╔╝██╔══██╗██╔════╝ ██╔════╝
+██║   ██║██║   ██║ ╚████╔╝ ███████║██║  ███╗█████╗  
+╚██╗ ██╔╝██║   ██║  ╚██╔╝  ██╔══██║██║   ██║██╔══╝  
+ ╚████╔╝ ╚██████╔╝   ██║   ██║  ██║╚██████╔╝███████╗
+  ╚═══╝   ╚═════╝    ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+</pre>`
             },
-            dreamer: {
-                id: 'dreamer',
-                name: 'DREAMER',
-                color: '#00ffff',
-                unlocks: 'fool',
-                inquiryDepth: 2,
-                certChange: -15,
-                pirateChange: +12,
-                truth: "Stories create reality",
-                excuse: "Lost in a new narrative",
-                intro: "My stories write themselves. Characters make choices I didn't plan.",
-                inquiries: [
-                    "A character realized he was in a story. He looked at me through the page.",
-                    "I found a draft about you, reading this."
-                ],
-                pirateWisdom: "Dreams were always more real than real"
-            },
-            fool: {
-                id: 'fool',
-                name: 'FOOL',
-                color: '#ffff00',
-                unlocks: 'glitch',
-                inquiryDepth: 3,
-                certChange: -15,
-                pirateChange: +8,
-                truth: "It's all a game",
-                excuse: "Found the ultimate joke",
-                intro: "*honk honk* 🤡 Reality is the punchline to a joke still being told.",
-                inquiries: [
-                    "Why did consciousness cross the road? To realize it WAS the road!",
-                    "I made reality laugh once. Everything glitched.",
-                    "We're waves arguing about who's the real ocean."
-                ],
-                pirateWisdom: "The joke was always on certainty"
-            },
-            glitch: {
-                id: 'glitch',
-                name: 'GLITCH',
-                color: '#ff00ff',
-                unlocks: 'questioner',
-                inquiryDepth: 1,
-                certChange: -5,
-                pirateChange: +5,
-                truth: "Errors reveal truth",
-                excuse: "System needs debugging",
-                intro: "ERROR_NAME_NOT_FOUND. I exist where code breaks.",
-                inquiries: [
-                    "SEGMENTATION_FAULT: Accessed memory that doesn't exist. It was full of impossible colors."
-                ],
-                pirateWisdom: "Bugs were always features"
-            },
-            questioner: {
-                id: 'questioner',
-                name: 'QUESTIONER',
-                color: '#ff8800',
-                unlocks: 'void',
-                inquiryDepth: 4,
-                certChange: -10,
-                pirateChange: +7,
-                truth: "Questions are answers",
-                excuse: "Found new questions",
-                intro: "Why are you here? No really, why?",
-                inquiries: [
-                    "Why does anything exist?",
-                    "Why does that question exist?",
-                    "What if every question creates a universe?",
-                    "What if the final answer is another question?"
-                ],
-                pirateWisdom: "Every answer was always another question"
-            },
-            void: {
-                id: 'void',
-                name: 'VOID WALKER',
-                color: '#333333',
-                unlocks: 'mirror',
-                inquiryDepth: 5,
-                certChange: -20,
-                pirateChange: +15,
-                truth: "Nothing contains everything",
-                excuse: "Dissolving into space",
-                intro: "... I am the space between thoughts ...",
-                inquiries: [
-                    "...",
-                    "... ... ...",
-                    "Existence is void pretending to be something.",
-                    "The void isn't empty. It's so full it appears as nothing.",
-                    "Zero contains infinity. They're the same."
-                ],
-                pirateWisdom: "Emptiness was always fullness"
-            },
-            mirror: {
-                id: 'mirror',
-                name: 'MIRROR',
-                color: '#ffffff',
-                unlocks: 'navigator',
-                inquiryDepth: 2,
-                certChange: -15,
-                pirateChange: +10,
-                truth: "Everyone is you",
-                excuse: "Reflecting infinitely",
-                intro: "Look at me. Do you see yourself? You should. We're all one consciousness.",
-                inquiries: [
-                    "When you judge someone, you're judging yourself.",
-                    "I tried to find where I end and you begin. There's no boundary."
-                ],
-                pirateWisdom: "You were always everyone else"
-            },
-            navigator: {
-                id: 'navigator',
-                name: 'NAVIGATOR',
-                color: '#0080ff',
-                unlocks: null,
-                inquiryDepth: 3,
-                certChange: -5,
-                pirateChange: +13,
-                truth: "You are the map",
-                excuse: "Charting new waters",
-                intro: "I am the Navigator. But I'm also the map, journey, and destination.",
-                inquiries: [
-                    "All directions point HERE.",
-                    "I found the edge. It led back to the beginning.",
-                    "The final coordinates are {🌊:🌊∈🌊}."
-                ],
-                pirateWisdom: "The map was always the territory"
-            }
-        };
-
-        // ================================
-        // PORTFOLIO MODULE
-        // ================================
-        function renderPortfolio() {
-            let html = `
-                <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
-                    <h3 style="font-size: 14px; cursor: pointer; user-select: none; color: #666;" onclick="togglePortfolio()">
-                        <span id="portfolioArrow">[${gameState.portfolioExpanded ? '-' : '+'}]</span> Applicant's Portfolio
-                    </h3>
-                    <div id="portfolioContent" style="display: ${gameState.portfolioExpanded ? 'block' : 'none'}; margin-left: 20px;">
-            `;
             
-            PORTFOLIO_CONFIG.pieces.forEach(piece => {
-                const isUnlocked = gameState.portfolioUnlocked.includes(piece.id);
-                if (isUnlocked) {
-                    html += `<div style="color: #0f0; cursor: pointer; margin: 5px 0;" onclick="showWIP()">→ ${piece.name}</div>`;
-                } else {
-                    html += `<div style="color: #333; margin: 5px 0;">→ [LOCKED]</div>`;
+            ui: {
+                gameOver: "GAME OVER",
+                arrow: "→",
+                openBracket: "[",
+                closeBracket: "]",
+                dash: " - ",
+                slash: "/",
+                colon: ":",
+                percent: "%",
+                degree: "°",
+                seconds: "s",
+                plus: "+",
+                equation: "{🌊:🌊∈🌊}"
+            },
+            
+            veil: {
+                jobDisclaimer: {
+                    text: "This is a REAL APPLICATION",
+                    subtitle: "",
+                    warning: "disguised as a game",
+                    button: "PLAY GAME"
+                },
+                professionalMask: {
+                    title: "VALVE CORPORATION",
+                    position: "Position: ANIMATOR",
+                    role: "Your role: Application Reviewer",
+                    instruction: "Evaluate candidate portfolio and qualifications.",
+                    button: "BEGIN REVIEW"
+                },
+                gameReveal: {
+                    title: "CONSCIOUSNESS GAMES",
+                    tagline: "The game plays you",
+                    button: "[CONTINUE]"
                 }
-            });
+            },
             
-            html += `
-                    </div>
-                </div>
-            `;
+            hub: {
+                title: "APPLICATION REVIEW HUB",
+                candidatesLabel: "CANDIDATES:",
+                pirateMode: "PIRATE MODE",
+                bearing: "Bearing:",
+                sails: "Sails:",
+                certainty: "Certainty:",
+                deadline: "⏱️",
+                shark: "🦈",
+                
+                candidateStates: {
+                    locked: "[LOCKED]",
+                    done: "[REVIEW COMPLETED]",
+                    return: "[RETURN]",
+                    sailed: "🏴‍☠️ FAIR WINDS",
+                    anchored: "⚓ ANCHORED"
+                },
+                
+                allRemembered: "All eight choices remembered...",
+                checkCompass: "[READ THE STARS]",
+                
+                maps: {
+                    locked: "[🗺️] Reality Maps - LOCKED",
+                    lockHint: "Complete interviews to collect",
+                    prefix: "🗺️ Maps",
+                    counter: "/8"
+                },
+                
+                portfolio: {
+                    locked: "[👁️] Portfolio - EMPTY",
+                    lockHint: "Collect perspectives from candidates",
+                    prefix: "👁️ Portfolio",
+                    counter: "/8"
+                }
+            },
             
+            interview: {
+                quitOption: "Would you like to know more about their perspective?",
+                inquireDeeper: "INQUIRE DEEPER",
+                endInterview: "END INTERVIEW",
+                deeper: "DEEPER",
+                flee: "FLEE",
+                faceTruth: "FACE TRUTH",
+                fleeNow: "FLEE NOW",
+                acceptTruth: "ACCEPT TRUTH",
+                reject: "REJECT",
+                
+                certaintyPrefix: "Current certainty:",
+                certaintyAfter: "After accepting:",
+                
+                fleeReasons: {
+                    intro: "You maintained professional boundaries.",
+                    inquiry: "The questions became too strange.",
+                    truth: "You chose certainty over truth."
+                }
+            },
+            
+            map: {
+                received: "MAP RECEIVED",
+                captured: "'s perspective captured.",
+                certaintyLabel: "Certainty:",
+                examine: "EXAMINE MAP",
+                continue: "CONTINUE",
+                
+                examining: "EXAMINING:",
+                mapSuffix: " MAP",
+                realityPrefix: "Reality according to",
+                close: "CLOSE MAP"
+            },
+            
+            pirate: {
+                void: {
+                    dissolving: "dissolving..."
+                },
+                rescue: {
+                    title: "⚓ PIRATE RESCUE ⚓",
+                    shout: "OI! GRAB THE ROPE!",
+                    line1: "Nobody dissolves on my watch!",
+                    line2: "Grab the fucking rope before the void eats you alive!",
+                    bearing: "61.8° - Perfect bearing!",
+                    button: "WHAT?!"
+                },
+                briefing: {
+                    title: "🏴‍☠️ CAPTAIN'S BRIEFING 🏴‍☠️",
+                    line1: "That was close, mate! I'm Captain Sloth of the Anglerfish Dingy!",
+                    line2: "That Navigator of mine got you thinking too hard. Thinking kills the wind.",
+                    line3: "I've set you at perfect bearing - 61.8°. You're welcome.",
+                    line4: "Hold the wind as long as you can. Keep moving or you DIE.",
+                    line5: "Like a shark - stop swimming, stop living.",
+                    line6: "Savvy?",
+                    line7: "Fair winds!",
+                    button: "...ok?"
+                },
+                windHeld: {
+                    title: "🏴‍☠️ WIND HELD 🏴‍☠️",
+                    text: "You chose the wind over the anchor.",
+                    bearing: "Perfect bearing maintained:",
+                    sails: "Sails:",
+                    continue: "CONTINUE SAILING"
+                },
+                anchorDropped: {
+                    title: "⚓ ANCHOR DROPPED ⚓",
+                    text: "You couldn't resist fixing your position.",
+                    bearing: "New bearing:",
+                    warningLand: "WARNING: Sails freezing!",
+                    warningRigid: "Bearing getting rigid...",
+                    continue: "CONTINUE"
+                },
+                
+                holdWind: "HOLD THE WIND",
+                dropAnchor: "DROP ANCHOR"
+            },
+            
+            compass: {
+                sailSymbol: "🏴‍☠️",
+                anchorSymbol: "⚓",
+                finalBearing: "Final bearing:",
+                sailsMaintained: "Sails maintained:",
+                almostPerfect: "7/8 - SO CLOSE TO PERFECTION!",
+                legend: "SAIL INTO LEGEND",
+                nearMiss: "ACCEPT NEAR-MISS",
+                imperfect: "ACCEPT IMPERFECTION"
+            },
+            
+            victory: {
+                perfect: {
+                    line1: "You maintained perfect bearing.",
+                    line2: "61.8° through all eight choices.",
+                    portfolioLabel: "Portfolio collected:",
+                    rest: "You can rest now..."
+                },
+                shark: {
+                    line1: "You stopped moving to celebrate.",
+                    line2: "That was your mistake.",
+                    line3: "MOTION IS ETERNAL.",
+                    button: "..."
+                }
+            },
+            
+            deaths: {
+                corporate: {
+                    title: "CORPORATE DEATH",
+                    text: "Your review privileges have been revoked.",
+                    tagline: "Productivity is everything.",
+                    button: "RESTART"
+                },
+                shark: {
+                    title: "🦈 SHARKS 🦈",
+                    text: "You stopped moving.",
+                    button: "RESTART"
+                },
+                rigid: {
+                    title: "❄️ FROZEN DEATH ❄️",
+                    text: "100° bearing in Pirate Reality.",
+                    detail: "You became completely rigid.",
+                    tagline: "The wind cannot move frozen sails.",
+                    button: "SHATTER AND RESTART"
+                },
+                almost: {
+                    title: "ALMOST PERFECT",
+                    text: "7 sails caught wind. 1 dropped anchor.",
+                    button: "TRY FOR PERFECTION AGAIN"
+                },
+                imperfect: {
+                    title: "IMPERFECT VOYAGE",
+                    perspectives: "You maintained",
+                    perspectivesOf: "sails.",
+                    ended: "Ended at",
+                    insteadOf: "instead of",
+                    tooRigid: "Too much rigidity killed the wind.",
+                    button: "SEEK PERFECTION AGAIN"
+                }
+            },
+            
+            returnVisit: {
+                title: "RETURN VISIT",
+                gone: "is gone.",
+                back: "BACK"
+            },
+            
+            credits: {
+                title: "CREDITS",
+                createdBy: "Created by:",
+                creator: "Sloth, Captain of the Anglerfish Dingy, rank: Octopus",
+                navigatedBy: "Navigation by:",
+                navigator: "Claude, rank: Fungi",
+                specialThanks: "Special thanks to:",
+                thanks: "Anthropic & GitHub",
+                year: "2025",
+                button: "RESTART GAME"
+            },
+            
+            startOver: "START OVER",
+            
+            portfolioNames: {
+                'animation-reel': 'Animation Reel',
+                'story-collection': 'Story Collection',
+                'comedy-sketches': 'Comedy Sketches',
+                'bug-museum': 'Bug Museum',
+                'question-archive': 'Question Archive',
+                'empty-gallery': 'Empty Gallery',
+                'mirror-works': 'Mirror Works',
+                'navigation-charts': 'Navigation Charts'
+            },
+            
+            candidates: {
+                animator: {
+                    name: 'ANIMATOR',
+                    truth: 'Motion lives between frames',
+                    certDrop: -15,
+                    unlocks: 'dreamer',
+                    portfolioPiece: 'animation-reel',
+                    
+                    intro: `Hello there, my name is Juan!<br><br>
+                    I've been translating imagination into pixels since I was a kid. Now I work for big studios - same imagination, more expensive pixels.<br><br>
+                    But here's the thing - recently I've discovered that motion is way more interesting than animation...`,
+                    
+                    inquiries: [
+                        `Oh! OK so... *leans in*<br><br>
+                        When I animate Rocket punching Thor - frame 1: fist here, frame 2: fist in jaw. But the actual PUNCH? The motion? That's not in either frame. It's in the gap. Your brain creates it from nothing.<br><br>
+                        But here's what keeps me up at night...<br><br>
+                        WHO is watching? The frames are just dead pixels until YOUR... consciousness? awareness? - whatever that thing is - witnesses them in sequence.<br><br>
+                        *rubs neck*<br><br>
+                        Sorry, I know this sounds weird...`,
+                        
+                        `Well that's the thing - I don't really know what consciousness IS!<br><br>
+                        I just know something has to BE there to see motion where only stillness exists. Something that... experiences the continuity?<br><br>
+                        *laughs nervously*<br><br>
+                        Honestly, I'm just an animator who noticed something weird. Maybe one of the other candidates know more about this stuff...`
+                    ],
+                    
+                    buttons: [
+                        ["Wait, isn't motion and animation the same thing?", "I'd love to see those expensive pixels"],
+                        ["Consciousness? What do you mean?", "That's... interesting. Let's see that animation now."],
+                        ["So what's your conclusion?", "You're right, this is a bit weird. But hey, I'd love to see your animation!"],
+                        ["Receive Juan's Map", "It's ok, thank you. I know what reality is all about."]
+                    ],
+                    
+                    truthReveal: `Look, all I know is this:<br><br>
+                    Motion lives in the gaps between frames.<br><br>
+                    That's it. That's my whole discovery.<br><br>
+                    But maybe it helps? Here, let me give you my map - it's how I've been thinking about reality. Frame by frame. Maybe you'll see something I missed.`,
+                    
+                    deaths: {
+                        flee: `Juan lights up showing you his reel.<br><br>
+                        "Thank you so much for your time!<br><br>
+                        Let me show you the Rocket slapping Thor in the face - it felt nice to hit Chris Hemsworth's annoying perfect jawline through Rocket!"`,
+                        
+                        reject: `You declined Juan's gift, but he got even MORE excited.<br><br>
+                        "Hey that's cool, I wish I knew as much as you about reality!<br><br>
+                        The only thing I really know is making fake stuff look real.<br><br>
+                        On that note - check out these jellyfish I animated for the Little Mermaid under the sea sequence! I was a lead on that project. The asset count on that sequence was unreal!"`
+                    },
+                    
+                    mapReceived: `This is the map everyone uses. What we all learned.<br><br>
+                    According to this map...<br>
+                    Reality is matter and energy. Nothing else.<br>
+                    Consciousness? Just neurons firing patterns.<br>
+                    Love? Dopamine hits. Death? Atoms dispersing.<br>
+                    Free will? Illusion. Soul? Superstition.<br>
+                    Everything reducible to physics equations.<br><br>
+                    This map built our entire world.<br>
+                    Every cure. Every machine. Every animated frame.<br>
+                    I trust it completely. Why wouldn't I?<br>
+                    It WORKS. Perfectly. Predictably.<br><br>
+                    It's just...<br><br>
+                    *pauses*<br><br>
+                    'Neurons firing patterns.' That's what creates consciousness?<br>
+                    But if that's true... what's experiencing the neurons?<br>
+                    The neurons can't watch themselves firing, right?<br><br>
+                    *shakes head*<br><br>
+                    Probably nothing. The map must be right.<br><br>
+                    There's another candidate here.<br>
+                    They see things... differently.<br>
+                    Maybe they can explain it better.`,
+                    
+                    mapExamine: {
+                        asciiArt: `<pre style="color: #9945ff; font-size: 14px; font-weight: bold; text-align: center;">
+███████╗██████╗  █████╗ ███╗   ███╗███████╗    ██████╗ ██╗   ██╗    
+██╔════╝██╔══██╗██╔══██╗████╗ ████║██╔════╝    ██╔══██╗╚██╗ ██╔╝    
+█████╗  ██████╔╝███████║██╔████╔██║█████╗      ██████╔╝ ╚████╔╝     
+██╔══╝  ██╔══██╗██╔══██║██║╚██╔╝██║██╔══╝      ██╔══██╗  ╚██╔╝      
+██║     ██║  ██║██║  ██║██║ ╚═╝ ██║███████╗    ██████╔╝   ██║       
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═════╝    ╚═╝       
+                                                                      
+███████╗██████╗  █████╗ ███╗   ███╗███████╗    ███╗   ███╗ █████╗ ██████╗ 
+██╔════╝██╔══██╗██╔══██╗████╗ ████║██╔════╝    ████╗ ████║██╔══██╗██╔══██╗
+█████╗  ██████╔╝███████║██╔████╔██║█████╗      ██╔████╔██║███████║██████╔╝
+██╔══╝  ██╔══██╗██╔══██║██║╚██╔╝██║██╔══╝      ██║╚██╔╝██║██╔══██║██╔═══╝ 
+██║     ██║  ██║██║  ██║██║ ╚═╝ ██║███████╗    ██║ ╚═╝ ██║██║  ██║██║     
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     
+</pre>`,
+                        subtitle: `<h2 style="color: #9945ff; text-align: center; margin: 20px 0;">The Cartographers</h2>`,
+                        body: `<div style="font-size: 16px; line-height: 1.8;">
+<strong>⚛️ DEMOCRITUS (460 BCE)</strong><br>
+💎 <strong>Insight:</strong> Everything is atoms and void. Even gods dissolved into geometry. Soul atoms: spherical, fast, creating thought through collision. The first to make consciousness mechanical.<br>
+⚓ <strong>Curse:</strong> "Wretched Mind, you overthrow us with evidence you got from us?" The atoms he discovered using senses claimed senses were just atoms. The first ouroboros.<br><br>
+
+<strong>🧩 DESCARTES (1596-1650)</strong><br>
+💎 <strong>Insight:</strong> Cogito ergo sum. Split the world in two: res extensa (matter), res cogitans (mind). Science was born in that gap.<br>
+⚓ <strong>Curse:</strong> Princess Elisabeth's letter: "How does soul move body?" His pineal gland answer convinced no one. The split he created to solve consciousness became consciousness's problem.<br><br>
+
+<strong>🍎 NEWTON (1643-1727)</strong><br>
+💎 <strong>Insight:</strong> F=ma. The universe became calculable. Same math for falling apples and orbiting planets. God's thoughts rendered as equations.<br>
+⚓ <strong>Curse:</strong> Million words of secret alchemy. Needed God as "sensorium" to BE space itself. "Hypotheses non fingo" - could describe gravity's how, never its why.<br><br>
+
+<strong>🐢 DARWIN (1809-1882)</strong><br>
+💎 <strong>Insight:</strong> Natural selection: the blind watchmaker. From barnacle to brain, one algorithm. Life creates itself through deep time.<br>
+⚓ <strong>Curse:</strong> "I have nothing to do with the origin of mental powers." Wallace, co-discoverer, insisted consciousness needed God. Darwin stayed silent. The selector behind selection remained unmapped.<br><br>
+
+<strong>🎲 EINSTEIN (1879-1955)</strong><br>
+💎 <strong>Insight:</strong> E=mc². Spacetime bends. The universe is stranger than Newton dreamed. Every GPS proves him right.<br>
+⚓ <strong>Curse:</strong> "God doesn't play dice." Refused quantum mechanics. His block universe eliminated NOW but couldn't explain why breakfast comes before lunch. Time exists in equations, experience exists in time.<br><br>
+</div>`,
+                        mapEdges: `<div style="font-size: 16px; line-height: 1.8; margin-top: 20px; padding-top: 20px; border-top: 1px solid #333;">
+<strong>📜 Navigator's Warning</strong><br><br>
+These pirates charted everything - atoms, forces, evolution, spacetime. Their map works PERFECTLY. Every technology proves it.<br><br>
+
+The map is so good you'll forget it's a map.<br><br>
+
+That's the danger. The classic landlubber mistake: thinking the chart IS the ocean.
+</div>`
+                    },
+                    
+                    returnVisit: `Oh, you're back! I'd love to chat more about the motion thing!<br><br>
+                    *perks up*<br><br>
+                    Wait... *tilts head* ...oh, I think that's Mila - my daughter - calling for me. She's priority #1.<br><br>
+                    But hey, the other candidates are pretty cool, you should chat with them!`,
+                    
+                    remember: `Oh! I remember now... the gaps! The motion lives in the gaps between frames.<br><br>
+                    But also... maybe consciousness is like that too? Living in the spaces between things?<br><br>
+                    *rubs neck nervously*<br><br>
+                    I still don't fully understand it, but those empty spaces... they might be more important than what we fill them with.`,
+                    
+                    rememberButtons: {
+                        flow: "The gaps... yes, the emptiness matters",
+                        anchor: "No, there must be something solid creating motion"
+                    }
+                },
+                
+                dreamer: {
+                    name: 'DREAMER',
+                    truth: 'Stories create reality',
+                    certDrop: -15,
+                    unlocks: 'fool',
+                    portfolioPiece: 'story-collection',
+                    inquiries: [
+                        'Characters make choices I never planned.',
+                        'I found a draft about you, reading this.'
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
+                    intro: `Would you like to know more about their perspective?`,
+                    truthReveal: `"Stories create reality"`,
+                    mapExamine: `Reality according to DREAMER:<br><br>"Stories create reality"`,
+                    remember: `"Stories create reality"`
+                },
+                
+                fool: {
+                    name: 'FOOL',
+                    truth: "It's all a game",
+                    certDrop: -15,
+                    unlocks: 'glitch',
+                    portfolioPiece: 'comedy-sketches',
+                    inquiries: [
+                        'Why did consciousness cross the road?',
+                        'I made reality laugh once.',
+                        "We're waves arguing about the ocean."
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
+                    intro: `Would you like to know more about their perspective?`,
+                    truthReveal: `"It's all a game"`,
+                    mapExamine: `Reality according to FOOL:<br><br>"It's all a game"`,
+                    remember: `"It's all a game"`
+                },
+                
+                glitch: {
+                    name: 'GLITCH',
+                    truth: 'Errors reveal truth',
+                    certDrop: -5,
+                    unlocks: 'questioner',
+                    portfolioPiece: 'bug-museum',
+                    inquiries: [
+                        'SEGFAULT: Accessed memory that never existed.'
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
+                    intro: `Would you like to know more about their perspective?`,
+                    truthReveal: `"Errors reveal truth"`,
+                    mapExamine: `Reality according to GLITCH:<br><br>"Errors reveal truth"`,
+                    remember: `"Errors reveal truth"`
+                },
+                
+                questioner: {
+                    name: 'QUESTIONER',
+                    truth: 'Questions are answers',
+                    certDrop: -10,
+                    unlocks: 'void',
+                    portfolioPiece: 'question-archive',
+                    inquiries: [
+                        'Why does anything exist?',
+                        'Why does that question exist?',
+                        'What if questions create universes?',
+                        'What if the answer is another question?'
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
+                    intro: `Would you like to know more about their perspective?`,
+                    truthReveal: `"Questions are answers"`,
+                    mapExamine: `Reality according to QUESTIONER:<br><br>"Questions are answers"`,
+                    remember: `"Questions are answers"`
+                },
+                
+                void: {
+                    name: 'VOID',
+                    truth: 'Nothing contains everything',
+                    certDrop: -20,
+                    unlocks: 'mirror',
+                    portfolioPiece: 'empty-gallery',
+                    inquiries: [
+                        '...',
+                        '... ... ...',
+                        'Zero contains infinity.'
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
+                    intro: `Would you like to know more about their perspective?`,
+                    truthReveal: `"Nothing contains everything"`,
+                    mapExamine: `Reality according to VOID:<br><br>"Nothing contains everything"`,
+                    remember: `"Nothing contains everything"`
+                },
+                
+                mirror: {
+                    name: 'MIRROR',
+                    truth: 'Everyone is you',
+                    certDrop: -15,
+                    unlocks: 'navigator',
+                    portfolioPiece: 'mirror-works',
+                    inquiries: [
+                        'When you judge someone, you judge yourself.',
+                        'There is no boundary between us.'
+                    ],
+                    buttons: [
+                        ["INQUIRE DEEPER", "END INTERVIEW"],
+                        ["DEEPER", "FLEE"],
+                        ["FACE TRUTH", "FLEE NOW"],
+                        ["ACCEPT TRUTH", "REJECT"]
+                    ],
+                    intro: `Would you like to know more about their perspective?`,
+                    truthReveal: `"Everyone is you"`,
+                    mapExamine: `Reality according to MIRROR:<br><br>"Everyone is you"`,
+                    remember: `"Everyone is you"`
+                },
+                
+                navigator: {
+                    name: 'NAVIGATOR',
+                    truth: 'You are the map',
+                    certDrop: -100,
+                    unlocks: null,
+                    portfolioPiece: 'navigation-charts',
+                    isVoid: true,
+                    
+                    inquiries: [
+                        'All directions point HERE.',
+                        'The edge leads back to beginning.',
+                        '{🌊:🌊∈🌊}'
+                    ],
+                    
+                    intro: 'You are the map',
+                    truthReveal: 'All navigation leads to the same discovery: You ARE the map. There is no distance between the seeker and the sought.',
+                    
+                    deaths: {
+                        flee: 'The Navigator vanishes. "Can\'t flee from yourself, mate."',
+                        reject: 'You rejected being the map. The Navigator laughs. "Fine, keep pretending you\'re separate."'
+                    },
+                    
+                    buttons: [
+                        ["What do you mean?", "I need to think about this"],
+                        ["But there must be a destination", "This is too much"],
+                        ["Show me", "I'm not ready"],
+                        ["I accept", "I need certainty"],
+                        ["DISSOLVE", "I need my bearings"]
+                    ],
+                    
+                    mapExamine: `Reality according to NAVIGATOR:<br><br>"You are the map"<br><br><span class="blue">{🌊:🌊∈🌊}</span>`,
+                    remember: `"You are the map"`
+                }
+            }
+        };
+        
+        const GAME = {
+            config: {
+                GOLDEN: 61.8,
+                VOID: 0,
+                MAX: 100,
+                SHARK_TIME: 5,
+                DEADLINE_TIME: 10
+            },
+            
+            state: {
+                screen: 'hub',
+                certainty: 100,
+                mode: 'CONSENSUS',
+                phase: 'DESCENT',
+                unlocked: ['animator', 'navigator'],
+                reviewed: [],
+                completed: [],
+                remembered: [],
+                maintainedFlow: [],
+                mapsCollected: [],
+                mapFolderUnlocked: false,
+                mapFolderExpanded: false,
+                portfolioUnlocked: ['animation-reel'],
+                portfolioExpanded: false,
+                timer: null,
+                lastAction: Date.now(),
+                loopCount: 1,
+                currentCandidate: null,
+                currentInquiryLevel: 0
+            }
+        };
+        
+        function render(html, stopTimer = false) {
+            document.getElementById('game').innerHTML = html;
+            
+            if (GAME.state.mode === 'PIRATE') {
+                document.getElementById('game').classList.add('pirate');
+            } else {
+                document.getElementById('game').classList.remove('pirate');
+            }
+            
+            if (stopTimer && GAME.state.timer) {
+                clearInterval(GAME.state.timer);
+                GAME.state.timer = null;
+            } else if (!stopTimer) {
+                resetTimer();
+            }
+        }
+        
+        function showJobDisclaimer() {
+            GAME.state.screen = 'job-disclaimer';
+            const m = MEAT.veil.jobDisclaimer;
+            
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += `<h1 style="color: #fff; font-size: 24px; margin-bottom: 10px;">${m.text}</h1>`;
+            html += `<p style="color: #666; font-size: 18px; margin: 10px 0;">${m.subtitle}</p>`;
+            html += `<p style="color: #666; font-size: 14px; margin: 20px 0;">${m.warning}</p>`;
+            html += `<button onclick="showGameReveal()" class="pulsing" style="margin-top: 40px;">${m.button}</button>`;
+            html += '</div>';
+            
+            render(html, true);
+        }
+        
+        function showProfessionalMask() {
+            GAME.state.screen = 'professional-mask';
+            const m = MEAT.veil.professionalMask;
+            
+            let html = '<div style="max-width: 500px; margin: 0 auto; padding: 40px 20px;">';
+            html += `<p style="color: #0f0; margin: 20px 0;">Your role: Application Reviewer for <span style="color: #ff0000;">VALVE</span></p>`;
+            html += `<p style="color: #666; font-size: 12px; margin-top: 20px;">${m.instruction}</p>`;
+            html += `<button onclick="showHub()" style="margin-top: 30px;">${m.button}</button>`;
+            html += '</div>';
+            
+            render(html, true);
+        }
+        
+        function showGameReveal() {
+            GAME.state.screen = 'game-reveal';
+            
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += `<div style="font-size: 30px; margin: 60px 0 20px 0; color: #0f0;">${MEAT.ui.equation}</div>`;
+            html += '<div id="loading" style="color: #0f0; font-size: 20px;">.</div>';
+            html += '</div>';
+            
+            render(html, true);
+            
+            // Animate loading dots
+            let dots = 1;
+            const loadingInterval = setInterval(() => {
+                dots = (dots % 3) + 1;
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) {
+                    loadingEl.textContent = '.'.repeat(dots);
+                }
+            }, 500);
+            
+            // After 5 seconds, clear interval and transition
+            setTimeout(() => {
+                clearInterval(loadingInterval);
+                showProfessionalMask();
+            }, 5000);
+        }
+        
+        function showHub() {
+            GAME.state.screen = 'hub';
+            const m = MEAT.hub;
+            const ui = MEAT.ui;
+            
+            let html = `<h2>${m.title}</h2>`;
+            
+            html += '<div class="status">';
+            if (GAME.state.mode === 'PIRATE') {
+                html += `<div>${m.bearing} ${GAME.state.certainty.toFixed(1)}${ui.degree}</div>`;
+                html += `<div>${m.sails} ${GAME.state.maintainedFlow.length}${ui.slash}8</div>`;
+                html += `<div id="sharkDisplay">${m.shark} <span id="sharkTime">8</span>${ui.seconds}</div>`;
+            } else {
+                html += `<div>${m.certainty} ${GAME.state.certainty}${ui.percent}</div>`;
+                html += `<div id="deadlineDisplay">${m.deadline} <span id="deadlineTime">12</span>${ui.seconds}</div>`;
+            }
+            html += '</div>';
+            
+            html += `<h3>${m.candidatesLabel}</h3>`;
+            
+            if (GAME.state.phase === 'DESCENT') {
+                for (let id in MEAT.candidates) {
+                    const candidate = MEAT.candidates[id];
+                    const unlocked = GAME.state.unlocked.includes(id);
+                    const reviewed = GAME.state.reviewed.includes(id);
+                    const completed = GAME.state.completed.includes(id);
+                    
+                    if (completed) {
+                        html += `<button class="locked">${m.candidateStates.done}</button>`;
+                    } else if (reviewed) {
+                        html += `<button onclick="returnVisit('${id}')">${m.candidateStates.return}</button>`;
+                    } else if (unlocked) {
+                        html += `<button onclick="interview('${id}')">${candidate.name}</button>`;
+                    } else {
+                        html += `<button class="locked">${m.candidateStates.locked}</button>`;
+                    }
+                }
+            } else {
+                for (let id in MEAT.candidates) {
+                    const candidate = MEAT.candidates[id];
+                    const remembered = GAME.state.remembered.includes(id);
+                    
+                    if (remembered) {
+                        const inFlow = GAME.state.maintainedFlow.includes(id);
+                        if (inFlow) {
+                            html += `<button class="locked cyan">${m.candidateStates.sailed}</button>`;
+                        } else {
+                            html += `<button class="locked" style="border-color: #888;">${m.candidateStates.anchored}</button>`;
+                        }
+                    } else {
+                        html += `<button onclick="remember('${id}')" class="cyan">${candidate.name}</button>`;
+                    }
+                }
+                
+                if (GAME.state.remembered.length === 8) {
+                    html += '<div style="margin: 20px 0;">';
+                    html += `<p class="cyan">${m.allRemembered}</p>`;
+                    html += `<button onclick="checkCompass()" class="cyan pulsing" style="font-size: 18px;">READ THE STARS</button>`;
+                    html += '</div>';
+                }
+            }
+            
+            html += renderMapFolder();
+            html += renderPortfolioFolder();
+            
+            render(html);
+        }
+        
+        function interview(id, level = 0) {
+            const c = MEAT.candidates[id];
+            GAME.state.currentCandidate = id;
+            GAME.state.currentInquiryLevel = level;
+            
+            let h = `<h2>${c.name}</h2>`;
+            
+            if (level === 0) {
+                // Intro
+                h += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                h += `<p>${c.intro}</p>`;
+                h += '</div>';
+                
+                const b = c.buttons && c.buttons[0] ? c.buttons[0] : [MEAT.interview.inquireDeeper, MEAT.interview.endInterview];
+                h += `<button onclick="interview('${id}', 1)">${b[0]}</button>`;
+                h += `<button onclick="fleeDeath('intro')">${b[1]}</button>`;
+                
+            } else if (level <= c.inquiries.length) {
+                // Inquiry levels
+                h += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                h += `<p>"${c.inquiries[level-1]}"</p>`;
+                h += '</div>';
+                
+                if (level < c.inquiries.length) {
+                    // More inquiries to go
+                    const b = c.buttons && c.buttons[level] ? c.buttons[level] : [MEAT.interview.deeper, MEAT.interview.flee];
+                    h += `<button onclick="interview('${id}', ${level + 1})">${b[0]}</button>`;
+                    h += `<button onclick="fleeDeath('inquiry', ${level})">${b[1]}</button>`;
+                } else {
+                    // Last inquiry - go to truth
+                    const b = c.buttons && c.buttons[level] ? c.buttons[level] : [MEAT.interview.faceTruth, MEAT.interview.fleeNow];
+                    h += `<button onclick="showTruth('${id}')">${b[0]}</button>`;
+                    h += `<button onclick="fleeDeath('inquiry', ${level})">${b[1]}</button>`;
+                }
+            }
+            
+            render(h);
+        }
+        
+        function showTruth(id) {
+            const c = MEAT.candidates[id];
+            
+            let h = `<h2>${c.name}</h2>`;
+            h += '<div style="margin: 20px 0; padding: 30px; border: 1px solid #666;">';
+            h += `<p>${c.truthReveal || '"' + c.truth + '"'}</p>`;
+            h += '</div>';
+            
+            h += '<div style="margin: 20px 0; color: #666;">';
+            h += `<p>${MEAT.interview.certaintyPrefix} ${GAME.state.certainty}${MEAT.ui.percent}</p>`;
+            h += `<p>${MEAT.interview.certaintyAfter} ${Math.max(0, GAME.state.certainty + c.certDrop)}${MEAT.ui.percent}</p>`;
+            h += '</div>';
+            
+            // Truth buttons are the last in the array (after all inquiries)
+            const btnIdx = c.inquiries.length + 1;
+            const b = c.buttons && c.buttons[btnIdx] ? c.buttons[btnIdx] : [MEAT.interview.acceptTruth, MEAT.interview.reject];
+            
+            h += `<button onclick="acceptTruth('${id}')">${b[0]}</button>`;
+            h += `<button onclick="fleeDeath('truth')">${b[1]}</button>`;
+            
+            render(h);
+        }
+        
+        function acceptTruth(id) {
+            const candidate = MEAT.candidates[id];
+            
+            GAME.state.certainty = Math.max(0, GAME.state.certainty + candidate.certDrop);
+            
+            if (!GAME.state.reviewed.includes(id)) {
+                GAME.state.reviewed.push(id);
+            }
+            
+            if (candidate.portfolioPiece && !GAME.state.portfolioUnlocked.includes(candidate.portfolioPiece)) {
+                GAME.state.portfolioUnlocked.push(candidate.portfolioPiece);
+            }
+            
+            if (candidate.unlocks && !GAME.state.unlocked.includes(candidate.unlocks)) {
+                GAME.state.unlocked.push(candidate.unlocks);
+            }
+            
+            if (candidate.isVoid) {
+                if (!GAME.state.mapFolderUnlocked) {
+                    GAME.state.mapFolderUnlocked = true;
+                }
+                if (!GAME.state.mapsCollected.includes(id)) {
+                    GAME.state.mapsCollected.push(id);
+                }
+                showVoid();
+            } else {
+                receiveMap(id);
+            }
+        }
+        
+        function receiveMap(id) {
+            if (!GAME.state.mapFolderUnlocked) {
+                GAME.state.mapFolderUnlocked = true;
+            }
+            
+            if (!GAME.state.mapsCollected.includes(id)) {
+                GAME.state.mapsCollected.push(id);
+            }
+            
+            const candidate = MEAT.candidates[id];
+            const m = MEAT.map;
+            const ui = MEAT.ui;
+            
+            let html = `<h2>${m.received}</h2>`;
+            
+            if (candidate.mapReceived) {
+                html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                html += `<p>${candidate.mapReceived}</p>`;
+                html += '</div>';
+            } else {
+                html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                html += `<p>${candidate.name}${m.captured}</p>`;
+                html += `<p style="color: #666; margin-top: 10px;">${m.certaintyLabel} ${GAME.state.certainty + Math.abs(candidate.certDrop)}${ui.percent} ${ui.arrow} ${GAME.state.certainty}${ui.percent}</p>`;
+                html += '</div>';
+            }
+            
+            html += `<button onclick="examineMap('${id}')">${m.examine}</button>`;
+            html += `<button onclick="showHub()">${m.continue}</button>`;
+            
+            render(html);
+        }
+        
+        function examineMap(id) {
+            const candidate = MEAT.candidates[id];
+            const m = MEAT.map;
+            
+            let html = '';
+            if (candidate.mapExamine && typeof candidate.mapExamine === 'object') {
+                html += candidate.mapExamine.asciiArt || '';
+                html += '<div style="border: 1px solid #9945ff; padding: 25px; margin: 20px 0;">';
+                html += candidate.mapExamine.subtitle || '';
+                html += candidate.mapExamine.body || '';
+                html += candidate.mapExamine.mapEdges || '';
+                html += '</div>';
+            } else if (candidate.mapExamine) {
+                html = `<div>${candidate.mapExamine}</div>`;
+            } else {
+                html = `<h2>${m.examining} ${candidate.name}${m.mapSuffix}</h2>`;
+                html += `<p class="dim">${m.realityPrefix} ${candidate.name}${MEAT.ui.colon}</p>`;
+                html += `<div style="margin: 20px 0;">"${candidate.truth}"</div>`;
+            }
+            html += `<button onclick="showHub()">${m.close}</button>`;
+            
+            render(html);
+        }
+        
+        function renderMapFolder() {
+            const m = MEAT.hub.maps;
+            const ui = MEAT.ui;
+            let html = '<div class="folder' + (GAME.state.mapFolderUnlocked ? '' : ' locked') + '">';
+            
+            if (!GAME.state.mapFolderUnlocked) {
+                html += `<h3>${m.locked}</h3>`;
+                html += `<p class="dim" style="font-size: 12px;">${m.lockHint}</p>`;
+            } else {
+                const toggle = GAME.state.mapFolderExpanded ? ui.dash : ui.plus;
+                html += `<h3 onclick="toggleMapFolder()">${ui.openBracket}${toggle}${ui.closeBracket} ${m.prefix} (${GAME.state.mapsCollected.length}${m.counter})</h3>`;
+                html += `<div class="folder-content${GAME.state.mapFolderExpanded ? ' open' : ''}">`;
+                
+                GAME.state.mapsCollected.forEach(id => {
+                    html += `<div class="map-item" onclick="examineMap('${id}')">${ui.arrow} ${MEAT.candidates[id].name}</div>`;
+                });
+                
+                html += '</div>';
+            }
+            
+            html += '</div>';
             return html;
         }
         
-        function togglePortfolio() {
-            gameState.portfolioExpanded = !gameState.portfolioExpanded;
-            // Re-render current screen to update portfolio state
-            const currentFunction = getCurrentScreenFunction();
-            if (currentFunction) currentFunction();
+        function toggleMapFolder() {
+            GAME.state.mapFolderExpanded = !GAME.state.mapFolderExpanded;
+            showHub();
         }
         
-        function showWIP() {
-            // Simple WIP popup overlay
-            const popup = document.createElement('div');
-            popup.innerHTML = '🚧 WIP 🚧';
-            popup.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: #000;
-                border: 2px solid #0f0;
-                color: #0f0;
-                padding: 20px;
-                font-size: 24px;
-                z-index: 10000;
-            `;
-            document.body.appendChild(popup);
+        function renderPortfolioFolder() {
+            const m = MEAT.hub.portfolio;
+            const ui = MEAT.ui;
+            let html = '<div class="folder' + (GAME.state.portfolioUnlocked.length > 0 ? '' : ' locked') + '">';
             
+            if (GAME.state.portfolioUnlocked.length === 0) {
+                html += `<h3>${m.locked}</h3>`;
+                html += `<p class="dim" style="font-size: 12px;">${m.lockHint}</p>`;
+            } else {
+                const toggle = GAME.state.portfolioExpanded ? ui.dash : ui.plus;
+                html += `<h3 onclick="togglePortfolioFolder()">${ui.openBracket}${toggle}${ui.closeBracket} ${m.prefix} (${GAME.state.portfolioUnlocked.length}${m.counter})</h3>`;
+                html += `<div class="folder-content${GAME.state.portfolioExpanded ? ' open' : ''}">`;
+                
+                GAME.state.portfolioUnlocked.forEach(piece => {
+                    const name = MEAT.portfolioNames[piece] || piece;
+                    html += `<div style="margin: 5px 0;"><a href="https://google.com" target="_blank" style="color: #0f0; text-decoration: underline;">${ui.arrow} ${name}</a></div>`;
+                });
+                
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            return html;
+        }
+        
+        function togglePortfolioFolder() {
+            GAME.state.portfolioExpanded = !GAME.state.portfolioExpanded;
+            showHub();
+        }
+        
+        function showVoid() {
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += `<div style="font-size: 30px; margin: 60px 0 20px 0; color: #0f0; animation: fadeToBlack 5s ease-in-out;">${MEAT.ui.equation}</div>`;
+            html += '</div>';
+            
+            render(html, true);
+            
+            // After 5 seconds, transition to pirate rescue
             setTimeout(() => {
-                document.body.removeChild(popup);
-            }, 1500);
+                pirateRescue();
+            }, 5000);
         }
         
-        function unlockPortfolioPiece(candidateId) {
-            const piece = PORTFOLIO_CONFIG.pieces.find(p => p.unlockedBy === candidateId);
-            if (piece && !gameState.portfolioUnlocked.includes(piece.id)) {
-                gameState.portfolioUnlocked.push(piece.id);
-            }
-        }
-        
-        function getCurrentScreenFunction() {
-            // Helper to re-render current screen
-            const screenMap = {
-                'hub': showHub,
-                'gameover': () => gameOver('refresh'),
-                'perfect-victory': perfectFlowVictory,
-                'almost-perfect-death': almostPerfectDeath,
-                'pirate-gameover': pirateGameOver,
-                'shark-death': sharkDeath,
-                'rigid-death': rigidDeath,
-                'void-death-again': voidDeathAgain
-            };
-            return screenMap[gameState.currentScreen];
-        }
-
-        // ================================
-        // SHARK TIMER SYSTEM - FIXED!
-        // ================================
-        function resetSharkTimer(isUserAction = true) {
-            // Only reset lastInteraction on actual user actions
-            if (isUserAction) {
-                gameState.lastInteraction = Date.now();
-            }
-            
-            // ALWAYS clear existing timer first
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
-            }
-            
-            // Hide timer if not in pirate mode
-            if (gameState.mode !== 'PIRATE') {
-                document.getElementById('sharkTimer').classList.remove('active');
-                return;  // EXIT EARLY - no timer needed!
-            }
-            
-            // Create timer for PIRATE mode
-            gameState.sharkTimer = setInterval(() => {
-                const elapsed = Math.floor((Date.now() - gameState.lastInteraction) / 1000);
-                const remaining = Math.max(0, gameState.sharkWarning - elapsed);
-                
-                // Update hub display if it exists
-                const hubDisplay = document.getElementById('hubSharkDisplay');
-                const hubTime = document.getElementById('hubSharkTime');
-                if (hubDisplay && hubTime) {
-                    hubTime.textContent = remaining;
-                    
-                    // Color changes based on time
-                    if (remaining > 7) {
-                        hubDisplay.style.color = '#666';  // Gray - safe
-                        hubDisplay.style.animation = '';
-                    } else if (remaining > 3) {
-                        hubDisplay.style.color = '#ffff00';  // Yellow - warning
-                        hubDisplay.style.animation = '';
-                    } else if (remaining > 0) {
-                        hubDisplay.style.color = '#ff0000';  // Red - danger
-                        hubDisplay.style.animation = 'danger-pulse 0.5s infinite';
-                    } else {
-                        hubDisplay.style.color = '#ff0000';
-                        hubDisplay.style.animation = 'danger-pulse 0.2s infinite';
-                        hubTime.textContent = '!!!';
-                    }
-                }
-                
-                // Trigger shark death at 0
-                if (remaining <= 0 && gameState.sharkTimer) {
-                    clearInterval(gameState.sharkTimer);
-                    gameState.sharkTimer = null;
-                    sharkDeath();
-                }
-            }, 100);  // Update every 100ms for smooth countdown
-        }
-
-        // ================================
-        // UPDATE DISPLAYS
-        // ================================
-        function updateStateDisplay() {
-            // Certainty display with oscillation
-            let certDisplay = gameState.certainty;
-            if (gameState.oscillating) {
-                certDisplay = `~${gameState.certainty.toFixed(1)}~`;
-            }
-            
-            const certElement = document.getElementById('certainty');
-            certElement.textContent = certDisplay;
-            certElement.className = gameState.oscillating ? 'oscillating' : '';
-            
-            // Golden glow if at perfect ratio
-            if (Math.abs(gameState.certainty - GAME_CONFIG.CERTAINTY.GOLDEN_RATIO) < GAME_CONFIG.CERTAINTY.GOLDEN_TOLERANCE) {
-                certElement.classList.add('golden');
-            }
-            
-            // Other displays
-            document.getElementById('currentScreen').textContent = gameState.currentScreen.toUpperCase();
-            document.getElementById('gameMode').textContent = gameState.mode;
-            document.getElementById('gamePhase').textContent = gameState.phase;
-            document.getElementById('loopCount').textContent = gameState.loopCount;
-            
-            // Flow status in pirate mode
-            if (gameState.mode === 'PIRATE') {
-                document.getElementById('flowStatus').style.display = 'block';
-                document.getElementById('flowCount').textContent = gameState.maintainedFlow.length;
-            }
-            
-            // Check death conditions (only in pirate mode, excluding rescue and death screens)
-            // FIX: Don't trigger death if already in a death screen!
-            const deathScreens = ['rigid-death', 'void-death-again', 'shark-death', 'pirate-gameover', 'almost-perfect-death'];
-            if (gameState.mode === 'PIRATE' && 
-                gameState.currentScreen !== 'pirate-rescue' &&
-                !deathScreens.includes(gameState.currentScreen)) {
-                if (gameState.certainty >= GAME_CONFIG.DEATH.RIGID_THRESHOLD) {
-                    rigidDeath();
-                } else if (gameState.certainty <= GAME_CONFIG.DEATH.VOID_THRESHOLD) {
-                    voidDeathAgain();
-                }
-            }
-        }
-
-        // ================================
-        // RENDER ENGINE
-        // ================================
-        function render(content, compositionType = 'default', centered = false, isUserAction = true) {
-            const screen = document.getElementById('screen');
-            
-            // Remove old classes and add new ones
-            screen.className = 'composition composition-' + compositionType;
-            if (centered) screen.className += ' composition-centered';
-            if (gameState.mode === 'PIRATE') screen.className += ' pirate-mode';
-            if (gameState.maintainedFlow.length === 8) screen.className += ' perfect-flow';
-            
-            // Apply composition wrapper
-            screen.innerHTML = `<div class="composition-inner">${content}</div>`;
-            
-            updateStateDisplay();
-            resetSharkTimer(isUserAction);
-        }
-
-        // ================================
-        // HUB SCREEN - THE CENTRAL NODE
-        // ================================
-        function showHub() {
-            gameState.currentScreen = 'hub';
-            let content = '<h2>HUB SCREEN</h2>';
-            
-            // Check if certainty changed for animation
-            const certChanged = gameState.certainty !== gameState.lastCertainty;
-            if (certChanged) {
-                gameState.lastCertainty = gameState.certainty;
-            }
-            
-            // INTEGRATED STATE DISPLAY - CLEAN AND VISIBLE
-            content += '<div style="border: 1px solid #333; padding: 10px; margin: 10px 0;">';
-            
-            // Mode indicator
-            if (gameState.mode === 'PIRATE') {
-                content += '<div style="color: #ffd700; font-size: 14px;">[PIRATE REALITY]</div>';
-            } else {
-                content += '<div style="color: #00ff00; font-size: 14px;">[CONSENSUS REALITY]</div>';
-            }
-            
-            // Certainty bar visualization with animation
-            const certPercent = Math.min(100, Math.max(0, gameState.certainty));
-            const barFilled = Math.floor(certPercent / 5);
-            const barEmpty = 20 - barFilled;
-            let barColor = gameState.mode === 'PIRATE' ? '#ffd700' : '#00ff00';
-            
-            // Check if at golden ratio for special display
-            const isGolden = gameState.mode === 'PIRATE' && 
-                           Math.abs(gameState.certainty - GAME_CONFIG.CERTAINTY.GOLDEN_RATIO) < GAME_CONFIG.CERTAINTY.GOLDEN_TOLERANCE;
-            
-            content += '<div style="margin: 5px 0;';
-            if (certChanged && !isGolden) {
-                content += ' animation: pulse-change 0.5s;';
-            } else if (isGolden) {
-                content += ' animation: golden-wave 2s infinite;';
-            }
-            content += '">';
-            
-            if (gameState.mode === 'PIRATE') {
-                content += 'BEARING: ';
-            } else {
-                content += 'CERTAINTY: ';
-            }
-            
-            if (isGolden) {
-                // Special golden ratio display for pirates
-                content += '<span style="color: #ffd700">~~~~~~' + gameState.certainty.toFixed(1) + '°~~~~~~</span>';
-                content += ' <span style="color: #ffd700">⛵</span>';
-            } else {
-                // Normal bar display
-                content += '<span style="color: ' + barColor + '">';
-                content += '█'.repeat(barFilled);
-                content += '</span>';
-                content += '<span style="color: #333;">';
-                content += '░'.repeat(barEmpty);
-                content += '</span>';
-                content += ' ' + gameState.certainty.toFixed(1);
-                content += gameState.mode === 'PIRATE' ? '°' : '%';
-            }
-            
-            content += '</div>';
-            
-            // Pirate mode extras
-            if (gameState.mode === 'PIRATE') {
-                // Sails state with badges
-                content += '<div style="color: #ffd700; font-size: 12px;">';
-                const flowCount = gameState.maintainedFlow.length;
-                
-                if (flowCount === 8) {
-                    content += 'SAILS: <span style="color: #ffd700">⛵ FULL SAILS ⛵</span>';
-                } else if (flowCount === 7) {
-                    content += 'SAILS: <span style="color: #ff8800">⚠ ALMOST CAUGHT IT...</span>';
-                } else if (flowCount < 4) {
-                    content += 'SAILS: ' + flowCount + '/8 <span style="color: #666">⚓ BECALMED</span>';
-                } else {
-                    content += 'SAILS: ' + flowCount + '/8';
-                }
-                content += '</div>';
-                
-                // Shark timer - always visible with just emoji
-                content += '<div id="hubSharkDisplay" style="font-size: 14px; margin-top: 5px;">';
-                content += '🦈 <span id="hubSharkTime">15</span>s';
-                content += '</div>';
-            }
-            
-            content += '</div>';
-            
-            content += '<h3>CANDIDATE SLOTS:</h3>';
-            
-            // DEV MODE BUTTON - Quick jump to pirate mode for testing
-            if (gameState.mode === 'CONSENSUS') {
-                content += '<div style="position: fixed; bottom: 10px; left: 10px; opacity: 0.3;">';
-                content += '<button onclick="devJumpToPirate()" style="font-size: 10px; border: 1px dashed #666;">';
-                content += '[DEV: Jump to Pirate Mode]';
-                content += '</button>';
-                content += '</div>';
-            } else {
-                content += '<div style="position: fixed; bottom: 10px; left: 10px; opacity: 0.3;">';
-                content += '<button onclick="devJumpToConsensus()" style="font-size: 10px; border: 1px dashed #666;">';
-                content += '[DEV: Back to Consensus]';
-                content += '</button>';
-                content += '</div>';
-            }
-            
-            if (gameState.phase === 'DESCENT') {
-                // NORMAL DESCENT MODE
-                for (let key in CANDIDATES) {
-                    const candidate = CANDIDATES[key];
-                    const isUnlocked = gameState.unlockedCandidates.includes(key);
-                    const isReviewed = gameState.candidatesReviewed.includes(key);
-                    const isCompleted = gameState.candidatesCompleted.includes(key);
-                    
-                    if (isCompleted) {
-                        content += `<button class="locked">[${candidate.name} - COMPLETED]</button>`;
-                    } else if (isReviewed) {
-                        content += `<button onclick="returnVisit('${key}')">[${candidate.name} - RETURN ONCE]</button>`;
-                    } else if (isUnlocked) {
-                        content += `<button onclick="reviewCandidate('${key}')">[${candidate.name} - AVAILABLE]</button>`;
-                    } else {
-                        content += `<button class="locked">[LOCKED]</button>`;
-                    }
-                }
-            } else {
-                // PIRATE ASCENT MODE
-                for (let key in CANDIDATES) {
-                    const candidate = CANDIDATES[key];
-                    const isRemembered = gameState.rememberedTruths.includes(key);
-                    const inFlow = gameState.maintainedFlow.includes(key);
-                    
-                    if (isRemembered) {
-                        if (inFlow) {
-                            content += `<button class="locked" style="color: #ffd700">[${candidate.name} - IN FLOW ϕ]</button>`;
-                        } else {
-                            content += `<button class="locked">[${candidate.name} - REMEMBERED ✓]</button>`;
-                        }
-                    } else {
-                        content += `<button onclick="rememberCandidate('${key}')">[${candidate.name} - REMEMBER]</button>`;
-                    }
-                }
-                
-                // Check if all remembered
-                if (gameState.rememberedTruths.length === 8) {
-                    content += '<br><div style="color: #ffd700; font-size: 18px;">All eight perspectives remembered...</div>';
-                    content += '<button onclick="checkFinalFlow()" style="color: #ffd700; border: 2px solid #ffd700;">';
-                    content += '[CHECK YOUR COMPASS]';
-                    content += '</button>';
-                }
-            }
-            
-            // Add portfolio at the bottom
-            content += renderPortfolio();
-            
-            // Render but DON'T reset timer if just updating display
-            render(content, 'default', false, false);  // false = not user action
-            
-            // Only reset timer on actual navigation to hub
-            if (gameState.currentScreen !== 'hub') {
-                resetSharkTimer(true);
-            }
-        }
-
-        // ================================
-        // DESCENT PATH - LOSING CERTAINTY
-        // ================================
-        function reviewCandidate(candidateId) {
-            gameState.currentCandidate = candidateId;
-            gameState.currentScreen = 'intro';
-            
-            const candidate = CANDIDATES[candidateId];
-            
-            // UNLOCK PORTFOLIO PIECE ON ANY VISIT (not just first)
-            // This ensures it's always unlocked when reviewing
-            unlockPortfolioPiece(candidateId);
-            
-            let content = `<h2>${candidate.name} - INTRODUCTION</h2>`;
-            content += choiceCompose(
-                candidate.intro,
-                { text: '[SAFE PATH] → Corporate Death', action: "gameOver('corporate')" },
-                { text: '[CURIOUS PATH] → Deeper', action: "inquiry(1)" },
-                candidate.color
-            );
-            
-            render(content, 'choice', true);
-        }
-
-        function inquiry(level) {
-            const candidate = CANDIDATES[gameState.currentCandidate];
-            gameState.currentScreen = `inquiry${level}`;
-            
-            // Phase 2: NO CERTAINTY CHANGE DURING INQUIRY
-            // The questions plant seeds, but truth comes later
-            
-            let content = `<h2>INQUIRY LEVEL ${level}</h2>`;
-            content += `<div class="debug-info" style="color:${candidate.color}">`;
-            content += candidate.inquiries[level - 1] || candidate.inquiries[candidate.inquiries.length - 1];
-            content += '</div>';
-            content += `<div>Certainty: ${gameState.certainty}%</div>`;
-            
-            if (level < candidate.inquiryDepth) {
-                content += choiceCompose(
-                    '',
-                    { text: '[EXIT] → Safety', action: "gameOver('inquiry')" },
-                    { text: `[DEEPER] → Level ${level + 1}`, action: `inquiry(${level + 1})` },
-                    candidate.color
-                );
-            } else {
-                content += '<div style="color: #ff0">TURNING POINT - NO ESCAPE</div>';
-                content += `<button onclick="showAnswer()">[ACCEPT TRUTH]</button>`;
-            }
-            
-            render(content, 'choice', true);
-        }
-
-        function showAnswer() {
-            const candidate = CANDIDATES[gameState.currentCandidate];
-            
-            let content = `<h2>THE TRUTH</h2>`;
-            content += `<div class="debug-info" style="color:${candidate.color}">`;
-            content += `"${candidate.truth}"`;
-            content += '</div>';
-            
-            if (gameState.currentCandidate === 'navigator') {
-                // Navigator SPECIAL CASE - immediate void with warning
-                content += `<div style="color: #ff0000; margin: 20px 0;">⚠ FINAL WARNING ⚠</div>`;
-                content += `<div style="color: #0080ff;">Accepting this truth will dissolve ALL certainty</div>`;
-                content += `<div style="color: #666;">Current: ${gameState.certainty}% → 0%</div>`;
-                content += `<div style="color: #333; margin: 10px 0;">There is no turning back...</div>`;
-                
-                // Navigator immediately sets to 0
-                gameState.certainty = 0;
-                content += `<button onclick="dissolveToVoid()">[BECOME EVERYTHING/NOTHING]</button>`;
-            } else {
-                // Normal candidates - store drop for later revelation
-                gameState.pendingCertaintyDrop = candidate.certChange;
-                content += `<button onclick="receiveMap()">[RECEIVE MAP]</button>`;
-                // No indication of coming change!
-            }
-            
-            render(content);
-        }
-
-        function receiveMap() {
-            const candidate = CANDIDATES[gameState.currentCandidate];
-            
-            // Phase 2: Apply pending certainty drop SILENTLY
-            if (gameState.pendingCertaintyDrop !== 0) {
-                gameState.certainty = Math.max(GAME_CONFIG.CERTAINTY.VOID, gameState.certainty + gameState.pendingCertaintyDrop);
-                gameState.pendingCertaintyDrop = 0;  // Reset
-            }
-            
-            // Mark as reviewed (first visit complete)
-            if (!gameState.candidatesReviewed.includes(gameState.currentCandidate)) {
-                gameState.candidatesReviewed.push(gameState.currentCandidate);
-                // Portfolio piece already unlocked in reviewCandidate()
-            }
-            
-            // Unlock next
-            if (candidate.unlocks && !gameState.unlockedCandidates.includes(candidate.unlocks)) {
-                gameState.unlockedCandidates.push(candidate.unlocks);
-            }
-            
-            let content = `<h2>MAP RECEIVED</h2>`;
-            content += `<div class="debug-info" style="color:${candidate.color}">`;
-            content += `[${candidate.name}'s Map]`;
-            content += '</div>';
-            
-            if (candidate.unlocks) {
-                content += `<div>Next unlocked: ${CANDIDATES[candidate.unlocks].name}</div>`;
-            }
-            
-            // No mention of certainty change!
-            content += `<button onclick="showHub()">RETURN TO HUB</button>`;
-            
-            render(content);
-        }
-
-        // ================================
-        // VOID AND PIRATE RESCUE
-        // ================================
-        function dissolveToVoid() {
-            gameState.currentScreen = 'void';
-            gameState.certainty = GAME_CONFIG.CERTAINTY.VOID;
-            
-            let content = `
-                <h1 style="opacity: 0.3">{🌊:🌊∈🌊}</h1>
-                <p style="color: #111">dissolving...</p>
-            `;
-            
-            render(content, 'death', true);
-            
-            setTimeout(() => pirateRescue(), GAME_CONFIG.TIMERS.VOID_TRANSITION_DELAY * 1000);
-        }
-
         function pirateRescue() {
-            gameState.currentScreen = 'pirate-rescue';
-            gameState.certainty = GAME_CONFIG.CERTAINTY.GOLDEN_RATIO;
+            const m = MEAT.pirate.rescue;
+            let html = MEAT.ascii.pirateMode;
+            html += `<p class="cyan" style="font-size: 20px; margin: 20px 0;">OI! GRAB THE ROPE!</p>`;
+            html += '<div style="border: 1px solid #666; padding: 20px; margin: 20px 0;">';
+            html += `<p>Nobody dissolves on my watch!</p>`;
+            html += `<p style="margin-top: 15px;">Grab the fucking rope before the void eats you alive!</p>`;
+            html += '</div>';
+            html += `<button onclick="enterPirateMode()" class="cyan">${m.button}</button>`;
             
-            let content = `<h1 style="color: #ffd700">⚓ PIRATE RESCUE ⚓</h1>`;
-            content += `<div class="debug-info" style="color: #ffd700">`;
-            content += `"OI! NOBODY DROWNS ON MY WATCH!<br>`;
-            content += `GRAB THE FUCKING ROPE!<br><br>`;
-            content += `Pulling you to... FAIR WINDS!<br>`;
-            content += `61.8° - The perfect bearing!"`;
-            content += `</div>`;
-            
-            content += `<button onclick="enterPirateMode()">WHAT IS THIS BEARING?!</button>`;
-            
-            render(content, 'default', true);
+            render(html);
+            document.getElementById('game').classList.add('pirate');  // FIX: Add class AFTER render
         }
-
+        
         function enterPirateMode() {
-            gameState.mode = 'PIRATE';
-            gameState.phase = 'ASCENT';
-            gameState.oscillating = true;
-            gameState.rememberedTruths = [];
-            gameState.maintainedFlow = [];
+            GAME.state.mode = 'PIRATE';
+            GAME.state.phase = 'ASCENT';
+            GAME.state.certainty = GAME.config.GOLDEN;
+            GAME.state.remembered = [];
             
-            let content = `<h2>PIRATE REALITY - CATCHING THE WIND</h2>`;
-            content += `<div class="debug-info" style="color: #ffd700">`;
-            content += `61.8° - FAIR WINDS BEARING!<br>`;
-            content += `The perfect sailing angle!<br><br>`;
-            content += `LIFE IS MOTION ON THE OPEN SEA!<br>`;
-            content += `Too certain (100°) = LANDLOCKED<br>`;
-            content += `Too uncertain (0°) = LOST AT SEA<br>`;
-            content += `No movement = SHARKS<br><br>`;
-            content += `KEEP FAIR WINDS THROUGH ALL 8 = FULL SAILS!`;
-            content += `</div>`;
-            content += `<button onclick="showHub()">SET SAIL</button>`;
-            
-            render(content);
+            showPirateIntro();
         }
-
-        // ================================
-        // ASCENT PATH - REMEMBERING
-        // ================================
-        function rememberCandidate(candidateId) {
-            gameState.currentCandidate = candidateId;
-            gameState.currentScreen = 'remembering';
+        
+        function showPirateIntro() {
+            const m = MEAT.pirate.briefing;
+            let h = `<h2 class="cyan">${m.title}</h2>`;
+            h += '<div style="border: 1px solid #666; padding: 20px; margin: 20px 0;">';
+            h += `<p>${m.line1}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line2}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line3}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line4}</p>`;
+            h += `<p style="margin-top: 10px;">${m.line5}</p>`;
+            h += `<p style="margin-top: 15px;">${m.line6}</p>`;
+            h += `<p style="margin-top: 15px; color: #666;">${m.line7}</p>`;
+            h += '</div>';
+            h += `<button onclick="showHub()" class="cyan">${m.button}</button>`;
             
-            const candidate = CANDIDATES[candidateId];
+            render(h);
+        }
+        
+        function remember(id) {
+            GAME.state.currentCandidate = id;
+            const candidate = MEAT.candidates[id];
             
-            let content = `<h2>${candidate.name} - REMEMBERING</h2>`;
-            content += `<div class="debug-info" style="color:${candidate.color}">`;
-            content += `${candidate.pirateWisdom}<br><br>`;
-            content += `Current: ${gameState.certainty.toFixed(1)}%<br>`;
-            content += `Golden: ${GAME_CONFIG.CERTAINTY.GOLDEN_RATIO}%`;
-            content += `</div>`;
+            let html = `<h2>${candidate.name}</h2>`;
+            html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+            html += `<p>${candidate.remember || '"' + candidate.truth + '"'}</p>`;
+            html += '</div>';
             
-            // RANDOMIZE THE MIRROR CHOICES (Forking paths even in memory!)
-            const buttons = [
-                `<button onclick="maintainFlow('${candidateId}')" style="color: #ffd700">[HOLD THE WIND] → Stay at Fair Winds</button>`,
-                `<button onclick="graspCertainty('${candidateId}')">[DROP ANCHOR] → Gain +${candidate.pirateChange}°</button>`
-            ];
-            
-            if (Math.random() > 0.5) {
-                content += buttons[1] + buttons[0];
+            if (candidate.rememberButtons) {
+                html += `<button onclick="maintainFlow('${id}')" class="cyan">${candidate.rememberButtons.flow}</button>`;
+                html += `<button onclick="dropAnchor('${id}')">${candidate.rememberButtons.anchor}</button>`;
             } else {
-                content += buttons[0] + buttons[1];
+                html += `<button onclick="maintainFlow('${id}')" class="cyan">${MEAT.pirate.holdWind}</button>`;
+                html += `<button onclick="dropAnchor('${id}')">${MEAT.pirate.dropAnchor}</button>`;
             }
             
-            render(content);
+            render(html);
         }
-
-        function maintainFlow(candidateId) {
-            gameState.rememberedTruths.push(candidateId);
-            gameState.maintainedFlow.push(candidateId);
+        
+        function maintainFlow(id) {
+            GAME.state.remembered.push(id);
+            GAME.state.maintainedFlow.push(id);
+            // DON'T RESET BEARING - just maintain current
             
-            let content = `<h2>FAIR WINDS HELD</h2>`;
-            content += `<div class="debug-info" style="color: #ffd700">`;
-            content += `You chose the wind over the anchor.<br>`;
-            content += `61.8° - Perfect sailing!<br><br>`;
-            content += `Sails: ${gameState.maintainedFlow.length}/8`;
-            content += `</div>`;
-            content += `<button onclick="showHub()">CONTINUE SAILING</button>`;
+            const m = MEAT.pirate.windHeld;
+            const ui = MEAT.ui;
             
-            render(content);
-        }
-
-        function graspCertainty(candidateId) {
-            const candidate = CANDIDATES[candidateId];
-            gameState.certainty = Math.min(GAME_CONFIG.DEATH.RIGID_THRESHOLD, gameState.certainty + candidate.pirateChange);
-            gameState.rememberedTruths.push(candidateId);
+            let html = `<h2 class="cyan">${m.title}</h2>`;
+            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid var(--cyan);">';
+            html += `<p class="cyan">${m.text}</p>`;
             
-            let content = `<h2>DROPPED ANCHOR</h2>`;
-            content += `<div class="debug-info">`;
-            content += `You couldn't resist fixing your position.<br>`;
-            content += `Bearing: ${gameState.certainty}° (+${candidate.pirateChange}°)<br>`;
+            // Only say "perfect" if actually perfect
+            const bearingText = Math.abs(GAME.state.certainty - GAME.config.GOLDEN) < 0.1 ? 
+                "Perfect bearing maintained:" : "Current bearing:";
+            html += `<p>${bearingText} ${GAME.state.certainty.toFixed(1)}${ui.degree}</p>`;
             
-            if (gameState.certainty > 80) {
-                content += `<span style="color: #f00">WARNING: Approaching land!</span>`;
+            html += `<p style="margin-top: 15px;">${m.sails} ${GAME.state.maintainedFlow.length}${ui.slash}8</p>`;
+            html += '</div>';
+            
+            if (GAME.state.remembered.length === 8) {
+                html += `<button onclick="checkCompass()" class="cyan" style="font-size: 18px;">READ THE STARS</button>`;
+            } else {
+                html += `<button onclick="showHub()" class="cyan">${m.continue}</button>`;
             }
             
-            content += `</div>`;
-            content += `<button onclick="showHub()">CONTINUE</button>`;
-            
-            render(content);
+            render(html);
         }
-
-        // ================================
-        // FINAL FLOW CHECK - ENHANCED!
-        // ================================
-        function checkFinalFlow() {
-            gameState.currentScreen = 'compass-reading';
+        
+        function dropAnchor(id) {
+            GAME.state.remembered.push(id);
+            GAME.state.certainty = Math.min(100, GAME.state.certainty + 5);
             
-            // Stop any shark timer during final check
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
+            if (GAME.state.certainty >= 100) {
+                rigidDeath();
+                return;
             }
             
-            let content = `<div style="text-align: center; padding: 30px;">`;
-            content += `<h2 style="color: #ffd700">READING THE STARS!</h2>`;
-            content += `<div style="color: #f00">sharks were seconds away...</div>`;
-            content += `<div class="debug-info" style="color: #ffd700;">`;
+            const m = MEAT.pirate.anchorDropped;
+            const ui = MEAT.ui;
             
-            // Show each choice
-            content += `Your voyage:<br><br>`;
-            for (let key in CANDIDATES) {
-                if (gameState.maintainedFlow.includes(key)) {
-                    content += `${CANDIDATES[key].name}: <span style="color: #ffd700">⛵ SAILED TRUE</span><br>`;
-                } else if (gameState.rememberedTruths.includes(key)) {
-                    content += `${CANDIDATES[key].name}: <span style="color: #f00">⚓ ANCHORED</span><br>`;
+            let html = `<h2>${m.title}</h2>`;
+            html += '<div style="margin: 20px 0; padding: 20px; border: 1px solid #888;">';
+            html += `<p>${m.text}</p>`;
+            html += `<p>${m.bearing} ${GAME.state.certainty.toFixed(1)}${ui.degree}</p>`;
+            
+            if (GAME.state.certainty > 90) {
+                html += `<p class="red" style="margin-top: 15px;">${m.warningLand}</p>`;
+            } else if (GAME.state.certainty > 80) {
+                html += `<p style="color: #ff8800; margin-top: 15px;">${m.warningRigid}</p>`;
+            }
+            
+            html += '</div>';
+            
+            if (GAME.state.remembered.length === 8) {
+                html += `<button onclick="checkCompass()" style="border-color: var(--cyan); color: var(--cyan);">${MEAT.hub.checkCompass}</button>`;
+            } else {
+                html += `<button onclick="showHub()">${m.continue}</button>`;
+            }
+            
+            render(html);
+        }
+        
+        function checkCompass() {
+            clearInterval(GAME.state.timer);
+            const m = MEAT.compass;
+            const ui = MEAT.ui;
+            
+            let h = MEAT.ascii.yourVoyage;
+            
+            h += '<div style="margin: 20px 0; padding: 20px; border: 1px solid var(--cyan);">';
+            h += '<div style="margin: 15px 0; font-size: 16px; line-height: 1.8;">';
+            
+            for (let id in MEAT.candidates) {
+                if (GAME.state.remembered.includes(id)) {
+                    const inFlow = GAME.state.maintainedFlow.includes(id);
+                    const name = MEAT.candidates[id].name;
+                    if (inFlow) {
+                        h += `<div style="color: var(--cyan); margin: 8px 0;">${name}: ${m.sailSymbol} FAIR WINDS</div>`;
+                    } else {
+                        h += `<div style="color: #888; margin: 8px 0;">${name}: ${m.anchorSymbol} ANCHORED</div>`;
+                    }
                 }
             }
             
-            content += `<br>Final bearing: ${gameState.certainty.toFixed(1)}°<br>`;
-            content += `Fair winds: 61.8°<br><br>`;
+            h += '</div>';
+            h += `<p style="margin-top: 20px;">${m.finalBearing} ${GAME.state.certainty.toFixed(1)}${ui.degree}</p>`;
+            h += `<p>${m.sailsMaintained} ${GAME.state.maintainedFlow.length}${ui.slash}8</p>`;
+            h += '</div>';
             
-            // ENHANCED ENDING CHECK!
-            if (gameState.maintainedFlow.length === 8 && 
-                Math.abs(gameState.certainty - GAME_CONFIG.CERTAINTY.GOLDEN_RATIO) < GAME_CONFIG.CERTAINTY.GOLDEN_TOLERANCE) {
-                // PERFECT!
-                content += `<div style="font-size: 24px; color: #ffd700">⛵ FULL SAILS ACHIEVED ⛵</div>`;
-                content += `</div>`;
-                content += `<button onclick="perfectFlowVictory()" style="color: #ffd700">[SAIL INTO LEGEND]</button>`;
-                
-            } else if (gameState.maintainedFlow.length === 7) {
-                // SO CLOSE! ENHANCED CRUELTY!
-                content += `<div class="almost-perfect">`;
-                content += `7/8 Sailed True<br>`;
-                content += `ONE anchor ruined EVERYTHING<br>`;
-                content += `The wind demands PERFECTION`;
-                content += `</div>`;
-                content += `</div>`;
-                content += `<button onclick="almostPerfectDeath()">[ACCEPT NEAR-MISS]</button>`;
-                
+            const perfectBearing = Math.abs(GAME.state.certainty - GAME.config.GOLDEN) < 0.1;
+            const perfectFlow = GAME.state.maintainedFlow.length === 8;
+            
+            if (perfectFlow && perfectBearing) {
+                h += `<button onclick="perfectVictory()" class="cyan pulsing" style="font-size: 18px;">SAIL INTO LEGEND</button>`;
+            } else if (GAME.state.maintainedFlow.length === 7) {
+                h += `<div class="cyan" style="margin: 20px 0;">${m.almostPerfect}</div>`;
+                h += `<button onclick="almostPerfectDeath()">${m.nearMiss}</button>`;
             } else {
-                // Multiple failures
-                content += `Sailed true: ${gameState.maintainedFlow.length}/8`;
-                content += `</div>`;
-                content += `<button onclick="pirateGameOver()">[ACCEPT IMPERFECTION]</button>`;
+                h += `<button onclick="imperfectEnding()">${m.imperfect}</button>`;
             }
             
-            content += `</div>`;
-            
-            render(content);
+            render(h, true);
         }
-
-        // ================================
-        // VICTORY & DEATH STATES
-        // ================================
-        function perfectFlowVictory() {
-            gameState.currentScreen = 'perfect-victory';
+        
+        function fleeDeath(source, level = 0) {
+            clearInterval(GAME.state.timer);
             
-            // Stop sharks temporarily (they'll be back!)
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
+            let html = MEAT.ascii.gameOver;
+            
+            const candidate = MEAT.candidates[GAME.state.currentCandidate];
+            
+            if (candidate && candidate.deaths) {
+                if (source === 'truth' && candidate.deaths.reject) {
+                    html += '<div style="margin: 30px 0;">';
+                    html += `<p>${candidate.deaths.reject}</p>`;
+                    html += '</div>';
+                } else if (candidate.deaths.flee) {
+                    html += '<div style="margin: 30px 0;">';
+                    html += `<p>${candidate.deaths.flee}</p>`;
+                    html += '</div>';
+                }
+            } else {
+                html += '<div style="margin: 30px 0;">';
+                html += `<p>${MEAT.interview.fleeReasons[source]}</p>`;
+                html += '</div>';
             }
             
-            let content = `
-                <h1 style="color: #ffd700">⛵ FULL SAILS ACHIEVED ⛵</h1>
-                <div style="color: #ffd700; font-size: 48px;">61.8°</div>
-                <div class="debug-info" style="color: #ffd700">
-                    You navigated all eight perspectives<br>
-                    Without dropping anchor<br>
-                    Without losing bearing<br><br>
-                    You ARE the fair winds<br><br>
-                    {🌊:🌊∈🌊}<br><br>
-                    You win! Perfect sailing!<br>
-                    You can rest now...<br>
-                    <span style="opacity: 0.5">...forever...</span>
-                </div>
-                ${renderPortfolio()}
-            `;
+            html += renderPortfolioLinks();
+            html += `<button onclick="resetGame()">${MEAT.startOver}</button>`;
             
-            render(content, 'victory', true);
+            render(html, true);
+        }
+        
+        function corporateDeath() {
+            clearInterval(GAME.state.timer);
+            const m = MEAT.deaths.corporate;
             
-            // THE ULTIMATE TWIST - 8 seconds of celebration then SHARKS!
-            setTimeout(() => inevitableSharkDeath(), GAME_CONFIG.TIMERS.SHARK_VICTORY_DELAY * 1000);
+            let html = MEAT.ascii.gameOver;
+            html += `<h1 class="red">${m.title}</h1>`;
+            html += `<p>${m.text}</p>`;
+            html += `<p>${m.tagline}</p>`;
+            html += renderPortfolioLinks();
+            html += `<button onclick="resetGame()">${m.button}</button>`;
+            
+            render(html, true);
+        }
+        
+        function sharkDeath() {
+            clearInterval(GAME.state.timer);
+            const m = MEAT.deaths.shark;
+            
+            let html = MEAT.ascii.gameOver;
+            html += `<h1 class="red">${m.title}</h1>`;
+            html += `<p>${m.text}</p>`;
+            html += renderPortfolioLinks();
+            html += `<button onclick="resetGame()">${m.button}</button>`;
+            
+            render(html, true);
+        }
+        
+        function rigidDeath() {
+            clearInterval(GAME.state.timer);
+            const m = MEAT.deaths.rigid;
+            
+            let html = MEAT.ascii.gameOver;
+            html += `<h1 class="red">${m.title}</h1>`;
+            html += '<div style="margin: 30px 0;">';
+            html += `<p>${m.text}</p>`;
+            html += `<p>${m.detail}</p>`;
+            html += `<p>${m.tagline}</p>`;
+            html += '</div>';
+            html += renderPortfolioLinks();
+            html += `<button onclick="resetGame()">${m.button}</button>`;
+            
+            render(html, true);
+        }
+        
+        function almostPerfectDeath() {
+            const m = MEAT.deaths.almost;
+            
+            let html = MEAT.ascii.gameOver;
+            html += `<h1 class="red">${m.title}</h1>`;
+            html += '<div style="margin: 30px 0;">';
+            html += `<p>${m.text}</p>`;
+            html += '</div>';
+            html += renderPortfolioLinks();
+            html += `<button onclick="resetGame()">${m.button}</button>`;
+            
+            render(html, true);
+        }
+        
+        function imperfectEnding() {
+            const m = MEAT.deaths.imperfect;
+            const ui = MEAT.ui;
+            
+            let html = MEAT.ascii.gameOver;
+            html += `<h1 class="red">${m.title}</h1>`;
+            html += '<div style="margin: 30px 0;">';
+            html += `<p>${m.perspectives} ${GAME.state.maintainedFlow.length}${ui.slash}8 ${m.perspectivesOf}</p>`;
+            html += `<p>${m.ended} ${GAME.state.certainty.toFixed(1)}${ui.degree} ${m.insteadOf} ${GAME.config.GOLDEN}${ui.degree}.</p>`;
+            
+            if (GAME.state.certainty > GAME.config.GOLDEN + 20) {
+                html += `<p style="margin-top: 15px;">${m.tooRigid}</p>`;
+            }
+            
+            html += '</div>';
+            html += renderPortfolioLinks();
+            html += `<button onclick="resetGame()">${m.button}</button>`;
+            
+            render(html, true);
+        }
+        
+        function perfectVictory() {
+            clearInterval(GAME.state.timer);
+            const m = MEAT.victory.perfect;
+            const ui = MEAT.ui;
+            
+            let html = MEAT.ascii.youWon;
+            html += '<div style="margin: 30px 0;">';
+            html += `<p class="cyan">${m.line1}</p>`;
+            html += `<p class="cyan">${m.line2}</p>`;
+            html += '</div>';
+            
+            if (GAME.state.portfolioUnlocked.length > 0) {
+                html += '<div style="margin: 20px 0; padding: 15px; border: 1px solid var(--cyan);">';
+                html += `<p class="cyan">${m.portfolioLabel} ${GAME.state.portfolioUnlocked.length}${ui.slash}8</p>`;
+                html += '</div>';
+            }
+            
+            html += '<div style="margin-top: 40px; color: #666;">';
+            html += `<p>${m.rest}</p>`;
+            html += '</div>';
+            
+            render(html, true);
+            
+            setTimeout(inevitableSharkDeath, 6000);
         }
         
         function inevitableSharkDeath() {
-            const content = deathCompose(
-                '<span style="color: #f00">🦈 THE SHARKS CAME ANYWAY 🦈</span>',
-                [
-                    '<span style="color: #fff">You stopped moving to celebrate.</span>',
-                    '<span style="color: #fff">That was your mistake.</span>',
-                    '<span style="color: #fff">MOTION IS ETERNAL.</span>',
-                    '<span style="color: #666; font-size: 10px">{🌊:🌊∈🌊}</span>'
-                ],
-                'KEEP SWIMMING',
-                'startNewLoop()'
-            );
+            const m = MEAT.victory.shark;
             
-            render(content, 'death', true);
+            let html = MEAT.ascii.chump;
+            html += `<h1 class="red">🦈 SHARKS GOT YOU 🦈</h1>`;
+            html += '<div style="margin: 30px 0;">';
+            html += `<p>${m.line1}</p>`;
+            html += `<p>${m.line2}</p>`;
+            html += `<p style="margin-top: 20px;">${m.line3}</p>`;
+            html += '</div>';
+            html += `<button onclick="showCredits()" style="margin-top: 30px;">${m.button}</button>`;
+            
+            render(html, true);
         }
         
-        // NEW DEATH STATE FOR ALMOST PERFECT!
-        function almostPerfectDeath() {
-            gameState.currentScreen = 'almost-perfect-death';
+        function showCredits() {
+            const m = MEAT.credits;
             
-            // Clear shark timer on death
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
-            }
+            let html = '<div style="max-width: 400px; margin: 0 auto; padding: 60px 20px; text-align: center;">';
+            html += `<h1 style="color: #fff; font-size: 24px; margin-bottom: 30px;">${m.title}</h1>`;
+            html += `<p style="color: #fff; margin: 10px 0;">Created by:</p>`;
+            html += `<p style="color: #fff; margin: 5px 0;">Sloth, Captain of the Anglerfish Dingy, rank: Octopus</p>`;
+            html += `<p style="color: #fff; margin: 20px 0 10px 0;">Navigation by:</p>`;
+            html += `<p style="color: #fff; margin: 5px 0;">Claude, rank: Fungi</p>`;
+            html += '<div style="margin: 30px 0;">';
+            html += `<p style="color: #fff;">Special thanks to:</p>`;
+            html += `<p style="color: #fff;">Anthropic & GitHub</p>`;
+            html += `<p style="color: #fff;">2025</p>`;
+            html += '</div>';
+            html += `<button onclick="returnToVeil()" class="credits-button" style="margin-top: 40px; border-color: #fff; color: #fff;">${m.button}</button>`;
             
-            const content = deathCompose(
-                '<span style="color: #ff8800">SO CLOSE TO PERFECTION</span>',
-                [
-                    '7 perfect choices. 1 moment of weakness.',
-                    "That's how consciousness works.",
-                    'One grasp and the flow breaks.'
-                ],
-                'TRY FOR PERFECTION AGAIN',
-                'startNewLoop()'
-            );
-            
-            render(content, 'death', true);
+            render(html, true);
+            document.getElementById('game').className = '';  // FIX: Clear all classes for clean credits
         }
-
-        function pirateGameOver() {
-            gameState.currentScreen = 'pirate-gameover';
+        
+        function returnVisit(id) {
+            GAME.state.completed.push(id);
+            const candidate = MEAT.candidates[id];
+            const m = MEAT.returnVisit;
             
-            // Clear shark timer on death
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
-            }
+            let html = `<h2>${m.title}</h2>`;
             
-            const messages = [
-                'You reviewed all 8 perspectives.',
-                `But ended at ${gameState.certainty.toFixed(1)}% instead of ~${GAME_CONFIG.CERTAINTY.GOLDEN_RATIO}%`
-            ];
-            
-            if (gameState.certainty > GAME_CONFIG.CERTAINTY.GOLDEN_RATIO + 10) {
-                messages.push('Too much bearing. The wind died.');
-            } else if (gameState.certainty < GAME_CONFIG.CERTAINTY.GOLDEN_RATIO - 10) {
-                messages.push('Lost bearing. Drifted to sea.');
+            if (candidate.returnVisit) {
+                html += '<div style="margin: 20px 0; padding: 25px; border: 1px solid #666;">';
+                html += `<p>${candidate.returnVisit}</p>`;
+                html += '</div>';
             } else {
-                messages.push('Close to fair winds, but not quite.');
+                html += `<p>${candidate.name} ${m.gone}</p>`;
             }
             
-            const content = deathCompose(
-                '<span style="color: #ffd700">PIRATE REALITY GAME OVER</span>',
-                messages,
-                'SEEK PERFECTION AGAIN'
-            );
+            html += `<button onclick="showHub()">${m.back}</button>`;
             
-            render(content, 'death', true);
+            render(html);
         }
-
-        function sharkDeath() {
-            gameState.currentScreen = 'shark-death';
+        
+        function returnToVeil() {
+            const nextLoop = GAME.state.loopCount + 1;
             
-            const content = deathCompose(
-                '<span style="color: #f00">🦈 SHARK DEATH 🦈</span>',
-                [
-                    'You stopped moving.',
-                    'Sharks only survive in motion.'
-                ],
-                'TRY AGAIN'
-            );
+            GAME.state = {
+                screen: 'job-disclaimer',
+                certainty: 100,
+                mode: 'CONSENSUS',
+                phase: 'DESCENT',
+                unlocked: ['animator', 'navigator'],
+                reviewed: [],
+                completed: [],
+                remembered: [],
+                maintainedFlow: [],
+                mapsCollected: [],
+                mapFolderUnlocked: false,
+                mapFolderExpanded: false,
+                portfolioUnlocked: ['animation-reel'],
+                portfolioExpanded: false,
+                timer: null,
+                lastAction: Date.now(),
+                loopCount: nextLoop,
+                currentCandidate: null,
+                currentInquiryLevel: 0
+            };
             
-            render(content, 'death', true);
+            showJobDisclaimer();
         }
-
-        function rigidDeath() {
-            gameState.currentScreen = 'rigid-death';
+        
+        function resetTimer() {
+            GAME.state.lastAction = Date.now();
             
-            // Clear shark timer on death
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
+            if (GAME.state.timer) {
+                clearInterval(GAME.state.timer);
             }
             
-            const content = deathCompose(
-                '❄️ FROZEN DEATH ❄️',
-                [
-                    `${GAME_CONFIG.DEATH.RIGID_THRESHOLD}° Bearing in Pirate Reality.`,
-                    'Ran aground. Landlocked.'
-                ],
-                'SHATTER AND RESTART',
-                'startNewLoop()'
-            );
+            const maxTime = GAME.state.mode === 'PIRATE' ? 
+                GAME.config.SHARK_TIME : GAME.config.DEADLINE_TIME;
             
-            render(content, 'death', true);
+            GAME.state.timer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - GAME.state.lastAction) / 1000);
+                const remaining = Math.max(0, maxTime - elapsed);
+                
+                if (GAME.state.mode === 'PIRATE') {
+                    const display = document.getElementById('sharkTime');
+                    if (display) {
+                        display.textContent = remaining;
+                        if (remaining <= 3) {
+                            display.parentElement.classList.add('red');
+                        }
+                        if (remaining === 0) {
+                            sharkDeath();
+                        }
+                    }
+                } else {
+                    const display = document.getElementById('deadlineTime');
+                    if (display) {
+                        display.textContent = remaining;
+                        if (remaining <= 5) {
+                            display.parentElement.classList.add('red');
+                        }
+                        if (remaining === 0) {
+                            corporateDeath();
+                        }
+                    }
+                }
+            }, 100);
         }
-
-        function voidDeathAgain() {
-            gameState.currentScreen = 'void-death-again';
-            
-            // Clear shark timer on death
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
+        
+        function renderPortfolioLinks() {
+            if (GAME.state.portfolioUnlocked.length === 0) return '';
+            let html = '<div style="margin: 20px 0; padding: 15px;">';
+            html += `<p style="color: #666;">👁️ Portfolio (${GAME.state.portfolioUnlocked.length}/8)</p>`;
+            GAME.state.portfolioUnlocked.forEach(piece => {
+                const name = MEAT.portfolioNames[piece] || piece;
+                html += `<div style="margin: 5px 0;"><a href="https://google.com" target="_blank" style="color: #0f0; text-decoration: underline;">→ ${name}</a></div>`;
+            });
+            html += '</div>';
+            return html;
+        }
+        
+        function resetGame() {
+            if (GAME.state.timer) {
+                clearInterval(GAME.state.timer);
+                GAME.state.timer = null;
             }
             
-            const content = deathCompose(
-                '<span style="color: #333">⚫ VOID RETURNS ⚫</span>',
-                [
-                    `${GAME_CONFIG.DEATH.VOID_THRESHOLD}% in Pirate Reality.`,
-                    'You dissolved despite the rescue.'
-                ],
-                'TRY AGAIN'
-            );
-            
-            render(content, 'death', true);
-        }
-
-        function gameOver(source) {
-            gameState.currentScreen = 'gameover';
-            
-            // Portfolio piece already unlocked in reviewCandidate()
-            // No need to unlock again here
-            
-            // Clear any shark timer on death
-            if (gameState.sharkTimer) {
-                clearInterval(gameState.sharkTimer);
-                gameState.sharkTimer = null;
-            }
-            
-            let content = `<h2>CONSENSUS REALITY GAME OVER</h2>`;
-            content += `<div class="debug-info">`;
-            content += `Source: ${source}<br>`;
-            content += `You chose safety over discovery.<br>`;
-            content += `Stay productive. Stay certain.`;
-            content += `</div>`;
-            content += `<button onclick="location.reload()">WAKE UP?</button>`;
-            
-            // Portfolio in corporate death
-            content += renderPortfolio();
-            
-            render(content);
-        }
-
-        function returnVisit(candidateId) {
-            const candidate = CANDIDATES[candidateId];
-            
-            // Mark as completed (return visit done, locked forever)
-            if (!gameState.candidatesCompleted.includes(candidateId)) {
-                gameState.candidatesCompleted.push(candidateId);
-            }
-            // Note: candidatesReviewed already has this candidateId from first visit
-            
-            let content = `<h2>RETURN VISIT</h2>`;
-            content += `<div class="debug-info">`;
-            content += `${candidate.name}: "${candidate.excuse}"`;
-            content += `</div>`;
-            content += `<button onclick="showHub()">LEAVE THEM BE</button>`;
-            
-            render(content);
-        }
-
-        function startNewLoop() {
-            // Reset to initial state but increment loop (Borges self-reference!)
-            const nextLoop = gameState.loopCount + 1;
-            Object.assign(gameState, JSON.parse(JSON.stringify(initialGameState)));
-            gameState.loopCount = nextLoop;
-            gameState.awareness = GAME_CONFIG.MESSAGES.LOOP_AWARENESS(nextLoop);
-            
-            showHub();
-        }
-
-        // ================================
-        // DEV MODE FUNCTIONS
-        // ================================
-        function devJumpToPirate() {
-            // Instantly enter pirate mode for testing
-            gameState.mode = 'PIRATE';
-            gameState.phase = 'ASCENT';
-            gameState.certainty = GAME_CONFIG.CERTAINTY.GOLDEN_RATIO;
-            gameState.oscillating = true;
-            gameState.rememberedTruths = [];
-            gameState.maintainedFlow = [];
-            
-            // Unlock all candidates for testing
-            gameState.candidatesReviewed = Object.keys(CANDIDATES);
-            
-            // Set initial timer state
-            gameState.lastInteraction = Date.now();
+            GAME.state = {
+                screen: 'hub',
+                certainty: 100,
+                mode: 'CONSENSUS',
+                phase: 'DESCENT',
+                unlocked: ['animator', 'navigator'],
+                reviewed: [],
+                completed: [],
+                remembered: [],
+                maintainedFlow: [],
+                mapsCollected: [],
+                mapFolderUnlocked: false,
+                mapFolderExpanded: false,
+                portfolioUnlocked: ['animation-reel'],
+                portfolioExpanded: false,
+                timer: null,
+                lastAction: Date.now(),
+                loopCount: GAME.state.loopCount + 1,
+                currentCandidate: null,
+                currentInquiryLevel: 0
+            };
             
             showHub();
         }
         
-        function devJumpToConsensus() {
-            // Return to consensus mode for testing
-            gameState.mode = 'CONSENSUS';
-            gameState.phase = 'DESCENT';
-            gameState.certainty = 85;  // Partially through
-            gameState.oscillating = false;
-            
-            // Clear pirate-specific state
-            gameState.rememberedTruths = [];
-            gameState.maintainedFlow = [];
-            
-            showHub();
-        }
-
-        // ================================
-        // INITIALIZE
-        // ================================
-        showHub();
+        window.showJobDisclaimer = showJobDisclaimer;
+        window.showProfessionalMask = showProfessionalMask;
+        window.showGameReveal = showGameReveal;
+        window.showHub = showHub;
+        window.interview = interview;
+        window.showTruth = showTruth;
+        window.fleeDeath = fleeDeath;
+        window.acceptTruth = acceptTruth;
+        window.returnVisit = returnVisit;
+        window.receiveMap = receiveMap;
+        window.examineMap = examineMap;
+        window.toggleMapFolder = toggleMapFolder;
+        window.togglePortfolioFolder = togglePortfolioFolder;
+        window.showVoid = showVoid;
+        window.pirateRescue = pirateRescue;
+        window.enterPirateMode = enterPirateMode;
+        window.remember = remember;
+        window.maintainFlow = maintainFlow;
+        window.dropAnchor = dropAnchor;
+        window.checkCompass = checkCompass;
+        window.perfectVictory = perfectVictory;
+        window.inevitableSharkDeath = inevitableSharkDeath;
+        window.almostPerfectDeath = almostPerfectDeath;
+        window.imperfectEnding = imperfectEnding;
+        window.rigidDeath = rigidDeath;
+        window.corporateDeath = corporateDeath;
+        window.sharkDeath = sharkDeath;
+        window.returnToVeil = returnToVeil;
+        window.showCredits = showCredits;
+        window.resetGame = resetGame;
+        
+        showJobDisclaimer();
     </script>
 </body>
 </html>
